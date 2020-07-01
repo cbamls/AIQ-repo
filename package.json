@@ -5,10 +5,10 @@
   "homepage": "https://sym.b3log.org",
   "repository": {
     "type": "git",
-    "url": "git://github.com/88250/symphony.git"
+    "url": "git://github.com/cbamls/AI_Tutorial.git"
   },
   "bugs": {
-    "url": "https://github.com/88250/symphony/issues"
+    "url": "https://github.com/cbamls/AI_Tutorial/issues"
   },
   "license": "AGPLv3",
   "private": true,

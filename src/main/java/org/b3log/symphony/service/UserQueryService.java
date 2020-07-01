@@ -39,6 +39,7 @@ import org.b3log.symphony.repository.FollowRepository;
 import org.b3log.symphony.repository.PointtransferRepository;
 import org.b3log.symphony.repository.UserRepository;
 import org.b3log.symphony.util.Sessions;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -94,6 +95,39 @@ public class UserQueryService {
      */
     @Inject
     private RoleQueryService roleQueryService;
+
+    // 获取最近注册的用户
+    public JSONObject getLatestRegisterUsers(final JSONObject requestJSONObject) {
+        final JSONObject ret = new JSONObject();
+
+        final int currentPageNum = requestJSONObject.optInt(Pagination.PAGINATION_CURRENT_PAGE_NUM);
+        final int pageSize = requestJSONObject.optInt(Pagination.PAGINATION_PAGE_SIZE);
+        final Query query = new Query().addSort(Keys.OBJECT_ID, SortDirection.DESCENDING).setPage(currentPageNum, pageSize);
+
+        JSONObject result;
+        try {
+            result = userRepository.get(query);
+        } catch (final RepositoryException e) {
+            LOGGER.log(Level.ERROR, "getLatestRegisterUsers failed", e);
+
+            return null;
+        }
+
+        final List<JSONObject> users = (List<JSONObject>) result.get(Keys.RESULTS);
+        ret.put(User.USERS, users);
+
+        for (int i = 0; i < users.size(); i++) {
+            final JSONObject user = users.get(i);
+            user.put(UserExt.USER_T_CREATE_TIME, new Date(user.optLong(Keys.OBJECT_ID)));
+
+            avatarQueryService.fillUserAvatarURL(user);
+
+            final JSONObject role = roleQueryService.getRole(user.optString(User.USER_ROLE));
+            user.put(Role.ROLE_NAME, role.optString(Role.ROLE_NAME));
+        }
+
+        return ret;
+    }
 
     /**
      * Get nice users with the specified fetch size.

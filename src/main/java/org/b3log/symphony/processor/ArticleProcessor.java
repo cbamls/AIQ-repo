@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.b3log.latke.Keys;
+import org.b3log.latke.Latkes;
 import org.b3log.latke.http.Dispatcher;
 import org.b3log.latke.http.Request;
 import org.b3log.latke.http.RequestContext;
@@ -59,6 +60,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.util.List;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Article processor.
@@ -620,6 +623,20 @@ public class ArticleProcessor {
         article.put(Article.ARTICLE_REVISION_COUNT, revisionQueryService.count(articleId, Revision.DATA_TYPE_C_ARTICLE));
 
         articleQueryService.processArticleContent(article);
+
+        String content = article.optString(Article.ARTICLE_CONTENT);
+        int len= search(content, "</p>");
+        if (len > 9) {
+            int start = searchPos(content, len/2, "</p>") +4;
+            String uri = Latkes.getServePath() + "/article/" + articleId;
+            String str = "<br><ul class=\"bor2\">\n" +
+                    "                    <li>本文地址：<a href=\"" + uri +"\">" + article.optString(Article.ARTICLE_TITLE) +
+                    "</a> </li>\n" +
+                    "                    <li>本文版权归作者和<a href=\"https://www.6aiq.com\">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</li>\n" +
+                    "                </ul><br>";
+            StringBuilder builder = new StringBuilder(content).insert(start, str);
+            article.put(Article.ARTICLE_CONTENT, builder.toString());
+        }
 
         String cmtViewModeStr = context.param("m");
         JSONObject currentUser;
@@ -1262,5 +1279,28 @@ public class ArticleProcessor {
         }
 
         context.renderTrueResult().renderMsg(langPropsService.get("stickSuccLabel"));
+    }
+    public static int searchPos(String string ,int i,String character){
+        //这里是获取"/"符号的位置
+        // Matcher slashMatcher = Pattern.compile("/").matcher(string);
+        Matcher slashMatcher = Pattern.compile(character).matcher(string);
+        int mIdx = 0;
+        while(slashMatcher.find()) {
+            mIdx++;
+            //当"/"符号第三次出现的位置
+            if(mIdx == i){
+                break;
+            }
+        }
+        return slashMatcher.start();
+    }
+    public int search(String str,String strRes) {//查找字符串里与指定字符串相同的个数
+        int n=0;//计数器
+        while(str.indexOf(strRes)!=-1) {
+            int i = str.indexOf(strRes);
+            n++;
+            str = str.substring(i+1);
+        }
+        return n;
     }
 }

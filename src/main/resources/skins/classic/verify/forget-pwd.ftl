@@ -33,7 +33,7 @@
             <div class="wrapper verify">
                 <div class="verify-wrap">
                     <div class="form">
-                        <svg><use xlink:href="#logo"></use></svg>
+                        <img src="images/log2.svg" />
 
                         <div class="input-wrap">
                             <svg><use xlink:href="#email"></use></svg>

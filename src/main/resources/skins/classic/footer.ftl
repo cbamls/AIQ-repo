@@ -20,8 +20,8 @@
 <div class="footer">
     <div class="wrapper">
         <div class="slogan">
-        ${indexIntroLabel} &nbsp; &nbsp;
-            <a href="https://github.com/88250/symphony" target="_blank" class="tooltipped tooltipped-n"
+            ${indexIntroLabel} &nbsp; &nbsp;
+            <a href="https://github.com/cbamls/AI_Tutorial" target="_blank" class="tooltipped tooltipped-n"
                aria-label="${siteCodeLabel}">
                 <svg class="icon-github">
                     <use xlink:href="#github"></use>
@@ -35,19 +35,27 @@
                 <a href="${servePath}/domains">${domainLabel}</a>
                 <a href="${servePath}/tags">${tagLabel}</a>
                 <a href="${servePath}/statistic">${dataStatLabel}</a>
+                <a href="${servePath}/sitemap.xml">站点地图</a>
+                <script src="https://s13.cnzz.com/z_stat.php?id=1273310020&web_id=1273310020" language="JavaScript"></script>
+                <a href="http://www.beian.miit.gov.cn">鲁ICP备18016225号</a>
+                <div class="fn-right">© 2020
+                    <a rel="copyright" href="${servePath}" target="_blank">www.6aiq.com</a>
+                    <#--${visionLabel}-->
+                    AIQ-人工智能社区
+                </div>
                 <div class="fn-right">
-                ${visionLabel}
+                    ${visionLabel}
                 </div>
             </div>
             <div class="fn-clear ft-smaller">
-            ${sloganLabel}
+                ${sloganLabel}
                 <div class="fn-right">
                     <#if footerBeiAnHao != ''>
                         <a href="http://www.miitbeian.gov.cn/" target="_blank">${footerBeiAnHao}</a> •
                     </#if>
-                    © ${year} <a href="https://b3log.org" target="_blank">B3log 开源</a> •
+                    © ${year} <a href="https://b3log.org" target="_blank">B3log 开源</a>
                     <a href="https://sym.b3log.org" target="_blank">Sym</a>
-                ${version}
+                    ${version}
                 </div>
             </div>
         </div>
@@ -93,10 +101,10 @@
         imgMaxSize: ${imgMaxSize?c},
         fileMaxSize: ${fileMaxSize?c},
         <#if isLoggedIn>
-            currentUserName: '${currentUser.userName}',
+        currentUserName: '${currentUser.userName}',
         </#if>
         <#if csrfToken??>
-            csrfToken: '${csrfToken}'
+        csrfToken: '${csrfToken}'
         </#if>
     }
 
@@ -116,8 +124,28 @@
     </#if>
 </script>
 <#if algoliaEnabled>
-<script src="${staticServePath}/js/lib/algolia/algolia.min.js"></script>
-<script>
-    Util.initSearch('${algoliaAppId}', '${algoliaSearchKey}', '${algoliaIndex}')
-</script>
+    <script src="${staticServePath}/js/lib/algolia/algolia.min.js"></script>
+    <script>
+        Util.initSearch('${algoliaAppId}', '${algoliaSearchKey}', '${algoliaIndex}')
+    </script>
 </#if>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<script>
+    (function(){
+        var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
+        document.write('<script src="' + src + '" id="sozz"><\/script>');
+    })();
+</script>

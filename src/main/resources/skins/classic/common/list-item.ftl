@@ -20,7 +20,7 @@
 <li>
     <div class="fn-clear ft-smaller list-info">
         <#list article.articleTagObjs as articleTag>
-        <a rel="tag" href="${servePath}/tag/${articleTag.tagURI}">${articleTag.tagTitle}</a> &nbsp;
+            <a rel="tag" href="${servePath}/tag/${articleTag.tagURI}">${articleTag.tagTitle}</a> &nbsp;
         </#list>
 
         <span class="fn-right ft-fade">
@@ -50,16 +50,20 @@
         <div class="fn-flex-1">
             <div class="fn-flex">
                 <#if article.articleAnonymous == 0>
-                    <a rel="nofollow" href="${servePath}/member/${article.articleAuthorName}"></#if><div
-                    class="avatar"
-                    style="background-image:url('${article.articleAuthorThumbnailURL48}')"></div><#if article.articleAnonymous == 0></a></#if>
+                <a rel="nofollow" href="${servePath}/member/${article.articleAuthorName}"></#if><div
+                            class="avatar"
+                            style="background-image:url('${article.articleAuthorThumbnailURL48}')"></div><#if article.articleAnonymous == 0></a></#if>
 
                 <div class="fn-ellipsis ft-fade ft-smaller list-info">
                     <#if article.articleAnonymous == 0>
-                        <a rel="nofollow" class="author"
-                           href="${servePath}/member/${article.articleAuthorName}"></#if>
-                    ${article.articleAuthorName}
-                    <#if article.articleAnonymous == 0></a></#if>
+                    <a rel="nofollow" class="author"
+                       href="${servePath}/member/${article.articleAuthorName}"></#if>
+                        <#if article.articleAuthorNickName?? && article.articleAuthorNickName != ''>
+                            ${article.articleAuthorNickName}
+                        <#else>
+                            ${article.articleAuthorName}
+                        </#if>
+                        <#if article.articleAnonymous == 0></a></#if>
 
                     <#if article.articleAuthor.userIntro != '' && article.articleAnonymous == 0>
                         - ${article.articleAuthor.userIntro}
@@ -67,19 +71,20 @@
                     <br>
                     <#if "" != article.articleLatestCmterName>
                         <#if article.articleLatestCmterName != 'someone'>
-                                <a rel="nofollow" class="author" href="${servePath}/member/${article.articleLatestCmterName}"></#if><span class="author">${article.articleLatestCmterName}</span><#if article.articleLatestCmterName != 'someone'></a>
-                        </#if>
+                            <a rel="nofollow" class="author" href="${servePath}/member/${article.articleLatestCmterName}"></#if><span class="author">${article.articleLatestCmterName}</span><#if article.articleLatestCmterName != 'someone'></a>
+                    </#if>
                         ${article.cmtTimeAgo}${cmtLabel}
                     </#if>
                 </div>
             </div>
-            <#if isLoggedIn && 1 == currentUser.userListViewMode>
+            <#--            <#if isLoggedIn && 1 == currentUser.userListViewMode>-->
             <a class="abstract" href="${servePath}${article.articlePermalink}">
                 ${article.articlePreviewContent}
             </a>
-            </#if>
+            <#--            </#if>-->
         </div>
-        <#if "" != article.articleThumbnailURL && isLoggedIn && 1 == currentUser.userListViewMode>
+        <#--        <#if "" != article.articleThumbnailURL && isLoggedIn && 1 == currentUser.userListViewMode>-->
+        <#if "" != article.articleThumbnailURL>
             <a href="${servePath}${article.articlePermalink}" class="abstract-img" style="background-image:url('${article.articleThumbnailURL}')"></a>
         </#if>
     </div>

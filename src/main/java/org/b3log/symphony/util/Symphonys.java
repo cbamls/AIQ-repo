@@ -69,7 +69,7 @@ public final class Symphonys {
     /**
      * User-Agent.
      */
-    public static final String USER_AGENT_BOT = "Sym/" + Server.VERSION + "; +https://github.com/88250/symphony";
+    public static final String USER_AGENT_BOT = "AIQ/" + Server.VERSION + "; +https://github.com/cbamls/AI_Tutorial";
 
     /**
      * Reserved tags.

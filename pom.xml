@@ -116,11 +116,11 @@
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/88250/symphony/issues</url>
+        <url>https://github.com/cbamls/AI_Tutorial/issues</url>
     </issueManagement>
 
     <scm>
-        <url>https://github.com/88250/symphony</url>
+        <url>https://github.com/cbamls/AI_Tutorial</url>
     </scm>
 
     <dependencies>

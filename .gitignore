@@ -8,3 +8,5 @@ symphony.iml
 /.settings/
 /.classpath
 /.project
+local.properties
+latke.properties

@@ -16,7 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 package org.b3log.symphony.processor;
-
+import org.b3log.symphony.util.HttpUtils;
+import java.io.IOException;
+import java.net.URLDecoder;
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.time.DateUtils;
@@ -184,8 +191,130 @@ public class LoginProcessor {
         Dispatcher.post("/register2", loginProcessor::register2, userRegister2ValidationMidware::handle);
         Dispatcher.post("/login", loginProcessor::login);
         Dispatcher.get("/logout", loginProcessor::logout);
+        Dispatcher.get("/githubLoginCallback", loginProcessor::githubLogin);
     }
+    public void githubLogin(final RequestContext context) {
+        final Request request = context.getRequest();
+        final Response response = context.getResponse();
+        if (null != request.getAttribute(Common.CURRENT_USER)) {
+            context.sendRedirect(Latkes.getServePath());
 
+            return;
+        }
+
+        context.renderJSON().renderMsg(langPropsService.get("loginFailLabel"));
+
+        String code = context.getRequest().getParameter("code");
+        String gotoUrl = context.getRequest().getHeader("referer");
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        Map<String, String> param = Maps.newHashMap();
+        param.put("code", code);
+        param.put("client_id", "603d830f3705501acc91");
+        param.put("client_secret", "969a7a02b0d327feebdaa6be42c50f7783b602b1");
+        param.put("redirect_uri", Latkes.getServePath() +"/githubLoginCallback");
+        param.put("state", "3");
+        RequestBody loginBody =
+                RequestBody.create(JSON, new Gson().toJson(param));
+        String token = null;
+        try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
+            String resstring = res.body().string();
+            token = resstring.split("&")[0]
+                    .split("=")[1];
+            LOGGER.info("token => " + token);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpClient client = new OkHttpClient();
+        okhttp3.Request req = new okhttp3.Request.Builder()
+                .url("https://api.github.com/user?access_token=" + token)
+                .build();
+        Map<String, Object> map = Maps.newHashMap();
+        try{
+            okhttp3.Response res2 = client.newCall(req).execute();
+            String res = res2.body().string();
+            LOGGER.warn("用户登陆信息:" + res);
+            if (res == null || res.equals("")) {
+                context.sendRedirect(Latkes.getServePath());
+                LOGGER.warn("没有拿到用户登陆信息:" + res);
+                return;
+            }
+            Gson gson = new Gson();
+            map = gson.fromJson(res, Map.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+
+        //String ret = HttpUtils.sendPost("https://github.com/login/oauth/access_token?client_id=603d830f3705501acc91&client_secret=969a7a02b0d327feebdaa6be42c50f7783b602b1&code=" + code + "&redirect_uri=" + Latkes.getServePath() +"/githubLoginCallback", null);
+        //String token = ret.split("&")[0];
+///{"login":"cbamls","id":12781382,"node_id":"MDQ6VXNlcjEyNzgxMzgy","avatar_url":"https://avatars1.githubusercontent.com/u/12781382?v=4","gravatar_id":"","url":"https://api.github.com/users/cbamls","html_url":"https://github.com/cbamls","followers_url":"https://api.github.com/users/cbamls/followers","following_url":"https://api.github.com/users/cbamls/following{/other_user}","gists_url":"https://api.github.com/users/cbamls/gists{/gist_id}","starred_url":"https://api.github.com/users/cbamls/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/cbamls/subscriptions","organizations_url":"https://api.github.com/users/cbamls/orgs","repos_url":"https://api.github.com/users/cbamls/repos","events_url":"https://api.github.com/users/cbamls/events{/privacy}","received_events_url":"https://api.github.com/users/cbamls/received_events","type":"User","site_admin":false,"name":"cbamls","company":"北京三块在线科技 ","blog":"www.6aiq.com","location":"望京","email":"88cbam@gmail.com","hireable":null,"bio":"www.liangshu.me","public_repos":50,"public_gists":3,"followers":20,"following":4,"created_at":"2015-06-07T04:39:42Z","updated_at":"2018-12-15T08:58:44Z"}
+        // String userJson = HttpUtils.sendGet("https://api.github.com/user?" + token + "");
+
+        String email = map.get("email") == null ? "" : map.get("email").toString();
+
+        try {
+            JSONObject user = null;
+            if (StringUtils.isBlank(email)) {
+                String userName = (String) map.get("login");
+                user = userQueryService.getUserByName(userName);
+            } else {
+                user = userQueryService.getUserByEmail(email);
+            }
+            if (user == null) {
+                String userAvatarURL = (String) map.get("avatar_url");
+                String loginName = (String) map.get("login");
+                String nickName = (String) map.get("name");
+                String userUrl = (String) map.get("blog");
+                if (StringUtils.isBlank(userUrl)) {
+                    userUrl = (String) map.get("html_url");
+                }
+                JSONObject newUser = new JSONObject();
+                if (StringUtils.isBlank(email)) {
+                    email = loginName + "@6aiq.com";
+                    newUser.put(User.USER_EMAIL, email);
+                } else {
+                    newUser.put(User.USER_EMAIL, email);
+                }
+                LOGGER.info("github登录用户的信息 => " + email + " " + userAvatarURL + " " + loginName + " " + userUrl);
+                newUser.put(User.USER_NAME, loginName);
+                newUser.put(UserExt.USER_NICKNAME, nickName);
+                newUser.put(User.USER_EMAIL, email);
+                newUser.put(UserExt.USER_POINT, 500);
+                newUser.put(UserExt.USER_STATUS, 0);
+                if (StringUtils.isNotBlank(userUrl)) {
+                    newUser.put(User.USER_URL, userUrl);
+                    newUser.put(UserExt.USER_INTRO, userUrl);
+                }
+                newUser.put("userAvatarURL", userAvatarURL);
+                newUser.put(User.USER_PASSWORD, "");
+                final Locale locale = Locales.getLocale();
+                newUser.put(UserExt.USER_LANGUAGE, locale.getLanguage() + "_" + locale.getCountry());
+                final String newUserId = userMgmtService.addUser(newUser);
+                user = userQueryService.getUserByEmail(email);
+            }
+            final String token2 = Sessions.login(response, user.optString(Keys.OBJECT_ID), true);
+
+            final String ip = Requests.getRemoteAddr(request);
+            userMgmtService.updateOnlineStatus(user.optString(Keys.OBJECT_ID), ip, true, true);
+
+            context.renderMsg("").renderTrueResult();
+            context.renderJSONValue(Keys.TOKEN, token2);
+            String redirectUrl = Latkes.getServePath();
+            if (gotoUrl != null) {
+                if (gotoUrl.contains("goto")) {
+                    String realGotoUrl = gotoUrl.substring(gotoUrl.indexOf("goto=") + 5);
+                    String decodeRealGotoUrl = URLDecoder.decode(realGotoUrl);
+                    redirectUrl = decodeRealGotoUrl;
+                } else if (!gotoUrl.contains("github.com")) {
+                    redirectUrl = URLDecoder.decode(gotoUrl);
+                }
+            }
+            context.sendRedirect(redirectUrl);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
+    }
     /**
      * Next guide step.
      *

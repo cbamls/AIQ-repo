@@ -18,18 +18,30 @@
 
 -->
 <#macro head title>
-<meta charset="utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-<title>${title}</title>
-<#nested>
-<link rel="preconnect" href="${staticServePath}">
-<meta name="copyright" content="B3log" />
-<meta http-equiv="Window-target" content="_top" />
-<link rel="stylesheet" href="${staticServePath}/css/responsive.css?${staticResourceVersion}" />
-<link rel="stylesheet" href="${staticServePath}/css/base.css?${staticResourceVersion}" />
-<link rel="icon" type="image/png" href="${staticServePath}/images/favicon.png" />
-<link rel="apple-touch-icon" href="${staticServePath}/images/faviconH.png">
-<link rel="search" type="application/opensearchdescription+xml" title="Sym" href="/opensearch.xml">
-${siteVisitStatCode}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>${title}</title>
+    <#nested>
+    <link rel="preconnect" href="${staticServePath}">
+    <meta name="copyright" content="AIQ" />
+    <meta http-equiv="Window-target" content="_top" />
+    <meta name="google-site-verification" content="TC3gczXoPaeBYFrVeN_rVV0TPVTiQkwrwxXi0YAGIPk" />
+    <meta name="shenma-site-verification" content="3333fc66344df11cd9b0abdcf3562a6a_1586331317">
+    <link rel="stylesheet" href="${staticServePath}/css/responsive.css?${staticResourceVersion}" />
+    <link rel="stylesheet" href="${staticServePath}/css/base.css?${staticResourceVersion}" />
+    <link rel="icon" type="image/png" href="${staticServePath}/images/favicon.png" />
+    <link rel="apple-touch-icon" href="${staticServePath}/images/faviconH.png">
+    <link rel="search" type="application/opensearchdescription+xml" title="AIQ" href="/opensearch.xml">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-121987873-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-121987873-1');
+    </script>
+    <script data-ad-client="ca-pub-1229303764778930" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    ${siteVisitStatCode}
 </#macro>

@@ -17,17 +17,25 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 -->
+<style>
+    .nav .nav-tabs svg {
+        margin: 3px 2px 0 0;
+        float: left;
+        visibility: visible;
+    }
+</style>
 <div class="nav">
     <h1 aria-label="${symphonyLabel}" class="tooltipped tooltipped-s">
-        <a href="${servePath}">
-            <svg><use xlink:href="#logo"></use></svg>
+        <a href="${servePath}" style="outline: 0;color: black; text-decoration: none;">
+            <img style="height: 40px;margin-top:4px" src="${servePath}/images/logo.png" alt="人工智能"/>
+            <img style="margin-top:4px" src="${servePath}/images/aiq.png" alt="人工智能"/>
         </a>
     </h1>
     <div class="nav-tabs">
         <#list domains as domain>
-        <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
-           href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
-           class="current"</#if>>${domain.domainIconPath} ${domain.domainTitle}</a>
+            <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
+               href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
+                class="current"</#if>>${domain.domainIconPath} ${domain.domainTitle}</a>
         </#list>
         <a pjax-title="${latestLabel} - ${symphonyLabel}"
            href="${servePath}/recent"<#if selected?? && 'recent' == selected> class="current"</#if>>
@@ -35,7 +43,7 @@
                 <use xlink:href="#refresh"></use>
             </svg> ${latestLabel}</a>
         <a pjax-title="${qnaLabel} - ${symphonyLabel}"
-           href="${servePath}/qna"<#if selected?? && 'qna' == selected> class="current"</#if>>
+           href="${servePath}/qna"<#if selected?? && 'qna' == selected> </#if>>
             <svg>
                 <use xlink:href="#iconAsk"></use>
             </svg> ${qnaLabel}</a>
@@ -43,25 +51,28 @@
             <svg>
                 <use xlink:href="#perfect"></use>
             </svg> ${perfectLabel}</a>
+        <a href="http://www.md6s.com/" target="_blank">
+            <strong style="color: red">Markdown编辑器</strong>
+        </a>
         <#if isLoggedIn && "" != currentUser.userCity>
-        <a href="${servePath}/city/my"<#if selected?? && 'city' == selected> class="current"</#if>>
-            <svg>
-                <use xlink:href="#local"></use>
-            </svg> ${currentUser.userCity}</a>
+            <a href="${servePath}/city/my"<#if selected?? && 'city' == selected> class="current"</#if>>
+                <svg>
+                    <use xlink:href="#local"></use>
+                </svg> ${currentUser.userCity}</a>
         </#if>
         <#if isLoggedIn>
-        <a href="${servePath}/watch"<#if selected?? && 'watch' == selected> class="current"</#if>>
-            <svg>
-                <use xlink:href="#view"></use>
-            </svg> ${followLabel}</a>
+            <a href="${servePath}/watch"<#if selected?? && 'watch' == selected> class="current"</#if>>
+                <svg>
+                    <use xlink:href="#view"></use>
+                </svg> ${followLabel}</a>
         </#if>
     </div>
     <#if esEnabled || algoliaEnabled>
-    <form class="responsive-hide fn-left" target="_blank" action="/search">
-        <input class="search" placeholder="Search Sym" type="text" name="key" id="search"
-               value="<#if key??>${key}</#if>">
-        <input type="submit" class="fn-none" value=""/>
-    </form>
+        <form class="responsive-hide fn-left" target="_blank" action="/search">
+            <input class="search" placeholder="智能搜索..." type="text" name="key" id="search"
+                   value="<#if key??>${key}</#if>">
+            <input type="submit" class="fn-none" value=""/>
+        </form>
     </#if>
     <div class="user-nav">
         <#if isLoggedIn>
@@ -71,11 +82,11 @@
                 </svg>
             </a>
             <#if permissions["menuAdmin"].permissionGrant>
-            <a href="${servePath}/admin" aria-label="${adminLabel}" class="tooltipped tooltipped-w">
-                <svg>
-                    <use xlink:href="#userrole"></use>
-                </svg>
-            </a>
+                <a href="${servePath}/admin" aria-label="${adminLabel}" class="tooltipped tooltipped-w">
+                    <svg>
+                        <use xlink:href="#userrole"></use>
+                    </svg>
+                </a>
             </#if>
             <a id="aNotifications"
                class="tooltipped tooltipped-w <#if unreadNotificationCount == 0>no-msg<#else>msg</#if>"
@@ -107,6 +118,12 @@
                 </ul>
             </div>
         <#else>
+            <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&state=3&scope=user:email'"
+               class="unlogin">
+                <svg class="unlogin">
+                    <use xlink:href="#github"></use>
+                </svg>
+            </a>
             <a href="javascript: Util.goLogin();" class="unlogin">${loginLabel}</a>
             <a href="javascript:Util.goRegister()" class="unlogin">${registerLabel}</a>
         </#if>

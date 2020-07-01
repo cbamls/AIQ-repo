@@ -119,6 +119,7 @@ public final class Article {
      * Key of article latest commenter name.
      */
     public static final String ARTICLE_LATEST_CMTER_NAME = "articleLatestCmterName";
+    public static final String ARTICLE_LATEST_CMTER_NICK_NAME = "userNickname";
 
     /**
      * Key of article random double value.
@@ -280,6 +281,7 @@ public final class Article {
      * Key of article thumbnail URL.
      */
     public static final String ARTICLE_T_THUMBNAIL_URL = "articleThumbnailURL";
+    public static final String ARTICLE_T_THUMBNAIL_URL_BIG = "articleThumbnailURLBig";
 
     /**
      * Key of article view count display format.

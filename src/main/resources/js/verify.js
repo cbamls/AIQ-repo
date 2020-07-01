@@ -73,6 +73,19 @@ var Verify = {
         }
     },
     /**
+     * 切换登录方式
+     * @param type
+     */
+    changeLoginType: function (type) {
+        if (type === "github") {
+            $('#githubLogin').css("display", "block")
+            $('#commonLogin').css("display", "none")
+        } else {
+            $('#githubLogin').css("display", "none")
+            $('#commonLogin').css("display", "block")
+        }
+    },
+    /**
      * @description Register Step 1
      */
     register: function () {

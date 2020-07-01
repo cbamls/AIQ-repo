@@ -230,6 +230,7 @@ public class ArticleCache {
                     Article.ARTICLE_LATEST_CMT_TIME,
                     Article.ARTICLE_AUTHOR_ID,
                     Article.ARTICLE_TITLE,
+                    Article.ARTICLE_CONTENT,
                     Article.ARTICLE_STATUS,
                     Article.ARTICLE_VIEW_CNT,
                     Article.ARTICLE_TYPE,
