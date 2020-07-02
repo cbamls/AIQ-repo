@@ -50,7 +50,7 @@ import java.util.*;
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
  * @author <a href="https://hacpai.com/member/ZephyrJung">Zephyr</a>
- * @version 1.8.7.2, Nov 6, 2018
+ * @version 1.9.0.0, Jun 23, 2020
  * @since 0.2.0
  */
 @Service
@@ -321,7 +321,7 @@ public class UserQueryService {
                 return u1Name.compareTo(u2Name);
             });
         } catch (final RepositoryException e) {
-            LOGGER.log(Level.ERROR, "Loads usernames error", e);
+            LOGGER.log(Level.ERROR, "Loads usernames failed", e);
         }
     }
 
@@ -418,13 +418,17 @@ public class UserQueryService {
     }
 
     /**
-     * Gets the super administrator.
+     * Gets the anonymous user.
      *
-     * @return super administrator
-     * @throws ServiceException service exception
+     * @return anonymous user
      */
-    public JSONObject getSA() throws ServiceException {
-        return getAdmins().get(0);
+    public JSONObject getAnonymousUser() {
+        try {
+            return userRepository.getAnonymousUser();
+        } catch (final RepositoryException e) {
+            LOGGER.log(Level.ERROR, "Gets the anonymous user failed", e);
+            return null;
+        }
     }
 
     /**
@@ -668,7 +672,7 @@ public class UserQueryService {
         try {
             result = userRepository.get(query);
         } catch (final RepositoryException e) {
-            LOGGER.log(Level.ERROR, "Gets users by city error", e);
+            LOGGER.log(Level.ERROR, "Gets users by city failed", e);
             return null;
         }
 

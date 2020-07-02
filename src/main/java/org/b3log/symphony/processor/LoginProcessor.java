@@ -54,6 +54,7 @@ import org.b3log.symphony.processor.middleware.validate.UserRegister2ValidationM
 import org.b3log.symphony.processor.middleware.validate.UserRegisterValidationMidware;
 import org.b3log.symphony.service.*;
 import org.b3log.symphony.util.Sessions;
+import org.b3log.symphony.util.StatusCodes;
 import org.json.JSONObject;
 
 import java.util.*;
@@ -321,7 +322,7 @@ public class LoginProcessor {
      * @param context the specified context
      */
     public void nextGuideStep(final RequestContext context) {
-        context.renderJSON();
+        context.renderJSON(StatusCodes.ERR);
 
         JSONObject requestJSONObject;
         try {
@@ -349,7 +350,7 @@ public class LoginProcessor {
             return;
         }
 
-        context.renderJSON(true);
+        context.renderJSON(StatusCodes.SUCC);
     }
 
     /**
@@ -430,7 +431,7 @@ public class LoginProcessor {
      * @param context the specified context
      */
     public void forgetPwd(final RequestContext context) {
-        context.renderJSON();
+        context.renderJSON(StatusCodes.ERR);
 
         final JSONObject requestJSONObject = (JSONObject) context.attr(Keys.REQUEST);
         final String email = requestJSONObject.optString(User.USER_EMAIL);
@@ -438,7 +439,7 @@ public class LoginProcessor {
         try {
             final JSONObject user = userQueryService.getUserByEmail(email);
             if (null == user || UserExt.USER_STATUS_C_VALID != user.optInt(UserExt.USER_STATUS)) {
-                context.renderFalseResult().renderMsg(langPropsService.get("notFoundUserLabel"));
+                context.renderMsg(langPropsService.get("notFoundUserLabel"));
                 return;
             }
 
@@ -455,11 +456,10 @@ public class LoginProcessor {
             verifycode.put(Verifycode.USER_ID, userId);
             verifycodeMgmtService.addVerifycode(verifycode);
 
-            context.renderTrueResult().renderMsg(langPropsService.get("verifycodeSentLabel"));
+            context.renderJSON(StatusCodes.SUCC).renderMsg(langPropsService.get("verifycodeSentLabel"));
         } catch (final ServiceException e) {
             final String msg = langPropsService.get("resetPwdLabel") + " - " + e.getMessage();
             LOGGER.log(Level.ERROR, msg + "[email=" + email + "]");
-
             context.renderMsg(msg);
         }
     }
@@ -497,7 +497,7 @@ public class LoginProcessor {
      * @param context the specified context
      */
     public void resetPwd(final RequestContext context) {
-        context.renderJSON();
+        context.renderJSON(StatusCodes.ERR);
 
         final Response response = context.getResponse();
         final JSONObject requestJSONObject = context.requestJSON();
@@ -522,14 +522,12 @@ public class LoginProcessor {
             user.put(User.USER_PASSWORD, password);
             userMgmtService.updatePassword(user);
             verifycodeMgmtService.removeByCode(code);
-            context.renderTrueResult();
+            context.renderJSON(StatusCodes.SUCC);
             LOGGER.info("User [email=" + user.optString(User.USER_EMAIL) + "] reseted password");
-
             Sessions.login(response, userId, true);
         } catch (final ServiceException e) {
             final String msg = langPropsService.get("resetPwdLabel") + " - " + e.getMessage();
             LOGGER.log(Level.ERROR, msg + "[name={}, email={}]", name, email);
-
             context.renderMsg(msg);
         }
     }
@@ -608,7 +606,7 @@ public class LoginProcessor {
      * @param context the specified context
      */
     public void register(final RequestContext context) {
-        context.renderJSON();
+        context.renderJSON(StatusCodes.ERR);
         final JSONObject requestJSONObject = context.getRequest().getJSON();
         final String name = requestJSONObject.optString(User.USER_NAME);
         final String email = requestJSONObject.optString(User.USER_EMAIL);
@@ -649,11 +647,10 @@ public class LoginProcessor {
                 invitecodeMgmtService.updateInvitecode(icId, ic);
             }
 
-            context.renderTrueResult().renderMsg(langPropsService.get("verifycodeSentLabel"));
+            context.renderJSON(StatusCodes.SUCC).renderMsg(langPropsService.get("verifycodeSentLabel"));
         } catch (final ServiceException e) {
             final String msg = langPropsService.get("registerFailLabel") + " - " + e.getMessage();
             LOGGER.log(Level.ERROR, msg + "[name={}, email={}]", name, email);
-
             context.renderMsg(msg);
         }
     }
@@ -664,7 +661,7 @@ public class LoginProcessor {
      * @param context the specified context
      */
     public void register2(final RequestContext context) {
-        context.renderJSON();
+        context.renderJSON(StatusCodes.ERR);
 
         final Request request = context.getRequest();
         final Response response = context.getResponse();
@@ -739,13 +736,12 @@ public class LoginProcessor {
                 }
             }
 
-            context.renderTrueResult();
+            context.renderJSON(StatusCodes.SUCC);
 
             LOGGER.log(Level.INFO, "Registered a user [name={}, email={}]", name, email);
         } catch (final ServiceException e) {
             final String msg = langPropsService.get("registerFailLabel") + " - " + e.getMessage();
             LOGGER.log(Level.ERROR, msg + " [name={}, email={}]", name, email);
-
             context.renderMsg(msg);
         }
     }
@@ -758,7 +754,7 @@ public class LoginProcessor {
     public void login(final RequestContext context) {
         final Request request = context.getRequest();
         final Response response = context.getResponse();
-        context.renderJSON().renderMsg(langPropsService.get("loginFailLabel"));
+        context.renderJSON(StatusCodes.ERR).renderMsg(langPropsService.get("loginFailLabel"));
         final JSONObject requestJSONObject = context.requestJSON();
         final String nameOrEmail = requestJSONObject.optString("nameOrEmail");
 
@@ -815,7 +811,7 @@ public class LoginProcessor {
                 final String ip = Requests.getRemoteAddr(request);
                 userMgmtService.updateOnlineStatus(user.optString(Keys.OBJECT_ID), ip, true, true);
 
-                context.renderMsg("").renderTrueResult();
+                context.renderCodeMsg(StatusCodes.SUCC, "");
                 context.renderJSONValue(Keys.TOKEN, token);
 
                 WRONG_PWD_TRIES.remove(userId);
