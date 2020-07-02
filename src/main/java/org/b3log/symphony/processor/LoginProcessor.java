@@ -203,7 +203,7 @@ public class LoginProcessor {
             return;
         }
 
-        context.renderJSON().renderMsg(langPropsService.get("loginFailLabel"));
+        context.renderJSON(403).renderMsg(langPropsService.get("loginFailLabel"));
 
         String code = context.getRequest().getParameter("code");
         String gotoUrl = context.getRequest().getHeader("referer");
@@ -299,7 +299,7 @@ public class LoginProcessor {
             final String ip = Requests.getRemoteAddr(request);
             userMgmtService.updateOnlineStatus(user.optString(Keys.OBJECT_ID), ip, true, true);
 
-            context.renderMsg("").renderTrueResult();
+            context.renderJSON(StatusCodes.SUCC);
             context.renderJSONValue(Keys.TOKEN, token2);
             String redirectUrl = Latkes.getServePath();
             if (gotoUrl != null) {
