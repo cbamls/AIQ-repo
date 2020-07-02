@@ -119,7 +119,7 @@ ${HeaderBannerLabel}
                         </div>
                         <br>
                         <a href="https://www.6aiq.com/register" class="btn green">注册</a>
-                        <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user:email'"
+                        <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user&state=3'"
                            class="btn green">
                             快速登陆
                             <svg class="unlogin">
