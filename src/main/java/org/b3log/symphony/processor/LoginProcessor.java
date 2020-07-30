@@ -16,9 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 package org.b3log.symphony.processor;
+
 import org.b3log.symphony.util.HttpUtils;
+
 import java.io.IOException;
 import java.net.URLDecoder;
+
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import okhttp3.MediaType;
@@ -194,6 +197,7 @@ public class LoginProcessor {
         Dispatcher.get("/logout", loginProcessor::logout);
         Dispatcher.get("/githubLoginCallback", loginProcessor::githubLogin);
     }
+
     public void githubLogin(final RequestContext context) {
         final Request request = context.getRequest();
         final Response response = context.getResponse();
@@ -216,34 +220,36 @@ public class LoginProcessor {
         RequestBody loginBody =
                 RequestBody.create(JSON, new Gson().toJson(param));
         String token = null;
-        try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
-            String resstring = res.body().string();
-            token = resstring.split("&")[0]
-                    .split("=")[1];
-            LOGGER.info("token => " + token);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        OkHttpClient client = new OkHttpClient();
-        okhttp3.Request req = new okhttp3.Request.Builder()
-                .url("https://api.github.com/user?access_token=" + token)
-                .build();
         Map<String, Object> map = Maps.newHashMap();
-        try{
-            okhttp3.Response res2 = client.newCall(req).execute();
-            String res = res2.body().string();
-            LOGGER.warn("用户登陆信息:" + res);
-            if (res == null || res.equals("")) {
-                context.sendRedirect(Latkes.getServePath());
-                LOGGER.warn("没有拿到用户登陆信息:" + res);
-                return;
+        for (int i = 0; i < 5; i++) {
+            try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
+                String resstring = res.body().string();
+                token = resstring.split("&")[0]
+                        .split("=")[1];
+                LOGGER.info("token => " + token);
+
+                OkHttpClient client = new OkHttpClient();
+                okhttp3.Request req = new okhttp3.Request.Builder()
+                        .url("https://api.github.com/user?access_token=" + token)
+                        .build();
+                okhttp3.Response res2 = client.newCall(req).execute();
+                String res3 = res2.body().string();
+                LOGGER.warn("用户登陆信息:" + res3);
+                if (res3 == null || res3.equals("")) {
+                    context.sendRedirect(Latkes.getServePath());
+                    LOGGER.warn("没有拿到用户登陆信息:" + res3);
+                    return;
+                }
+                Gson gson = new Gson();
+                map = gson.fromJson(res3, Map.class);
+            } catch (IOException e) {
+                e.printStackTrace();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
-            Gson gson = new Gson();
-            map = gson.fromJson(res, Map.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
         }
 
         //String ret = HttpUtils.sendPost("https://github.com/login/oauth/access_token?client_id=603d830f3705501acc91&client_secret=969a7a02b0d327feebdaa6be42c50f7783b602b1&code=" + code + "&redirect_uri=" + Latkes.getServePath() +"/githubLoginCallback", null);
@@ -315,6 +321,7 @@ public class LoginProcessor {
             e.printStackTrace();
         }
     }
+
     /**
      * Next guide step.
      *
