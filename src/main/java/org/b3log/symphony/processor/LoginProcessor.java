@@ -242,6 +242,7 @@ public class LoginProcessor {
                 }
                 Gson gson = new Gson();
                 map = gson.fromJson(res3, Map.class);
+                break;
             } catch (IOException e) {
                 e.printStackTrace();
                 try {
