@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#4285f4">
     <title>${title}</title>
     <#nested>
-    <meta name="copyright" content="B3log" />
+    <meta name="copyright" content="AIQ" />
     <meta http-equiv="Window-target" content="_top" />
     <link rel="stylesheet" href="${staticServePath}/css/mobile-base.css?${staticResourceVersion}" />
     <link rel="icon" type="image/png" href="${staticServePath}/images/favicon.png" />
