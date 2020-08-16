@@ -31,7 +31,9 @@
 </head>
 <body>
 <#include "header.ftl">
-<div class="main">
+<div style="background-attachment: fixed;min-height: 280px;">
+    <#include "common/banner.ftl">
+
     <div class="wrapper">
         <div class="content fn-clear" id="qna-pjax-container">
             <#if pjax><!---- pjax {#qna-pjax-container} start ----></#if>

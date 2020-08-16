@@ -31,7 +31,8 @@
     </head>
     <body>
         <#include "header.ftl">
-        <div class="main">
+        <div style="background-attachment: fixed;min-height: 280px;">
+            <#include "common/banner.ftl">
             <div class="wrapper">
                 <div class="content fn-clear" id="recent-pjax-container">
                     <#if pjax><!---- pjax {#recent-pjax-container} start ----></#if><#if 0 < stickArticles?size>
