@@ -134,7 +134,7 @@ public class SearchQueryService {
                 "          \"type\": \"best_fields\",\n" +
                 "          \"fields\": [\n" +
                 "            \"articleTitle^3\",\n" +
-                "            \"articleContent\",\n" +
+                "            \"articleContent\"\n" +
                 "          ],\n" +
                 "          \"tie_breaker\": 0.3\n" +
                 "        }\n" +
