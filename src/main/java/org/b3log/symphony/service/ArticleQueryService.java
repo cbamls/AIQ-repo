@@ -56,8 +56,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Article query service.
@@ -187,6 +186,9 @@ public class ArticleQueryService {
      * }
      * </pre>
      */
+
+    final ExecutorService pool = Executors.newCachedThreadPool();
+
     public JSONObject getQuestionArticles(final int sortMode, final int currentPageNum, final int fetchSize) {
         final JSONObject ret = new JSONObject();
 
@@ -1391,19 +1393,22 @@ public class ArticleQueryService {
     public void organizeArticles(final List<JSONObject> articles) {
         Stopwatchs.start("Organize articles");
         try {
-            final ForkJoinPool pool = new ForkJoinPool(Symphonys.PROCESSORS);
-            pool.submit(() -> articles.parallelStream().forEach(article -> {
-                try {
-                    organizeArticle(article);
-                } catch (final Exception e) {
-                    LOGGER.log(Level.ERROR, "Organizes article [" + article.optString(Keys.OBJECT_ID) + "] failed", e);
-                } finally {
-                    // LOGGER.log(Level.INFO, "Stopwatch: {}{}", Strings.LINE_SEPARATOR, Stopwatchs.getTimingStat());
-                    Stopwatchs.release();
-                }
-            }));
-            pool.shutdown();
-            pool.awaitTermination(10, TimeUnit.SECONDS);
+            List<Future> futures = new ArrayList<>();
+            articles.parallelStream().forEach(article -> {
+                futures.add(pool.submit(() -> {
+                    try {
+                        organizeArticle(article);
+                    } catch (final Exception e) {
+                        LOGGER.log(Level.ERROR, "Organizes article [" + article.optString(Keys.OBJECT_ID) + "] failed", e);
+                    } finally {
+                        // LOGGER.log(Level.INFO, "Stopwatch: {}{}", Strings.LINE_SEPARATOR, Stopwatchs.getTimingStat());
+                        Stopwatchs.release();
+                    }
+                }));
+            });
+            for (int i = 0 ; i < futures.size(); i++) {
+                futures.get(i).get(2000, TimeUnit.MILLISECONDS);
+            }
         } catch (final Exception e) {
             LOGGER.log(Level.ERROR, "Organizes articles failed", e);
         } finally {
