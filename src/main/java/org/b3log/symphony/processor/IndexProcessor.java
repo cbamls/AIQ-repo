@@ -17,6 +17,7 @@
  */
 package org.b3log.symphony.processor;
 
+import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.b3log.latke.Keys;
@@ -50,6 +51,9 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Index processor.
@@ -71,6 +75,9 @@ import java.util.*;
  */
 @Singleton
 public class IndexProcessor {
+    ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
+
+    static Map<String, Object> cacheMap = Maps.newHashMap();
 
     /**
      * Article query service.
@@ -104,6 +111,19 @@ public class IndexProcessor {
 
     @Inject
     private OptionQueryService optionQueryService;
+
+    public IndexProcessor() {
+        timer.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                Map<String, Object> cacheMap2 = Maps.newHashMap();
+                cacheMap2.put("recentArticles", articleQueryService.getIndexRecentArticles());
+                cacheMap = cacheMap2;
+
+            }
+        }, 0, 10, TimeUnit.SECONDS);
+
+    }
 
     /**
      * Register request handlers.
@@ -278,8 +298,12 @@ public class IndexProcessor {
 
         final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "index.ftl");
         final Map<String, Object> dataModel = renderer.getDataModel();
-
-        final List<JSONObject> recentArticles = articleQueryService.getIndexRecentArticles();
+        List<JSONObject> recentArticles = null;
+        if (cacheMap.containsKey("recentArticles")) {
+            recentArticles = (List<JSONObject>) cacheMap.get("recentArticles");
+        } else {
+            recentArticles = articleQueryService.getIndexRecentArticles();
+        }
         dataModel.put(Common.RECENT_ARTICLES, recentArticles);
 
         final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
