@@ -17,6 +17,13 @@
  */
 package org.b3log.symphony.processor;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
+import com.google.common.collect.Maps;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.http.Request;
@@ -34,6 +41,10 @@ import org.json.JSONObject;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Domain processor.
@@ -48,7 +59,13 @@ import java.util.Map;
  */
 @Singleton
 public class DomainProcessor {
-
+    private static final Cache<String, JSONObject> CACHE = CacheBuilder
+            .newBuilder()
+            .maximumSize(100000)
+            .expireAfterAccess(60 * 60 * 24 * 7, TimeUnit.SECONDS)
+            .build();
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    private static final Logger LOGGER = LogManager.getLogger(DomainProcessor.class);
     /**
      * Article query service.
      */
@@ -85,6 +102,7 @@ public class DomainProcessor {
      * @param context the specified context
      */
     public void showDomainArticles(final RequestContext context) {
+        long startTime = System.currentTimeMillis();
         final String domainURI = context.pathVar("domainURI");
         final Request request = context.getRequest();
 
@@ -117,7 +135,22 @@ public class DomainProcessor {
 
         final String domainId = domain.optString(Keys.OBJECT_ID);
 
-        final JSONObject result = articleQueryService.getDomainArticles(domainId, pageNum, pageSize);
+        String key = domainId + "_" + pageNum + "_" + pageSize;
+        JSONObject result = null;
+        if (null != CACHE.getIfPresent(key)) {
+            result = CACHE.getIfPresent(key);
+            int finalPageSize = pageSize;
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    CACHE.put(key, articleQueryService.getDomainArticles(domainId, pageNum, finalPageSize));
+                }
+            });
+        } else {
+            result = articleQueryService.getDomainArticles(domainId, pageNum, pageSize);
+            CACHE.put(key, result);
+        }
+
         final List<JSONObject> latestArticles = (List<JSONObject>) result.opt(Article.ARTICLES);
         dataModel.put(Common.LATEST_ARTICLES, latestArticles);
 
@@ -139,6 +172,7 @@ public class DomainProcessor {
         dataModelService.fillSideHotArticles(dataModel);
         dataModelService.fillSideTags(dataModel);
         dataModelService.fillLatestCmts(dataModel);
+        LOGGER.info("domain耗时:{}", System.currentTimeMillis() - startTime);
     }
 
     /**

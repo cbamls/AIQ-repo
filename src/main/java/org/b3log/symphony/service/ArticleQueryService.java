@@ -1407,7 +1407,9 @@ public class ArticleQueryService {
                 }));
             });
             for (int i = 0 ; i < futures.size(); i++) {
-                futures.get(i).get(2000, TimeUnit.MILLISECONDS);
+                if (null != futures.get(i)) {
+                    futures.get(i).get(5000, TimeUnit.MILLISECONDS);
+                }
             }
         } catch (final Exception e) {
             LOGGER.log(Level.ERROR, "Organizes articles failed", e);

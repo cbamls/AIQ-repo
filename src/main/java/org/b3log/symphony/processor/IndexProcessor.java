@@ -17,6 +17,8 @@
  */
 package org.b3log.symphony.processor;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -53,6 +55,7 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -77,9 +80,12 @@ import java.util.concurrent.TimeUnit;
  */
 @Singleton
 public class IndexProcessor {
-    ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
-
-    static Map<String, Object> cacheMap = Maps.newHashMap();
+    private static final Cache<String, List<JSONObject>> CACHE = CacheBuilder
+            .newBuilder()
+            .maximumSize(100000)
+            .expireAfterAccess(60 * 60 * 24 * 7, TimeUnit.SECONDS)
+            .build();
+    ExecutorService executorService = Executors.newCachedThreadPool();
     private static final Logger LOGGER = LogManager.getLogger(IndexProcessor.class);
 
     /**
@@ -114,19 +120,6 @@ public class IndexProcessor {
 
     @Inject
     private OptionQueryService optionQueryService;
-
-    public IndexProcessor() {
-        timer.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                Map<String, Object> cacheMap2 = Maps.newHashMap();
-                cacheMap2.put("recentArticles", articleQueryService.getIndexRecentArticles());
-                cacheMap = cacheMap2;
-                LOGGER.info("执行缓存调度");
-            }
-        }, 0, 10, TimeUnit.SECONDS);
-
-    }
 
     /**
      * Register request handlers.
@@ -303,13 +296,19 @@ public class IndexProcessor {
         final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "index.ftl");
         final Map<String, Object> dataModel = renderer.getDataModel();
         List<JSONObject> recentArticles = null;
-        if (cacheMap.containsKey("recentArticles")) {
+        if (null != CACHE.getIfPresent("recentArticles")) {
             LOGGER.info("命中缓存");
-            recentArticles = (List<JSONObject>) cacheMap.get("recentArticles");
+            recentArticles = CACHE.getIfPresent("recentArticles");
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    CACHE.put("recentArticles", articleQueryService.getIndexRecentArticles());
+                }
+            });
         } else {
             LOGGER.info("没有命中缓存");
             recentArticles = articleQueryService.getIndexRecentArticles();
-            cacheMap.put("recentArticles", recentArticles);
+            CACHE.put("recentArticles", articleQueryService.getIndexRecentArticles());
         }
         dataModel.put(Common.RECENT_ARTICLES, recentArticles);
 
