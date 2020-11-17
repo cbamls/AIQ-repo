@@ -80,7 +80,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Singleton
 public class IndexProcessor {
-    private static final Cache<String, List<JSONObject>> CACHE = CacheBuilder
+    private static final Cache<String, Map<String, Object>> CACHE = CacheBuilder
             .newBuilder()
             .maximumSize(100000)
             .expireAfterAccess(60 * 60 * 24 * 7, TimeUnit.SECONDS)
@@ -293,44 +293,80 @@ public class IndexProcessor {
             }
         }
 
-        final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "index.ftl");
-        final Map<String, Object> dataModel = renderer.getDataModel();
-        List<JSONObject> recentArticles = null;
-        if (null != CACHE.getIfPresent("recentArticles")) {
+        AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "index.ftl");
+        Map<String, Object> dataModel = renderer.getDataModel();
+
+
+        if (null != CACHE.getIfPresent("dataModel")) {
             LOGGER.info("命中缓存");
-            recentArticles = CACHE.getIfPresent("recentArticles");
+            dataModel = CACHE.getIfPresent("dataModel");
+            renderer.getDataModel().putAll(dataModel);
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    CACHE.put("recentArticles", articleQueryService.getIndexRecentArticles());
+                    List<JSONObject> recentArticles = null;
+
+                    recentArticles = articleQueryService.getIndexRecentArticles();
+                    Map<String, Object> dataModel2 = renderer.getDataModel();
+                    dataModel2.put(Common.RECENT_ARTICLES, recentArticles);
+
+                    final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
+                    dataModel2.put(Common.PERFECT_ARTICLES, perfectArticles);
+
+                    dataModelService.fillHeaderAndFooter(context, dataModel2);
+                    dataModelService.fillIndexTags(dataModel2);
+                    //*****自定义
+                    final JSONObject requestJSONObject = new JSONObject();
+                    requestJSONObject.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
+                    requestJSONObject.put(Pagination.PAGINATION_PAGE_SIZE, 8);
+
+                    final JSONObject result2 = userQueryService.getLatestRegisterUsers(requestJSONObject);
+                    dataModel2.put(User.USERS, CollectionUtils.jsonArrayToList(result2.optJSONArray(User.USERS)));
+
+                    int totalOnline = optionQueryService.getAllOnlineUsers();
+                    dataModel2.put("visitors", totalOnline + new Random().nextInt(15) + 33 + "");
+                    dataModel2.put("totalUsers", "1241");
+
+                    //*****
+                    dataModel2.put(Common.SELECTED, Common.INDEX);
+                    CACHE.put("dataModel", dataModel2);
                 }
             });
         } else {
             LOGGER.info("没有命中缓存");
+            List<JSONObject> recentArticles = null;
+
             recentArticles = articleQueryService.getIndexRecentArticles();
-            CACHE.put("recentArticles", articleQueryService.getIndexRecentArticles());
+
+            dataModel.put(Common.RECENT_ARTICLES, recentArticles);
+
+            final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
+            dataModel.put(Common.PERFECT_ARTICLES, perfectArticles);
+
+            dataModelService.fillHeaderAndFooter(context, dataModel);
+            dataModelService.fillIndexTags(dataModel);
+            //*****自定义
+            final JSONObject requestJSONObject = new JSONObject();
+            requestJSONObject.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
+            requestJSONObject.put(Pagination.PAGINATION_PAGE_SIZE, 8);
+
+            final JSONObject result2 = userQueryService.getLatestRegisterUsers(requestJSONObject);
+            dataModel.put(User.USERS, CollectionUtils.jsonArrayToList(result2.optJSONArray(User.USERS)));
+
+            int totalOnline = optionQueryService.getAllOnlineUsers();
+            dataModel.put("visitors", totalOnline + new Random().nextInt(15) + 33 + "");
+            dataModel.put("totalUsers", "1241");
+
+            //*****
+            dataModel.put(Common.SELECTED, Common.INDEX);
+
+            CACHE.put("dataModel", dataModel);
         }
-        dataModel.put(Common.RECENT_ARTICLES, recentArticles);
 
-        final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
-        dataModel.put(Common.PERFECT_ARTICLES, perfectArticles);
 
-        dataModelService.fillHeaderAndFooter(context, dataModel);
-        dataModelService.fillIndexTags(dataModel);
-        //*****自定义
-        final JSONObject requestJSONObject = new JSONObject();
-        requestJSONObject.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
-        requestJSONObject.put(Pagination.PAGINATION_PAGE_SIZE, 8);
 
-        final JSONObject result2 = userQueryService.getLatestRegisterUsers(requestJSONObject);
-        dataModel.put(User.USERS, CollectionUtils.jsonArrayToList(result2.optJSONArray(User.USERS)));
 
-        int totalOnline = optionQueryService.getAllOnlineUsers();
-        dataModel.put("visitors", totalOnline + new Random().nextInt(15) + 33 + "");
-        dataModel.put("totalUsers", "1241");
 
-        //*****
-        dataModel.put(Common.SELECTED, Common.INDEX);
         LOGGER.info("总耗时:{}", System.currentTimeMillis() - startTime);
     }
 
