@@ -20,6 +20,8 @@ package org.b3log.symphony.processor;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.http.Dispatcher;
@@ -78,6 +80,7 @@ public class IndexProcessor {
     ScheduledExecutorService timer = Executors.newScheduledThreadPool(1);
 
     static Map<String, Object> cacheMap = Maps.newHashMap();
+    private static final Logger LOGGER = LogManager.getLogger(IndexProcessor.class);
 
     /**
      * Article query service.
@@ -119,7 +122,7 @@ public class IndexProcessor {
                 Map<String, Object> cacheMap2 = Maps.newHashMap();
                 cacheMap2.put("recentArticles", articleQueryService.getIndexRecentArticles());
                 cacheMap = cacheMap2;
-
+                LOGGER.info("执行缓存调度");
             }
         }, 0, 10, TimeUnit.SECONDS);
 
@@ -286,6 +289,7 @@ public class IndexProcessor {
      * @param context the specified context
      */
     public void showIndex(final RequestContext context) {
+        long startTime = System.currentTimeMillis();
         final JSONObject currentUser = Sessions.getUser();
         if (null != currentUser) {
             // 自定义首页跳转 https://github.com/b3log/symphony/issues/774
@@ -300,9 +304,12 @@ public class IndexProcessor {
         final Map<String, Object> dataModel = renderer.getDataModel();
         List<JSONObject> recentArticles = null;
         if (cacheMap.containsKey("recentArticles")) {
+            LOGGER.info("命中缓存");
             recentArticles = (List<JSONObject>) cacheMap.get("recentArticles");
         } else {
+            LOGGER.info("没有命中缓存");
             recentArticles = articleQueryService.getIndexRecentArticles();
+            cacheMap.put("recentArticles", recentArticles);
         }
         dataModel.put(Common.RECENT_ARTICLES, recentArticles);
 
@@ -325,6 +332,7 @@ public class IndexProcessor {
 
         //*****
         dataModel.put(Common.SELECTED, Common.INDEX);
+        LOGGER.info("总耗时:{}", System.currentTimeMillis() - startTime);
     }
 
     /**
