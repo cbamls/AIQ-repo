@@ -59,7 +59,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Singleton
 public class DomainProcessor {
-    private static final Cache<String, JSONObject> CACHE = CacheBuilder
+    private static final Cache<String, Map<String, Object>> CACHE = CacheBuilder
             .newBuilder()
             .maximumSize(100000)
             .expireAfterAccess(60 * 60 * 24 * 7, TimeUnit.SECONDS)
@@ -107,7 +107,7 @@ public class DomainProcessor {
         final Request request = context.getRequest();
 
         final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "domain-articles.ftl");
-        final Map<String, Object> dataModel = renderer.getDataModel();
+        Map<String, Object> dataModel = renderer.getDataModel();
         final int pageNum = Paginator.getPage(request);
         int pageSize = Symphonys.ARTICLE_LIST_CNT;
 
@@ -135,37 +135,69 @@ public class DomainProcessor {
 
         final String domainId = domain.optString(Keys.OBJECT_ID);
 
+
+
+
         String key = domainId + "_" + pageNum + "_" + pageSize;
-        JSONObject result = null;
         if (null != CACHE.getIfPresent(key)) {
-            result = CACHE.getIfPresent(key);
+            dataModel = CACHE.getIfPresent(key);
+            renderer.getDataModel().putAll(dataModel);
             int finalPageSize = pageSize;
+            Map<String, Object> finalDataModel = Maps.newHashMap(dataModel);
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
-                    CACHE.put(key, articleQueryService.getDomainArticles(domainId, pageNum, finalPageSize));
+                    JSONObject result = null;
+                    Map<String, Object> dataModel2 = finalDataModel;
+
+                    result = articleQueryService.getDomainArticles(domainId, pageNum, finalPageSize);
+
+                    final List<JSONObject> latestArticles = (List<JSONObject>) result.opt(Article.ARTICLES);
+                    dataModel2.put(Common.LATEST_ARTICLES, latestArticles);
+
+                    final JSONObject pagination = result.optJSONObject(Pagination.PAGINATION);
+                    final int pageCount = pagination.optInt(Pagination.PAGINATION_PAGE_COUNT);
+
+                    final List<Integer> pageNums = (List<Integer>) pagination.opt(Pagination.PAGINATION_PAGE_NUMS);
+                    if (!pageNums.isEmpty()) {
+                        dataModel2.put(Pagination.PAGINATION_FIRST_PAGE_NUM, pageNums.get(0));
+                        dataModel2.put(Pagination.PAGINATION_LAST_PAGE_NUM, pageNums.get(pageNums.size() - 1));
+                    }
+
+                    dataModel2.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, pageNum);
+                    dataModel2.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+                    dataModel2.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+                    CACHE.put(key, dataModel2);
                 }
             });
         } else {
+            JSONObject result = null;
+
             result = articleQueryService.getDomainArticles(domainId, pageNum, pageSize);
-            CACHE.put(key, result);
+
+            final List<JSONObject> latestArticles = (List<JSONObject>) result.opt(Article.ARTICLES);
+            dataModel.put(Common.LATEST_ARTICLES, latestArticles);
+
+            final JSONObject pagination = result.optJSONObject(Pagination.PAGINATION);
+            final int pageCount = pagination.optInt(Pagination.PAGINATION_PAGE_COUNT);
+
+            final List<Integer> pageNums = (List<Integer>) pagination.opt(Pagination.PAGINATION_PAGE_NUMS);
+            if (!pageNums.isEmpty()) {
+                dataModel.put(Pagination.PAGINATION_FIRST_PAGE_NUM, pageNums.get(0));
+                dataModel.put(Pagination.PAGINATION_LAST_PAGE_NUM, pageNums.get(pageNums.size() - 1));
+            }
+
+            dataModel.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, pageNum);
+            dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
+            dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+            CACHE.put(key, dataModel);
         }
 
-        final List<JSONObject> latestArticles = (List<JSONObject>) result.opt(Article.ARTICLES);
-        dataModel.put(Common.LATEST_ARTICLES, latestArticles);
 
-        final JSONObject pagination = result.optJSONObject(Pagination.PAGINATION);
-        final int pageCount = pagination.optInt(Pagination.PAGINATION_PAGE_COUNT);
 
-        final List<Integer> pageNums = (List<Integer>) pagination.opt(Pagination.PAGINATION_PAGE_NUMS);
-        if (!pageNums.isEmpty()) {
-            dataModel.put(Pagination.PAGINATION_FIRST_PAGE_NUM, pageNums.get(0));
-            dataModel.put(Pagination.PAGINATION_LAST_PAGE_NUM, pageNums.get(pageNums.size() - 1));
-        }
 
-        dataModel.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, pageNum);
-        dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
-        dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+
+
 
         dataModelService.fillHeaderAndFooter(context, dataModel);
         dataModelService.fillRandomArticles(dataModel);
