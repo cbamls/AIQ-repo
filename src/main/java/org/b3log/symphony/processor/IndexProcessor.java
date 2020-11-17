@@ -313,8 +313,6 @@ public class IndexProcessor {
                     final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
                     dataModel2.put(Common.PERFECT_ARTICLES, perfectArticles);
 
-                    dataModelService.fillHeaderAndFooter(context, dataModel2);
-                    dataModelService.fillIndexTags(dataModel2);
                     //*****自定义
                     final JSONObject requestJSONObject = new JSONObject();
                     requestJSONObject.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
@@ -343,8 +341,7 @@ public class IndexProcessor {
             final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
             dataModel.put(Common.PERFECT_ARTICLES, perfectArticles);
 
-            dataModelService.fillHeaderAndFooter(context, dataModel);
-            dataModelService.fillIndexTags(dataModel);
+
             //*****自定义
             final JSONObject requestJSONObject = new JSONObject();
             requestJSONObject.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, 1);
@@ -363,7 +360,8 @@ public class IndexProcessor {
             CACHE.put("dataModel", dataModel);
         }
 
-
+        dataModelService.fillHeaderAndFooter(context, dataModel);
+        dataModelService.fillIndexTags(dataModel);
 
 
 
