@@ -142,6 +142,11 @@ public class DomainProcessor {
         if (null != CACHE.getIfPresent(key)) {
             LOGGER.info("domain命中缓存");
             dataModel = CACHE.getIfPresent(key);
+            dataModelService.fillHeaderAndFooter(context, dataModel);
+            dataModelService.fillRandomArticles(dataModel);
+            dataModelService.fillSideHotArticles(dataModel);
+            dataModelService.fillSideTags(dataModel);
+            dataModelService.fillLatestCmts(dataModel);
             renderer.getDataModel().putAll(dataModel);
             int finalPageSize = pageSize;
             Map<String, Object> finalDataModel = Maps.newHashMap(dataModel);
@@ -195,7 +200,11 @@ public class DomainProcessor {
             dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
 
-
+            dataModelService.fillHeaderAndFooter(context, dataModel);
+            dataModelService.fillRandomArticles(dataModel);
+            dataModelService.fillSideHotArticles(dataModel);
+            dataModelService.fillSideTags(dataModel);
+            dataModelService.fillLatestCmts(dataModel);
 
             CACHE.put(key, dataModel);
             LOGGER.info("domain没有命中缓存");
@@ -203,11 +212,7 @@ public class DomainProcessor {
         }
 
 
-        dataModelService.fillHeaderAndFooter(context, dataModel);
-        dataModelService.fillRandomArticles(dataModel);
-        dataModelService.fillSideHotArticles(dataModel);
-        dataModelService.fillSideTags(dataModel);
-        dataModelService.fillLatestCmts(dataModel);
+
 
 
 
