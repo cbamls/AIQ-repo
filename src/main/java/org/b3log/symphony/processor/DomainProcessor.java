@@ -140,6 +140,7 @@ public class DomainProcessor {
 
         String key = domainId + "_" + pageNum + "_" + pageSize;
         if (null != CACHE.getIfPresent(key)) {
+            LOGGER.info("domain命中缓存");
             dataModel = CACHE.getIfPresent(key);
             renderer.getDataModel().putAll(dataModel);
             int finalPageSize = pageSize;
@@ -167,6 +168,13 @@ public class DomainProcessor {
                     dataModel2.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, pageNum);
                     dataModel2.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
                     dataModel2.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+
+                    dataModelService.fillHeaderAndFooter(context, dataModel2);
+                    dataModelService.fillRandomArticles(dataModel2);
+                    dataModelService.fillSideHotArticles(dataModel2);
+                    dataModelService.fillSideTags(dataModel2);
+                    dataModelService.fillLatestCmts(dataModel2);
+
                     CACHE.put(key, dataModel2);
                 }
             });
@@ -190,7 +198,16 @@ public class DomainProcessor {
             dataModel.put(Pagination.PAGINATION_CURRENT_PAGE_NUM, pageNum);
             dataModel.put(Pagination.PAGINATION_PAGE_COUNT, pageCount);
             dataModel.put(Pagination.PAGINATION_PAGE_NUMS, pageNums);
+
+            dataModelService.fillHeaderAndFooter(context, dataModel);
+            dataModelService.fillRandomArticles(dataModel);
+            dataModelService.fillSideHotArticles(dataModel);
+            dataModelService.fillSideTags(dataModel);
+            dataModelService.fillLatestCmts(dataModel);
+
             CACHE.put(key, dataModel);
+            LOGGER.info("domain没有命中缓存");
+
         }
 
 
@@ -199,11 +216,7 @@ public class DomainProcessor {
 
 
 
-        dataModelService.fillHeaderAndFooter(context, dataModel);
-        dataModelService.fillRandomArticles(dataModel);
-        dataModelService.fillSideHotArticles(dataModel);
-        dataModelService.fillSideTags(dataModel);
-        dataModelService.fillLatestCmts(dataModel);
+
         LOGGER.info("domain耗时:{}", System.currentTimeMillis() - startTime);
     }
 
