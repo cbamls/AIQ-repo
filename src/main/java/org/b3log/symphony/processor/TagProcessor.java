@@ -247,6 +247,7 @@ public class TagProcessor {
         } else {
             LOGGER.info("Tag缓存没有命中");
             articles = articleQueryService.getArticlesByTag(sortMode, tag, pageNum, pageSize);
+            CACHE.put(key, articleQueryService.getArticlesByTag(sortMode, tag, pageNum, pageSize));
         }
         dataModel.put(Article.ARTICLES, articles);
         final JSONObject tagCreator = tagQueryService.getCreator(tagId);
