@@ -235,7 +235,7 @@ public class TagProcessor {
         String key = sortMode + "_" + tag + "_" + pageNum + "_" + pageSize;
         List<JSONObject> articles = null;
         if (null != CACHE.getIfPresent(key)) {
-            articles = articleQueryService.getArticlesByTag(sortMode, tag, pageNum, pageSize);
+            articles = CACHE.getIfPresent(key);
             int finalPageSize = pageSize;
             LOGGER.info("命中Tag缓存");
             executorService.submit(new Runnable() {
