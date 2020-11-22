@@ -17,7 +17,11 @@
  */
 package org.b3log.symphony.processor;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.b3log.latke.Keys;
 import org.b3log.latke.Latkes;
 import org.b3log.latke.http.Dispatcher;
@@ -42,6 +46,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Tag processor.
@@ -58,6 +65,13 @@ import java.util.Map;
  */
 @Singleton
 public class TagProcessor {
+    private static final Cache<String, List<JSONObject>> CACHE = CacheBuilder
+            .newBuilder()
+            .maximumSize(100000)
+            .expireAfterAccess(60 * 60 * 24 * 7, TimeUnit.SECONDS)
+            .build();
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    private static final Logger LOGGER = LogManager.getLogger(TagProcessor.class);
 
     /**
      * Tag query service.
@@ -218,8 +232,22 @@ public class TagProcessor {
             default:
                 sortMode = 0;
         }
-
-        final List<JSONObject> articles = articleQueryService.getArticlesByTag(sortMode, tag, pageNum, pageSize);
+        String key = sortMode + "_" + tag + "_" + pageNum + "_" + pageSize;
+        List<JSONObject> articles = null;
+        if (null != CACHE.getIfPresent(key)) {
+            articles = articleQueryService.getArticlesByTag(sortMode, tag, pageNum, pageSize);
+            int finalPageSize = pageSize;
+            LOGGER.info("命中Tag缓存");
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    CACHE.put(key, articleQueryService.getArticlesByTag(sortMode, tag, pageNum, finalPageSize));
+                }
+            });
+        } else {
+            LOGGER.info("Tag缓存没有命中");
+            articles = articleQueryService.getArticlesByTag(sortMode, tag, pageNum, pageSize);
+        }
         dataModel.put(Article.ARTICLES, articles);
         final JSONObject tagCreator = tagQueryService.getCreator(tagId);
         tag.put(Tag.TAG_T_CREATOR_THUMBNAIL_URL, tagCreator.optString(Tag.TAG_T_CREATOR_THUMBNAIL_URL));
