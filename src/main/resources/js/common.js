@@ -588,7 +588,7 @@ var Util = {
         footer: '<div class="fn-right fn-pointer" onclick="window.open(\'https://www.algolia.com\')">'
           + '<span class="ft-gray">With &hearts; from</span> <img src="' +
           Label.staticServePath +
-          '/images/services/algolia128x40.png" /> </div>',
+          '/images/logo.png" /> </div>',
       },
     }, [
       {

@@ -69,8 +69,11 @@
     </div>
     <#if esEnabled || algoliaEnabled>
         <form class="responsive-hide fn-left" target="_blank" action="/search">
-            <input class="search" placeholder="智能搜索..." type="text" name="key" id="search"
-                   value="<#if key??>${key}</#if>">
+            <i class="fa fa-search icon-search">
+                <input class="search" placeholder="智能搜索..." type="text" name="key" id="search"
+                       value="<#if key??>${key}</#if>">
+            </i>
+
             <input type="submit" class="fn-none" value=""/>
         </form>
     </#if>
