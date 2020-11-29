@@ -36,8 +36,12 @@
                 <a href="${servePath}/tags">${tagLabel}</a>
                 <a href="${servePath}/statistic">${dataStatLabel}</a>
                 <a href="${servePath}/sitemap.xml">站点地图</a>
-                <script src="https://s13.cnzz.com/z_stat.php?id=1273310020&web_id=1273310020" language="JavaScript"></script>
-                <a href="http://www.beian.miit.gov.cn">鲁ICP备18016225号</a>
+                <script src="https://s13.cnzz.com/z_stat.php?id=1273310020&web_id=1273310020"
+                        language="JavaScript"></script>
+                    <img src="https://g.csdnimg.cn/common/csdn-footer/images/email.png" alt="" style="
+    width: 20px;
+    margin-right: 5px;
+">                    <a href="mailto:88cbam@gmail.com" target="_blank">88cbam@gmail.com</a>
                 <div class="fn-right">© 2020
                     <a rel="copyright" href="${servePath}" target="_blank">www.6aiq.com</a>
                     <#--${visionLabel}-->
@@ -130,13 +134,12 @@
     </script>
 </#if>
 <script>
-    (function(){
+    (function () {
         var bp = document.createElement('script');
         var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https'){
+        if (curProtocol === 'https') {
             bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        }
-        else{
+        } else {
             bp.src = 'http://push.zhanzhang.baidu.com/push.js';
         }
         var s = document.getElementsByTagName("script")[0];
@@ -144,7 +147,7 @@
     })();
 </script>
 <script>
-    (function(){
+    (function () {
         var src = "https://jspassport.ssl.qhimg.com/11.0.1.js?d182b3f28525f2db83acfaaf6e696dba";
         document.write('<script src="' + src + '" id="sozz"><\/script>');
     })();
