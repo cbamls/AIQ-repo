@@ -74,7 +74,7 @@ public class TagProcessor {
             .removalListener(new RemovalListener<String, List<JSONObject>>() {
                 @Override
                 public void onRemoval(RemovalNotification<String, List<JSONObject>> notification) {
-                    LOGGER.debug("出现缓存evit, 当前size:{}", CACHE.size());
+                    LOGGER.debug("出现缓存evict, 当前size:{}", CACHE.size());
                 }
             })
             .build();
