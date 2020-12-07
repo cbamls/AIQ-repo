@@ -19,6 +19,8 @@ package org.b3log.symphony.processor;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalNotification;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -67,8 +69,14 @@ import java.util.concurrent.TimeUnit;
 public class TagProcessor {
     private static final Cache<String, List<JSONObject>> CACHE = CacheBuilder
             .newBuilder()
-            .maximumSize(100000)
-            .expireAfterAccess(60 * 60 * 24 * 7, TimeUnit.SECONDS)
+            .maximumSize(100)
+            .expireAfterAccess(60 * 60 * 24, TimeUnit.SECONDS)
+            .removalListener(new RemovalListener<String, List<JSONObject>>() {
+                @Override
+                public void onRemoval(RemovalNotification<String, List<JSONObject>> notification) {
+                    LOGGER.debug("出现缓存evit, 当前size:{}", CACHE.size());
+                }
+            })
             .build();
     ExecutorService executorService = Executors.newCachedThreadPool();
     private static final Logger LOGGER = LogManager.getLogger(TagProcessor.class);

@@ -159,7 +159,7 @@ public class SearchMgmtService {
      * @param doc the specified document
      */
     public void updateAlgoliaDocument(final JSONObject doc) {
-        final int maxRetries = 3;
+        final int maxRetries = 300;
         int retries = 1;
 
         final String appId = Symphonys.ALGOLIA_APP_ID;
@@ -184,17 +184,15 @@ public class SearchMgmtService {
 
                     final int length = content.length();
                     int idx = length;
-                    int continueCnt = 0;
                     while (idx > 0) {
                         idx -= 128;
-                        content = content.substring(0, idx);
-                        if (Utf8.size(content) < maxLength) {
-                            continueCnt++;
+                        if (idx > 0) {
+                            content = content.substring(0, idx);
+                            if (Utf8.size(content) < maxLength) {
+                                break;
+                            }
                         }
 
-                        if (3 < continueCnt) {
-                            break;
-                        }
                     }
 
                     doc.put(Article.ARTICLE_CONTENT, content);
