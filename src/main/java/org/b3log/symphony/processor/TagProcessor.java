@@ -69,7 +69,7 @@ import java.util.concurrent.TimeUnit;
 public class TagProcessor {
     private static final Cache<String, List<JSONObject>> CACHE = CacheBuilder
             .newBuilder()
-            .expireAfterAccess(60 * 60 * 24, TimeUnit.SECONDS)
+            .expireAfterAccess(60 * 60 * 3, TimeUnit.SECONDS)
             .removalListener(new RemovalListener<String, List<JSONObject>>() {
                 @Override
                 public void onRemoval(RemovalNotification<String, List<JSONObject>> notification) {
