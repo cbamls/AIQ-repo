@@ -301,7 +301,6 @@ public class IndexProcessor {
             LOGGER.info("命中缓存");
             dataModel = CACHE.getIfPresent("dataModel");
             dataModelService.fillHeaderAndFooter(context, dataModel);
-            dataModelService.fillIndexTags(dataModel);
             renderer.getDataModel().putAll(dataModel);
             executorService.submit(new Runnable() {
                 @Override
@@ -345,6 +344,9 @@ public class IndexProcessor {
             final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
             dataModel.put(Common.PERFECT_ARTICLES, perfectArticles);
 
+            dataModelService.fillHeaderAndFooter(context, dataModel);
+            dataModelService.fillIndexTags(dataModel);
+
 
             //*****自定义
             final JSONObject requestJSONObject = new JSONObject();
@@ -363,9 +365,6 @@ public class IndexProcessor {
 
             CACHE.put("dataModel", dataModel);
         }
-
-        dataModelService.fillHeaderAndFooter(context, dataModel);
-        dataModelService.fillIndexTags(dataModel);
 
 
 

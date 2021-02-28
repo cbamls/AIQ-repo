@@ -181,9 +181,9 @@ public class DomainProcessor {
             });
         } else {
             JSONObject result = null;
-
+            long start = System.currentTimeMillis();
             result = articleQueryService.getDomainArticles(domainId, pageNum, pageSize);
-
+            System.out.println("getDomainArticles:" + (System.currentTimeMillis() - start));
             final List<JSONObject> latestArticles = (List<JSONObject>) result.opt(Article.ARTICLES);
             dataModel.put(Common.LATEST_ARTICLES, latestArticles);
 
@@ -207,7 +207,7 @@ public class DomainProcessor {
             dataModelService.fillLatestCmts(dataModel);
 
             CACHE.put(key, dataModel);
-            LOGGER.info("domain没有命中缓存");
+            LOGGER.info("domain没有命中缓存" + (System.currentTimeMillis() - start));
 
         }
 

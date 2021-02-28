@@ -587,8 +587,10 @@ public class ArticleQueryService {
             final List<JSONObject> tagArticlesCount = articleRepository.
                     select(queryCount.append(queryStr.toString()).toString(), Article.ARTICLE_SHOW_IN_LIST_C_NOT, Article.ARTICLE_STATUS_C_INVALID, Article.ARTICLE_TYPE_C_DISCUSSION);
             queryStr.append(" limit ").append((currentPageNum - 1) * pageSize).append(",").append(pageSize);
+            long start  = System.currentTimeMillis();
             final List<JSONObject> tagArticles = articleRepository.
                     select(queryList.append(queryStr.toString()).toString(), Article.ARTICLE_SHOW_IN_LIST_C_NOT, Article.ARTICLE_STATUS_C_INVALID, Article.ARTICLE_TYPE_C_DISCUSSION);
+            System.out.println("selects" + (System.currentTimeMillis() - start)  + " " + queryList);
             if (tagArticles.size() <= 0) {
                 return ret;
             }
@@ -605,9 +607,15 @@ public class ArticleQueryService {
             final Query query = new Query().setFilter(new PropertyFilter(Keys.OBJECT_ID, FilterOperator.IN, articleIds)).
                     setPageCount(1).addSort(Keys.OBJECT_ID, SortDirection.DESCENDING);
             final List<JSONObject> articles = (List<JSONObject>) articleRepository.get(query).opt(Keys.RESULTS);
+            System.out.println("selects2" + (System.currentTimeMillis() - start)  + " " + query);
+
             organizeArticles(articles);
+            System.out.println("selects3" + (System.currentTimeMillis() - start));
+
             final Integer participantsCnt = Symphonys.ARTICLE_LIST_PARTICIPANTS_CNT;
             genParticipants(articles, participantsCnt);
+            System.out.println("selects4" + (System.currentTimeMillis() - start));
+
             ret.put(Article.ARTICLES, (Object) articles);
             return ret;
         } catch (final Exception e) {
