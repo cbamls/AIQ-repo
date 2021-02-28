@@ -546,7 +546,7 @@
         fullPage: document.querySelector("#fullPage"),
         canvas: document.querySelector("#canvas")
     });
-    var imgBox = document.querySelectorAll("img"); //为需要的图片添加放大功能
+    var imgBox = document.querySelectorAll("p img"); //为需要的图片添加放大功能
     for (var i = 0; i < imgBox.length; i++) {
         imgBox[i].onclick = function(e) {
             wxScale.start(this); //这里的this指向需要放大的这张图片
