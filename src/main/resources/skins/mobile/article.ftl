@@ -477,6 +477,9 @@
     </div>
 </div>
 <#include "footer.ftl">
+<div id="fullPage" style="display: none;">
+    <canvas id="canvas" width="1420" height="700"></canvas>
+</div>
 <div id="thoughtProgressPreview"></div>
 <script src="${staticServePath}/js/lib/compress/article-libs.min.js?${staticResourceVersion}"></script>
 <script src="${staticServePath}/js/m-article${miniPostfix}.js?${staticResourceVersion}"></script>
