@@ -31,12 +31,8 @@
         </#if>
     </@head>
     <link rel="stylesheet" href="${staticServePath}/js/lib/compress/article.min.css?${staticResourceVersion}">
-    <style>
-        .bor2 {
-            border: 1px dashed #F00;
-            margin-top: 10px
-        }
-    </style>
+    <link type="text/css" href="${staticServePath}/css/myStyle.css" rel="stylesheet"/>
+
     <!-- 由 Google 结构化数据标记助手生成的 JSON-LD 标记。 -->
     <script type="application/ld+json">
             {
