@@ -17,30 +17,17 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 -->
-<#if tipsLabel??>
-    <div class="module">
-        <div class="module-header"><h2>${smallTipLabel}</h2></div>
-        <div class="module-panel">
-            <ul class="module-list small-tips">
-                <li>
-                    <span class="ft-gray">${tipsLabel}</a></span>
-                </li>
-            </ul>
-        </div>
-    </div>
-</#if>
-
 <#if isLoggedIn>
     <div class="module person-info" data-percent="${liveness}">
 
-        <div style=" padding: 15px;    text-align: center;background: #fafafa;">
+        <div style=" padding: 25px;    text-align: center;background: #fafafa;">
             <img style=" border-radius: 40px; width: 80px; height: 80px" src="${currentUser.userAvatarURL}"
                  alt="">
             <div style="    color: #ccc;
     padding: 10px 0;">
         </div>
            <div >
-        <button class="avator-def"onclick="window.location.href='https://www.6aiq.com/post?type=0'">
+        <button class="avatar-def"onclick="window.location.href='https://www.6aiq.com/post?type=0'">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
             </svg>
@@ -100,10 +87,18 @@
     <div class="avatar-bg">
         <img  src="https://img.6aiq.com/e/925147cb3dc84b1284a6a4d586b93013.png" alt="">
         <div style="color: #ccc;padding: 10px 0;">
-            <a href="javascript: Util.goLogin();">登录</a>&nbsp;&nbsp;
-            <a href="https://www.6aiq.com/register" target="_blank">注册</a>
+            <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user&state=3'"
+   class="btn green" >
+    Github登陆
+    <svg class="unlogin">
+        <use xlink:href="#github"></use>
+    </svg>
+</a>&nbsp;
+<a href="https://www.6aiq.com/register" class="btn green">注册</a>
+
+<a href="https://www.6aiq.com/article/1542369214697" class="btn red">关于</a>
         </div>
-        <div style="color: #ccc; font-size: 14px;">立即登录，融入AI顶流圈子
+        <div style="color: #ccc; font-size: 14px;">立即登录，融入AI顶流圈子<br>加入AIQ，与 22000+ 人工智能算法爱好者共同书写中国人工智能新篇章。
         </div>
 
     </div>

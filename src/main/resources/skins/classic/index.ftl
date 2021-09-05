@@ -109,43 +109,31 @@ ${HeaderBannerLabel}
         <div class="index-side">
             <#if !isLoggedIn>
                 <div style="background-color: rgba(98,162,240,.1);width: 100%;box-sizing: border-box;">
-                    <div style="-webkit-box-flex: 1;flex: 2;min-width: 1px;padding: 50px;margin-bottom: 0px; padding-bottom: 20px;">
-                        <h2>
-                            欢迎来到 <strong>AIQ</strong> - 专业的人工智能技术社区
-                        </h2>
-                        <br>
-                        <div class="ft-gray">
-                            欢迎加入AIQ，与 22000+
-                            人工智能算法爱好者共同书写中国人工智能新篇章。在这里会分享人工智能在企业落地上的一些实践、AI智能领域的资讯、知识及教育培训、会议活动；鼓励技术写作和问答互助。大家在这里相互信任，以平等
-                            • 自由 • 奔放的价值观进行分享交流。
+                    <#if !isLoggedIn>
+                        <div style="background-color: rgba(98,162,240,.1);width: 100%;box-sizing: border-box;">
+                            <#include 'common/person-info.ftl'/>
+                            <div class="module" style="padding-bottom: 25px; margin-bottom: 0px">
+                                <div class="module-header">
+                                    <h2>当前在线: ${visitors}， 刚加入的小伙伴:</h2>
+                                </div>
+                                <div class="module-panel index__user-panel" style="margin-left: 40px">
+                                    <#list users as user>
+                                        <a class="avatar index__user-avatar tooltipped tooltipped-se"
+                                           href="https://www.6aiq.com/member/${user.userName}" aria-label="${user.userName}"
+                                           style="background-image: url(&quot;${user.userAvatarURL48}&quot;);"></a>
+                                    </#list>
+                                    <span class="avatar index__user-avatar"> <h2 style="text-align: center">....</h2></span>
+                                </div>
+                            </div>
+                            <div class="fn__flex-1 bg"></div>
                         </div>
-                        <br>
-                        <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user&state=3'"
-                           class="btn green" style="font-size: 1.25rem">
-                            Github登陆
-                            <svg class="unlogin">
-                                <use xlink:href="#github"></use>
-                            </svg>
-                        </a>&nbsp;
-                        <a href="https://www.6aiq.com/register" class="btn green" style="font-size: 1.25rem">注册</a>
-
-                        <a href="https://www.6aiq.com/article/1542369214697" class="btn red">关于</a>
-                    </div>
-                    <div class="module" style="padding-bottom: 25px; margin-bottom: 0px">
-                        <div class="module-header">
-                            <h2>当前在线: ${visitors}， 刚加入的小伙伴:</h2>
-                        </div>
-                        <div class="module-panel index__user-panel" style="margin-left: 40px">
-                            <#list users as user>
-                                <a class="avatar index__user-avatar tooltipped tooltipped-se"
-                                   href="https://www.6aiq.com/member/${user.userName}" aria-label="${user.userName}"
-                                   style="background-image: url(&quot;${user.userAvatarURL48}&quot;);"></a>
-                            </#list>
-                            <span class="avatar index__user-avatar"> <h2 style="text-align: center">....</h2></span>
-                        </div>
-                    </div>
+                    </#if>
                     <div class="fn__flex-1 bg"></div>
                 </div>
+            </#if>
+
+            <#if isLoggedIn>
+             <#include 'common/person-info.ftl'/>
             </#if>
             <div class="index-tabs fn-flex">
                         <span class="perfect">
@@ -153,7 +141,6 @@ ${HeaderBannerLabel}
                 <span class="check">
                         </span>
             </div>
-
             <div class="perfect-panel list">
                 <ul>
                     <#list perfectArticles as article>
@@ -183,131 +170,132 @@ ${HeaderBannerLabel}
             </div>
         </div>
     </div>
-    <div class="index__bottom">
-        <div class="wrapper">
-            <div class="fn-flex-1">
-                <div class="metro-line fn-flex">
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag0.tagURI}">
-                            <img src="${tag0.tagIconPath}" alt="${tag0.tagTitle}">
-                            <b>${tag0.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag1.tagURI}">
-                            <img src="${tag1.tagIconPath}" alt="${tag1.tagTitle}">
-                            <b>${tag1.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag2.tagURI}">
-                            <img src="${tag2.tagIconPath}" alt="${tag2.tagTitle}">
-                            <b>${tag2.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag3.tagURI}">
-                            <img src="${tag3.tagIconPath}" alt="${tag3.tagTitle}">
-                            <b>${tag3.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag4.tagURI}">
-                            <img src="${tag4.tagIconPath}" alt="${tag4.tagTitle}">
-                            <b>${tag4.tagTitle}</b>
-                        </a>
-                    </div>
+</div>
+<div class="index__bottom">
+    <div class="wrapper">
+        <div class="fn-flex-1">
+            <div class="metro-line fn-flex">
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag0.tagURI}">
+                        <img src="${tag0.tagIconPath}" alt="${tag0.tagTitle}">
+                        <b>${tag0.tagTitle}</b>
+                    </a>
                 </div>
-                <div class="metro-line fn-flex">
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag5.tagURI}">
-                            <img src="${tag5.tagIconPath}" alt="${tag5.tagTitle}">
-                            <b>${tag5.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag6.tagURI}">
-                            <img src="${tag6.tagIconPath}" alt="${tag6.tagTitle}">
-                            <b>${tag6.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag7.tagURI}">
-                            <img src="${tag7.tagIconPath}" alt="${tag7.tagTitle}">
-                            <b>${tag7.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag8.tagURI}">
-                            <img src="${tag8.tagIconPath}" alt="${tag8.tagTitle}">
-                            <b>${tag8.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag9.tagURI}">
-                            <img src="${tag9.tagIconPath}" alt="${tag9.tagTitle}">
-                            <b>${tag9.tagTitle}</b>
-                        </a>
-                    </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag1.tagURI}">
+                        <img src="${tag1.tagIconPath}" alt="${tag1.tagTitle}">
+                        <b>${tag1.tagTitle}</b>
+                    </a>
                 </div>
-                <div class="metro-line fn-flex">
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag10.tagURI}">
-                            <img src="${tag10.tagIconPath}" alt="${tag10.tagTitle}">
-                            <b>${tag10.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag11.tagURI}">
-                            <img src="${tag11.tagIconPath}" alt="${tag11.tagTitle}">
-                            <b>${tag11.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <a class="preview" href="${servePath}/tag/${tag12.tagURI}">
-                            <img src="${tag12.tagIconPath}" alt="${tag12.tagTitle}">
-                            <b>${tag12.tagTitle}</b>
-                        </a>
-                    </div>
-                    <div class="metro-item">
-                        <#if ADLabel != '' >
-                            <a class="preview" href="${servePath}/about">
-                                <img src="${staticServePath}/emoji/graphics/heart.png" alt="${sponsorLabel}">
-                                <b>${adDeliveryLabel}</b>
-                            </a>
-                        <#else>
-                            <a class="preview" href="${servePath}/about">
-                                <img src="${staticServePath}/emoji/graphics/heart.png" alt="${sponsorLabel}">
-                                <b>${adDeliveryLabel}</b>
-                            </a>
-                        </#if>
-                    </div>
-                    <div class="metro-item">
-                        <#if ADLabel != '' >
-                            <div class="ad">
-                                ${ADLabel}
-                            </div>
-                        <#else>
-                            <a class="preview" href="${servePath}/about">
-                                <img src="${staticServePath}/emoji/graphics/heart.png" alt="${sponsorLabel}">
-                                <b>${adDeliveryLabel}</b>
-                            </a>
-                        </#if>
-                    </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag2.tagURI}">
+                        <img src="${tag2.tagIconPath}" alt="${tag2.tagTitle}">
+                        <b>${tag2.tagTitle}</b>
+                    </a>
                 </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag3.tagURI}">
+                        <img src="${tag3.tagIconPath}" alt="${tag3.tagTitle}">
+                        <b>${tag3.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag4.tagURI}">
+                        <img src="${tag4.tagIconPath}" alt="${tag4.tagTitle}">
+                        <b>${tag4.tagTitle}</b>
+                    </a>
+                </div>
+            </div>
+            <div class="metro-line fn-flex">
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag5.tagURI}">
+                        <img src="${tag5.tagIconPath}" alt="${tag5.tagTitle}">
+                        <b>${tag5.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag6.tagURI}">
+                        <img src="${tag6.tagIconPath}" alt="${tag6.tagTitle}">
+                        <b>${tag6.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag7.tagURI}">
+                        <img src="${tag7.tagIconPath}" alt="${tag7.tagTitle}">
+                        <b>${tag7.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag8.tagURI}">
+                        <img src="${tag8.tagIconPath}" alt="${tag8.tagTitle}">
+                        <b>${tag8.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag9.tagURI}">
+                        <img src="${tag9.tagIconPath}" alt="${tag9.tagTitle}">
+                        <b>${tag9.tagTitle}</b>
+                    </a>
+                </div>
+            </div>
+            <div class="metro-line fn-flex">
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag10.tagURI}">
+                        <img src="${tag10.tagIconPath}" alt="${tag10.tagTitle}">
+                        <b>${tag10.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag11.tagURI}">
+                        <img src="${tag11.tagIconPath}" alt="${tag11.tagTitle}">
+                        <b>${tag11.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <a class="preview" href="${servePath}/tag/${tag12.tagURI}">
+                        <img src="${tag12.tagIconPath}" alt="${tag12.tagTitle}">
+                        <b>${tag12.tagTitle}</b>
+                    </a>
+                </div>
+                <div class="metro-item">
+                    <#if ADLabel != '' >
+                        <a class="preview" href="${servePath}/about">
+                            <img src="${staticServePath}/emoji/graphics/heart.png" alt="${sponsorLabel}">
+                            <b>${adDeliveryLabel}</b>
+                        </a>
+                    <#else>
+                        <a class="preview" href="${servePath}/about">
+                            <img src="${staticServePath}/emoji/graphics/heart.png" alt="${sponsorLabel}">
+                            <b>${adDeliveryLabel}</b>
+                        </a>
+                    </#if>
+                </div>
+                <div class="metro-item">
+                    <#if ADLabel != '' >
+                        <div class="ad">
+                            ${ADLabel}
+                        </div>
+                    <#else>
+                        <a class="preview" href="${servePath}/about">
+                            <img src="${staticServePath}/emoji/graphics/heart.png" alt="${sponsorLabel}">
+                            <b>${adDeliveryLabel}</b>
+                        </a>
+                    </#if>
+                </div>
+            </div>
 
-                <div class="metro-border fn-flex">
-                    <div></div>
-                    <div class="green"></div>
-                    <div class="yellow"></div>
-                    <div class="red"></div>
-                    <div class="purple"></div>
-                </div>
+            <div class="metro-border fn-flex">
+                <div></div>
+                <div class="green"></div>
+                <div class="yellow"></div>
+                <div class="red"></div>
+                <div class="purple"></div>
             </div>
         </div>
     </div>
 </div>
 </div>
+
 <#include "footer.ftl">
 <script src="${staticServePath}/js/channel${miniPostfix}.js?${staticResourceVersion}"></script>
 <script type="text/javascript">

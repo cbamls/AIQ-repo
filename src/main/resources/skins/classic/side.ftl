@@ -17,6 +17,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 -->
+<#include 'common/tips.ftl'/>
 <#include 'common/person-info.ftl'/>
 <#if tag?? && tag.tagAd != ''>
     <div class="module">
