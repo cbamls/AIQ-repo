@@ -115,7 +115,9 @@ ${HeaderBannerLabel}
                         </h2>
                         <br>
                         <div class="ft-gray">
-                            欢迎加入AIQ，与 22000+ 人工智能算法爱好者共同书写中国人工智能新篇章。在这里会分享人工智能在企业落地上的一些实践、AI智能领域的资讯、知识及教育培训、会议活动；鼓励技术写作和问答互助。大家在这里相互信任，以平等 • 自由 • 奔放的价值观进行分享交流。
+                            欢迎加入AIQ，与 22000+
+                            人工智能算法爱好者共同书写中国人工智能新篇章。在这里会分享人工智能在企业落地上的一些实践、AI智能领域的资讯、知识及教育培训、会议活动；鼓励技术写作和问答互助。大家在这里相互信任，以平等
+                            • 自由 • 奔放的价值观进行分享交流。
                         </div>
                         <br>
                         <a href="https://www.6aiq.com/register" class="btn green">注册</a>
@@ -134,7 +136,9 @@ ${HeaderBannerLabel}
                         </div>
                         <div class="module-panel index__user-panel" style="margin-left: 40px">
                             <#list users as user>
-                                <a class="avatar index__user-avatar tooltipped tooltipped-se" href="https://www.6aiq.com/member/${user.userName}" aria-label="${user.userName}" style="background-image: url(&quot;${user.userAvatarURL48}&quot;);"></a>
+                                <a class="avatar index__user-avatar tooltipped tooltipped-se"
+                                   href="https://www.6aiq.com/member/${user.userName}" aria-label="${user.userName}"
+                                   style="background-image: url(&quot;${user.userAvatarURL48}&quot;);"></a>
                             </#list>
                             <span class="avatar index__user-avatar"> <h2 style="text-align: center">....</h2></span>
                         </div>
@@ -153,16 +157,20 @@ ${HeaderBannerLabel}
                     <#list perfectArticles as article>
                         <#if (article_index >= 7)>
                             <li>
-                                <a rel="nofollow" href="${servePath}/member/${article.articleAuthorName}">
+                                <#if article.articleAuthorName?? && article.articleAuthorName !="">
+                                    <a rel="nofollow" href="${servePath}/member/${article.articleAuthorName}">
                                     <span class="avatar-small tooltipped tooltipped-se"
                                           aria-label="${article.articleAuthorName}"
                                           style="background-image:url('${article.articleAuthorThumbnailURL48}')"></span>
-                                </a>
-                                <a rel="nofollow" class="fn-ellipsis ft-a-title"
-                                   href="${servePath}${article.articlePermalink}">${article.articleTitleEmoj}</a>
-                                <a class="fn-right count ft-gray ft-smaller"
-                                   href="${servePath}${article.articlePermalink}"><#if article.articleViewCount < 1000>
-                                        ${article.articleViewCount}<#else>${article.articleViewCntDisplayFormat}</#if></a>
+                                    </a>
+                                    <a rel="nofollow" class="fn-ellipsis ft-a-title"
+                                       href="${servePath}${article.articlePermalink}">${article.articleTitleEmoj}</a>
+                                    <a class="fn-right count ft-gray ft-smaller"
+                                       href="${servePath}${article.articlePermalink}"><#if article.articleViewCount < 1000>
+                                            ${article.articleViewCount}<#else>${article.articleViewCntDisplayFormat}</#if></a>
+                                <#else>
+                                    异常渲染${article}
+                                </#if>
                             </li>
                         </#if>
                     </#list>
