@@ -98,12 +98,12 @@
 
 <a href="https://www.6aiq.com/article/1542369214697" class="btn red">关于</a>
         </div>
-        <div style="color: #ccc; font-size: 14px;">立即登录，融入AI顶流圈子<br>加入AIQ，与 22000+ 人工智能算法爱好者共同书写中国人工智能新篇章。
+        <div style="color: #ccc; font-size: 14px;">立即登录，融入AI顶流圈子<br>加入AIQ，与 22000+ AI领域从业者共同引领中国AI新篇章。
         </div>
 
     </div>
     <div >
-        <button class="avatar-def"onclick="window.location.href='https://www.6aiq.com/register'">
+        <button class="avatar-def"onclick="Util.goLogin()">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
             </svg>

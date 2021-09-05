@@ -131,7 +131,7 @@ public class HttpUtils {
     public static Response httpPost(String url, RequestBody requestBody) {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(10000, TimeUnit.MILLISECONDS)
-                .readTimeout(10000, TimeUnit.MILLISECONDS).build();
+                .readTimeout(20000, TimeUnit.MILLISECONDS).build();
         Request request=new Request.Builder()
                 .url(url)
                 .post(requestBody)

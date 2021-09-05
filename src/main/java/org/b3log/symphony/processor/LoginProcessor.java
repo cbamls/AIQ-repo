@@ -223,27 +223,29 @@ public class LoginProcessor {
         Map<String, Object> map = Maps.newHashMap();
         for (int i = 0; i < 5; i++) {
             try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
-                String resstring = res.body().string();
-                token = resstring.split("&")[0]
-                        .split("=")[1];
-                LOGGER.info("token => " + token);
+                if (null != res && res.isSuccessful() && null != res.body()) {
+                    String resstring = res.body().string();
+                    token = resstring.split("&")[0]
+                            .split("=")[1];
+                    LOGGER.info("token => " + token);
 
-                OkHttpClient client = new OkHttpClient();
-                okhttp3.Request req = new okhttp3.Request.Builder()
-                        .url("https://api.github.com/user?access_token=" + token)
-                        .build();
-                okhttp3.Response res2 = client.newCall(req).execute();
-                String res3 = res2.body().string();
-                LOGGER.warn("用户登陆信息:" + res3);
-                if (res3 == null || res3.equals("")) {
-                    context.sendRedirect(Latkes.getServePath());
-                    LOGGER.warn("没有拿到用户登陆信息:" + res3);
-                    return;
+                    OkHttpClient client = new OkHttpClient();
+                    okhttp3.Request req = new okhttp3.Request.Builder()
+                            .url("https://api.github.com/user?access_token=" + token)
+                            .build();
+                    okhttp3.Response res2 = client.newCall(req).execute();
+                    String res3 = res2.body().string();
+                    LOGGER.warn("用户登陆信息:" + res3);
+                    if (res3 == null || res3.equals("")) {
+                        context.sendRedirect(Latkes.getServePath());
+                        LOGGER.warn("没有拿到用户登陆信息:" + res3);
+                        return;
+                    }
+                    Gson gson = new Gson();
+                    map = gson.fromJson(res3, Map.class);
+                    break;
                 }
-                Gson gson = new Gson();
-                map = gson.fromJson(res3, Map.class);
-                break;
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LOGGER.info("GITHUB登陆异常 => " + token + e);
             }
         }

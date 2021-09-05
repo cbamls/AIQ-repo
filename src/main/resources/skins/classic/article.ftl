@@ -226,12 +226,14 @@
             <div class="vditor-reset article-content">
 
                 ${article.articleContent}
-                <br>
-                <div class="bor2">
-                    <a href="${servePath}/article/${article.oId}">本文地址：${servePath}/article/${article.oId}</a><br>
-                    <strong>本文版权归作者和<a href="https://www.6aiq.com">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</strong>
-                </div>
-                <br>
+                <#if 0 = article.articleType>
+                    <br>
+                    <div class="bor2">
+                        <a href="${servePath}/article/${article.oId}">本文地址：${servePath}/article/${article.oId}</a><br>
+                        <strong>本文版权归作者和<a href="https://www.6aiq.com">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</strong>
+                    </div>
+                    <br>
+                </#if>
             </div>
         <#else>
             <div id="thoughtProgress"><span class="bar"></span>
