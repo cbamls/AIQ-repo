@@ -29,7 +29,7 @@ import java.nio.charset.StandardCharsets;
  * Tesseract-OCR utilities.
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @version 1.0.0.2, Nov 28, 2018
+ * @version 1.0.0.3, Mar 28, 2021
  * @since 1.4.0
  */
 public final class Tesseracts {
@@ -41,9 +41,8 @@ public final class Tesseracts {
      * @return the recognized character
      */
     public static String recognizeCharacter(final String imagePath) {
-        Execs.exec("tesseract " + imagePath + " " + imagePath + " -l chi_sim -psm 10", 1000 * 10);
-
         try {
+            Execs.exec(new String[]{"sh", "-c", "tesseract " + imagePath + " " + imagePath + " -l chi_sim --psm 8"}, 1000 * 3);
             return StringUtils.trim(IOUtils.toString(new FileInputStream(imagePath + ".txt"), StandardCharsets.UTF_8));
         } catch (final IOException e) {
             return "";

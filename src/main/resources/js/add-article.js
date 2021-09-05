@@ -20,7 +20,7 @@
  *
  * @author <a href="http://vanessa.b3log.org">Liyuan Li</a>
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @author <a href="https://hacpai.com/member/ZephyrJung">Zephyr</a>
+ * @author <a href="https://ld246.com/member/ZephyrJung">Zephyr</a>
  * @author <a href="https://qiankunpingtai.cn">qiankunpingtai</a>
  * @version 2.26.2.1, Apr 30, 2020
  */
@@ -263,7 +263,7 @@ var AddArticle = {
     var prevValue = postData.content
     // 初始化文章编辑器
     AddArticle.editor = Util.newVditor({
-      outline: true,
+      outline: { enable: true, position: "left" },
       typewriterMode: true,
       id: 'articleContent',
       cache: Label.articleOId ? false : true,

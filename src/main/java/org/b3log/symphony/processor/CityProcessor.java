@@ -52,7 +52,7 @@ import java.util.Map;
  * </ul>
  *
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @author <a href="https://hacpai.com/member/ZephyrJung">Zephyr</a>
+ * @author <a href="https://ld246.com/member/ZephyrJung">Zephyr</a>
  * @version 2.0.0.0, Feb 11, 2020
  * @since 1.3.0
  */
@@ -120,7 +120,7 @@ public class CityProcessor {
         dataModel.put(Common.SELECTED, Common.CITY);
 
         final JSONObject user = Sessions.getUser();
-        if (!UserExt.finshedGuide(user)) {
+        if (!UserExt.finishedGuide(user)) {
             context.sendRedirect(Latkes.getServePath() + "/guide");
             return;
         }
@@ -198,7 +198,7 @@ public class CityProcessor {
         dataModel.put(Common.SELECTED, Common.CITY);
 
         final JSONObject user = Sessions.getUser();
-        if (!UserExt.finshedGuide(user)) {
+        if (!UserExt.finishedGuide(user)) {
             context.sendRedirect(Latkes.getServePath() + "/guide");
             return;
         }

@@ -1,5 +1,5 @@
 <p align = "center">
-<img alt="Sym" src="https://user-images.githubusercontent.com/873584/52320309-9555a100-2a09-11e9-9252-f04dc47b0a31.png">
+<img alt="Sym" src="https://b3log.org/images/brand/sym-128.png">
 <br><br>
 The next generation of the community system, built for the future
 <br><br>
@@ -33,11 +33,13 @@ The next generation of the community system, built for the future
 
 [Symphony](https://github.com/cbamls/AI_Tutorial) is a modern community platform because it:
 
+
 * Implemented a forum for content-oriented discussions
 * Implemented a community for knowledge quiz
 * Including social networks for user sharing, making friends, games
 * `100%` open source
 
+<<<<<<< HEAD
 Welcome to [Sym Official Discussion Forum](https://hacpai.com/tag/sym) to learn more.
 
 ## ⚡ Motivation
@@ -54,6 +56,31 @@ Many community forum systems:
 * [HacPai](https://hacpai.com)
 
 ## ✨  Features
+
+社区版：
+
+* [宽客网](http://www.cnq.net)
+* [AIQ-机器学习](http://www.6aiq.com)
+* [许昌IT圈](http://www.xcitq.com)
+* [凤凰匯](https://www.fengd.com)
+* [俩猴网](http://www.xfx77.cn)
+* [艺赛旗 RPA](http://support.i-search.com.cn)（商用授权）
+* [北极社区](https://begeek.bwae.org)（商用授权）
+* [神州邦邦](https://c.shenzhoubb.com)（商用授权）
+* ......
+
+商业版：
+
+* [链滴](https://ld246.com)
+* [乾学院](http://c.raqsoft.com.cn)
+* [快递100](https://bbs.kuaidi100.com)
+* [金蝶精斗云社区](https://cs.jdy.com)
+* ......
+
+## ✨  特性
+
+* [Sym 简介幻灯片](https://b3log.org/sym/syme-intro.pptx)
+* [Sym 功能点脑图](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913?token=b9750ae13f39ef9a)
 
 ```
 Content editor
@@ -439,8 +466,12 @@ notification
 -------
 ```
 
+<<<<<<< HEAD
 * [Sym Introduction PPT](https://sym.b3log.org/syme-intro.pptx)
 * [Sym Function Mind Map](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913)
+=======
+[![Sym功能.png](https://b3logfile.com/file/2020/07/Sym功能-5f8c0fed.png)](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913?token=b9750ae13f39ef9a)
+>>>>>>> upstream/master
 
 [![Sym Function Mind Map](https://img.hacpai.com/file/2020/03/image-a2ae13cc.png)](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913)
 
@@ -470,18 +501,37 @@ notification
 
 ![theme1.png](https://img.hacpai.com/file/2020/03/theme1-81030f5a.png)
 
+<<<<<<< HEAD
 ## 🛠️ Setup
+=======
+## 🛠️ 安装
+
+请参考 [Sym 安装指南](https://ld246.com/article/1486188905847)。
+>>>>>>> upstream/master
 
 Please visit [Sym Setup Guide](https://hacpai.com/article/1486188905847).
 
+<<<<<<< HEAD
 ## 🏘️ Community
+=======
+* [讨论区](https://ld246.com/tag/sym)
+* [报告问题](https://github.com/88250/symphony/issues/new/choose)
+>>>>>>> upstream/master
 
 * [Forum](https://hacpai.com/tag/sym)
 * [Issues](https://github.com/cbamls/AI_Tutorial/issues/new/choose)
 
+<<<<<<< HEAD
 ## 📄 License
 
 * The community edition uses AGPLv3 as open source. If you choose to use the community version, you must fully comply with the relevant terms of AGPLv3.
+=======
+* 社区版：使用 AGPLv3 开源，如果你选择使用社区版，则必须完全遵守 AGPLv3 的相关条款；公司使用必须购买商用授权
+* 商业版：提供完整源码以便二开，报价 ¥20000，详情请看[这里](https://b3log.org/sym/pricing.html)
+* 云服务：提供开箱即用的云端服务，每年 ¥5000（暂时售罄）
+
+**关于商业版和社区版的对比请看[这里](https://ld246.com/article/1500543226433)，企业网站、经营性网站、以营利为目的或实现盈利的网站请购买商业版。**
+>>>>>>> upstream/master
 
 ## 🙏 Acknowledgement
 

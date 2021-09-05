@@ -178,7 +178,7 @@ public class IndexProcessor {
         if (null != user) {
             pageSize = user.optInt(UserExt.USER_LIST_PAGE_SIZE);
 
-            if (!UserExt.finshedGuide(user)) {
+            if (!UserExt.finishedGuide(user)) {
                 context.sendRedirect(Latkes.getServePath() + "/guide");
                 return;
             }
@@ -243,7 +243,7 @@ public class IndexProcessor {
         if (null != user) {
             pageSize = user.optInt(UserExt.USER_LIST_PAGE_SIZE);
 
-            if (!UserExt.finshedGuide(user)) {
+            if (!UserExt.finishedGuide(user)) {
                 context.sendRedirect(Latkes.getServePath() + "/guide");
                 return;
             }
@@ -387,7 +387,7 @@ public class IndexProcessor {
         if (null != user) {
             pageSize = user.optInt(UserExt.USER_LIST_PAGE_SIZE);
 
-            if (!UserExt.finshedGuide(user)) {
+            if (!UserExt.finishedGuide(user)) {
                 context.sendRedirect(Latkes.getServePath() + "/guide");
                 return;
             }
@@ -498,7 +498,7 @@ public class IndexProcessor {
         final JSONObject user = Sessions.getUser();
         if (null != user) {
             pageSize = user.optInt(UserExt.USER_LIST_PAGE_SIZE);
-            if (!UserExt.finshedGuide(user)) {
+            if (!UserExt.finishedGuide(user)) {
                 context.sendRedirect(Latkes.getServePath() + "/guide");
                 return;
             }

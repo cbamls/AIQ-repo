@@ -20,8 +20,8 @@
  *
  * @author <a href="http://vanessa.b3log.org">Liyuan Li</a>
  * @author <a href="http://88250.b3log.org">Liang Ding</a>
- * @author <a href="https://hacpai.com/member/ZephyrJung">Zephyr</a>
- * @version 1.49.1.0, Jun 28, 2020
+ * @author <a href="https://ld246.com/member/ZephyrJung">Zephyr</a>
+ * @version 1.49.1.1, Aug 31, 2020
  */
 
 /**
@@ -112,12 +112,14 @@ var Util = {
    */
   parseMarkdown: function () {
     Vditor.mermaidRender(document.body)
+    Vditor.flowchartRender(document.body)
     Vditor.chartRender()
     Vditor.mindmapRender()
     Vditor.mathRender(document.body)
     Vditor.codeRender(document.body, Label.langLabel)
     Vditor.abcRender()
     Vditor.graphvizRender(document.body)
+    Vditor.plantumlRender(document.body)
 
     var hasLivePhoto = false
     $('.vditor-reset').each(function () {
@@ -632,7 +634,7 @@ var Util = {
     }
 
     var options = {
-      outline: data.outline || false,
+      outline: data.outline || { enable: false },
       after: data.after || undefined,
       typewriterMode: data.typewriterMode || false,
       cache: {
@@ -674,39 +676,45 @@ var Util = {
       },
       lang: Label.langLabel,
       hint: {
+        parse: false,
         emojiTail: '<a href="' + Label.servePath +
           '/settings/function" target="_blank">设置常用表情</a>',
         emoji: Label.emoji,
-        at: function (key) {
-          var atUsers = []
-          $.ajax({
-            url: Label.servePath + '/users/names',
-            type: 'POST',
-            async: false,
-            data: JSON.stringify({name: key}),
-            success: function (result) {
-              if (result.code === 0) {
-                for (var i = 0; i < result.data.length; i++) {
-                  atUsers.push({
-                    value: '@' + result.data[i].userName,
-                    html: '<img src="' + result.data[i].userAvatarURL + '"/>' +
-                      result.data[i].userName,
-                  })
-                }
-                if (key === '') {
-                  atUsers.push({
-                    html: '<img src="' + Label.staticServePath +
-                      '/images/user-thumbnail.png"/> 参与者',
-                    value: '@participants',
-                  })
-                }
-              } else {
-                alert(result.msg)
-              }
+        extend: [
+          {
+            key: '@',
+            hint: function (key) {
+              var atUsers = []
+              $.ajax({
+                url: Label.servePath + '/users/names',
+                type: 'POST',
+                async: false,
+                data: JSON.stringify({name: key}),
+                success: function (result) {
+                  if (result.code === 0) {
+                    for (var i = 0; i < result.data.length; i++) {
+                      atUsers.push({
+                        value: '@' + result.data[i].userName + " ",
+                        html: '<img src="' + result.data[i].userAvatarURL +
+                          '"/>' +
+                          result.data[i].userName,
+                      })
+                    }
+                    if (key === '') {
+                      atUsers.push({
+                        html: '<img src="' + Label.staticServePath +
+                          '/images/user-thumbnail.png"/> 参与者',
+                        value: '@participants ',
+                      })
+                    }
+                  } else {
+                    alert(result.msg)
+                  }
+                },
+              })
+              return atUsers
             },
-          })
-          return atUsers
-        },
+          }],
       },
       esc: data.esc,
       ctrlEnter: data.ctrlEnter,
@@ -724,11 +732,10 @@ var Util = {
             'insert-after',
             'fullscreen',
             'preview',
-            'format',
             'info',
             'help',
           ],
-        }
+        },
       ]
       options.resize.enable = false
     } else if (data.toolbar) {

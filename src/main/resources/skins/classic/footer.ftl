@@ -60,6 +60,7 @@
                     © ${year} <a href="https://b3log.org" target="_blank">B3log 开源</a>
                     <a href="https://sym.b3log.org" target="_blank">Sym</a>
                     ${version}
+
                 </div>
             </div>
         </div>
@@ -68,7 +69,7 @@
 
 <script src="${staticServePath}/js/symbol-defs${miniPostfix}.js?${staticResourceVersion}"></script>
 <script src="${staticServePath}/js/lib/compress/libs.min.js?${staticResourceVersion}"></script>
-<script src="https://cdn.jsdelivr.net/npm/vditor@3.2.12/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vditor@3.8.4/dist/index.min.js"></script>
 <script src="${staticServePath}/js/common${miniPostfix}.js?${staticResourceVersion}"></script>
 <script>
     var Label = {

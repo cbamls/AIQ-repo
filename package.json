@@ -2,7 +2,7 @@
   "name": "symphony",
   "version": "3.6.3",
   "description": "A modern community (forum/BBS/SNS/blog) platform written in Java. 一款用 Java 实现的现代化社区（论坛/BBS/社交网络/博客）系统平台。",
-  "homepage": "https://sym.b3log.org",
+  "homepage": "https://b3log.org/sym",
   "repository": {
     "type": "git",
     "url": "git://github.com/cbamls/AI_Tutorial.git"
@@ -20,12 +20,12 @@
   "maintainers": [
     {
       "name": "Liang Ding",
-      "email": "d@b3log.org",
+      "email": "845765@qq.com",
       "url": "http://88250.b3log.org"
     },
     {
       "name": "Liyuan Li",
-      "email": "v@b3log.org",
+      "email": "84588990@qq.com",
       "url": "http://vanessa.b3log.org"
     }
   ],
@@ -43,6 +43,6 @@
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
-    "vditor": "^3.3.3"
+    "vditor": "^3.8.4"
   }
 }

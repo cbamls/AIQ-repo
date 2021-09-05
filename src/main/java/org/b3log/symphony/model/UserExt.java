@@ -452,28 +452,6 @@ public final class UserExt {
      */
     public static final int USER_STATUS_C_DEACTIVATED = 4;
 
-    //// Join join XXX rank constants
-    /**
-     * User join XXX rank - join.
-     */
-    public static final int USER_JOIN_XXX_C_JOIN = 0;
-
-    /**
-     * User join XXX rank - not join.
-     */
-    public static final int USER_JOIN_XXX_C_NOT_JOIN = 1;
-
-    //// User XXX status constants
-    /**
-     * User XXX (notify/point/follower/following article/watching article/following tag/following user/comment/article/breezemoon) status - public.
-     */
-    public static final int USER_XXX_STATUS_C_PUBLIC = 0;
-
-    /**
-     * User XXX (notify/point/follower/following article/watching article/following tag/following user/comment/article/breezemoon) status - private.
-     */
-    public static final int USER_XXX_STATUS_C_PRIVATE = 1;
-
     /**
      * User XXX status - enabled.
      */
@@ -647,12 +625,12 @@ public final class UserExt {
     }
 
     /**
-     * Checks whether the specified user finshed guide.
+     * Checks whether the specified user finished guide.
      *
      * @param user the specified user
-     * @return {@code true} if the specified user finshed guide, returns {@code false} otherwise
+     * @return {@code true} if the specified user finished guide, returns {@code false} otherwise
      */
-    public static boolean finshedGuide(final JSONObject user) {
+    public static boolean finishedGuide(final JSONObject user) {
         return UserExt.USER_GUIDE_STEP_FIN == user.optInt(UserExt.USER_GUIDE_STEP);
     }
 

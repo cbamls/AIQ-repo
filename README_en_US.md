@@ -1,5 +1,5 @@
 <p align = "center">
-<img alt="Sym" src="https://user-images.githubusercontent.com/873584/52320309-9555a100-2a09-11e9-9252-f04dc47b0a31.png">
+<img alt="Sym" src="https://b3log.org/images/brand/sym-128.png">
 <br><br>
 The next generation of the community system, built for the future
 <br><br>
@@ -38,7 +38,7 @@ The next generation of the community system, built for the future
 * Including social networks for user sharing, making friends, games
 * `100%` open source
 
-Welcome to [Sym Official Discussion Forum](https://hacpai.com/tag/sym) to learn more.
+Welcome to [Sym Official Discussion Forum](https://ld246.com/tag/sym) to learn more.
 
 ## ⚡ Motivation
 
@@ -51,7 +51,7 @@ Many community forum systems:
 
 ## 🗃 Showcases
 
-* [HacPai](https://hacpai.com)
+* [HacPai](https://ld246.com)
 
 ## ✨  Features
 
@@ -439,10 +439,10 @@ notification
 -------
 ```
 
-* [Sym Introduction PPT](https://sym.b3log.org/syme-intro.pptx)
-* [Sym Function Mind Map](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913)
+* [Sym Introduction PPT](https://b3log.org/sym/syme-intro.pptx)
+* [Sym Function Mind Map](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913?token=b9750ae13f39ef9a)
 
-[![Sym Function Mind Map](https://img.hacpai.com/file/2020/03/image-a2ae13cc.png)](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913)
+[![Sym功能.png](https://b3logfile.com/file/2020/07/Sym功能-5f8c0fed.png)](http://naotu.baidu.com/file/cd31354ac9abc047569c73c560a5a913?token=b9750ae13f39ef9a)
 
 ## 🎨 Screenshots
 
@@ -472,11 +472,11 @@ notification
 
 ## 🛠️ Setup
 
-Please visit [Sym Setup Guide](https://hacpai.com/article/1486188905847).
+Please visit [Sym Setup Guide](https://ld246.com/article/1486188905847).
 
 ## 🏘️ Community
 
-* [Forum](https://hacpai.com/tag/sym)
+* [Forum](https://ld246.com/tag/sym)
 * [Issues](https://github.com/88250/symphony/issues/new/choose)
 
 ## 📄 License
