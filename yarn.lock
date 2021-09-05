@@ -3278,10 +3278,10 @@ value-or-function@^3.0.0:
   resolved "https://registry.yarnpkg.com/value-or-function/-/value-or-function-3.0.0.tgz#1c243a50b595c1be54a754bfece8563b9ff8d813"
   integrity sha1-HCQ6ULWVwb5Up1S/7OhWO5/42BM=
 
-vditor@^3.3.3:
-  version "3.6.6"
-  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.6.6.tgz#210255dbf76a504ce085d207ccbae577b89d42c5"
-  integrity sha512-qG4HlI4+krRqPW7NFDdDczS4OsYGIdiHlJ3BHbIoPp9SO7RK5O75y+rI4zGW7EN1lPye40Jwo3zmsPbPhn5nsA==
+vditor@^3.8.4:
+  version "3.8.6"
+  resolved "https://registry.yarnpkg.com/vditor/-/vditor-3.8.6.tgz#95a89c4865efa740bf55f2a7e3f968b395987a60"
+  integrity sha512-KZSmg593dTx/BmX9HdXcZCLi5stkJvW3AHVq4gOVvA00JnZngT7sjlX8WlfWbLe0A80UzelNSVXff3yoyljRAA==
   dependencies:
     diff-match-patch "^1.0.5"
 
