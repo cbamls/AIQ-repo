@@ -51,9 +51,9 @@
             <svg>
                 <use xlink:href="#perfect"></use>
             </svg> ${perfectLabel}</a>
-        <a href="http://www.md6s.com/" target="_blank">
-            <strong style="color: red">Markdown编辑器</strong>
-        </a>
+<#--        <a href="http://www.md6s.com/" target="_blank">-->
+<#--            <strong style="color: red">Markdown编辑器</strong>-->
+<#--        </a>-->
         <#if isLoggedIn && "" != currentUser.userCity>
             <a href="${servePath}/city/my"<#if selected?? && 'city' == selected> class="current"</#if>>
                 <svg>

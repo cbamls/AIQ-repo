@@ -21,14 +21,19 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.b3log.symphony.service.LivenessMgmtService;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.TimeUnit;
 
 public class HttpUtils {
 
+    private static final Logger LOGGER = LogManager.getLogger(HttpUtils.class);
     public static String sendPost(String url, String param) {
         PrintWriter out = null;
         BufferedReader in = null;
@@ -64,9 +69,7 @@ public class HttpUtils {
 
 
         } catch (Exception e) {
-
-            e.printStackTrace();
-
+            LOGGER.error("HTTP请求异常:{}", param, e);
         }
         //使用finally块来关闭输出流、输入流
         finally{
@@ -79,7 +82,7 @@ public class HttpUtils {
                 }
             }
             catch(IOException ex){
-                ex.printStackTrace();
+                LOGGER.error("HTTP流关闭异常:{}", param, ex);
             }
         }
 
@@ -126,7 +129,9 @@ public class HttpUtils {
         return buffer.toString();
     }
     public static Response httpPost(String url, RequestBody requestBody) {
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .connectTimeout(10000, TimeUnit.MILLISECONDS)
+                .readTimeout(10000, TimeUnit.MILLISECONDS).build();
         Request request=new Request.Builder()
                 .url(url)
                 .post(requestBody)
@@ -138,10 +143,12 @@ public class HttpUtils {
                     .newCall(request)
                     .execute();
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error("httpPost请求异常:{}", requestBody, e);
         }
-        if (response.isSuccessful()) {
+        if (null != response && response.isSuccessful()) {
             return response;
+        } else {
+            LOGGER.error("httpPost请求失败:{}", requestBody);
         }
         return null;
     }

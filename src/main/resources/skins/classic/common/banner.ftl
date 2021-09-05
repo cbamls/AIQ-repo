@@ -1,3 +1,22 @@
+<#--
+
+    Symphony - A modern community (forum/BBS/SNS/blog) platform written in Java.
+    Copyright (C) 2012-present, b3log.org
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+-->
     <#if !isLoggedIn>
     <div class="responsive-hide" style="background-color: rgba(98,162,240,.1);width: 100%;box-sizing: border-box; ">
         <div style="-webkit-box-flex: 1;flex: 2;min-width: 1px;padding: 50px;margin-bottom: 0px; padding-bottom: 20px;display: flex;align-items: center;background: url(https://cdn-static.aijishu.com/v-5f2b6cd0/home-banner.1ac8c533.svg) no-repeat 100% 100%">
@@ -19,7 +38,7 @@
                 <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user&state=3'"
                    class="btn green" style="font-size: 1.25rem;
     padding: 10px;">
-                    快速登陆
+                    Github登陆
                     <svg class="unlogin">
                         <use xlink:href="#github"></use>
                     </svg>

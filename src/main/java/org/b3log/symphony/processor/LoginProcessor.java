@@ -244,12 +244,7 @@ public class LoginProcessor {
                 map = gson.fromJson(res3, Map.class);
                 break;
             } catch (IOException e) {
-                e.printStackTrace();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    ex.printStackTrace();
-                }
+                LOGGER.info("GITHUB登陆异常 => " + token + e);
             }
         }
 

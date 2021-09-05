@@ -120,17 +120,18 @@ ${HeaderBannerLabel}
                             • 自由 • 奔放的价值观进行分享交流。
                         </div>
                         <br>
-                        <a href="https://www.6aiq.com/register" class="btn green">注册</a>
                         <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user&state=3'"
-                           class="btn green">
-                            快速登陆
+                           class="btn green" style="font-size: 1.25rem">
+                            Github登陆
                             <svg class="unlogin">
                                 <use xlink:href="#github"></use>
                             </svg>
                         </a>&nbsp;
+                        <a href="https://www.6aiq.com/register" class="btn green" style="font-size: 1.25rem">注册</a>
+
                         <a href="https://www.6aiq.com/article/1542369214697" class="btn red">关于</a>
                     </div>
-                    <div class="module" style="padding-bottom: 50px; margin-bottom: 0px">
+                    <div class="module" style="padding-bottom: 25px; margin-bottom: 0px">
                         <div class="module-header">
                             <h2>当前在线: ${visitors}， 刚加入的小伙伴:</h2>
                         </div>
@@ -152,6 +153,7 @@ ${HeaderBannerLabel}
                 <span class="check">
                         </span>
             </div>
+
             <div class="perfect-panel list">
                 <ul>
                     <#list perfectArticles as article>
