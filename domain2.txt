@@ -1,0 +1,5 @@
+machine_learning
+learn_resource
+coder_life
+bigdata
+qa

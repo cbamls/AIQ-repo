@@ -1,0 +1,5 @@
+curl https://www.6aiq.com/domain/machine_learning
+curl https://www.6aiq.com/domain/learn_resource
+curl https://www.6aiq.com/domain/coder_life
+curl https://www.6aiq.com/domain/bigdata
+curl https://www.6aiq.com/domain/qa
