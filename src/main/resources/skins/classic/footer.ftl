@@ -45,7 +45,7 @@
                 <div class="fn-right">© 2020
                     <a rel="copyright" href="${servePath}" target="_blank">www.6aiq.com</a>
                     <#--${visionLabel}-->
-                    AIQ-人工智能社区
+                    AIQ-人工智能交流圈子
                 </div>
                 <div class="fn-right">
                     ${visionLabel}
