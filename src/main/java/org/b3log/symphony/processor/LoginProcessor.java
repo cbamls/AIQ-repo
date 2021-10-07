@@ -221,7 +221,7 @@ public class LoginProcessor {
         RequestBody loginBody =
                 RequestBody.create(JSON, new Gson().toJson(param));
         String token = null;
-        LOGGER.info("loginBody => " + param);
+        LOGGER.info("loginBody => " + loginBody);
 
         Map<String, Object> map = Maps.newHashMap();
         for (int i = 0; i < 1; i++) {

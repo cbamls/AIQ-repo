@@ -130,6 +130,7 @@ public class HttpUtils {
         return buffer.toString();
     }
     public static Response httpPost(String url, RequestBody requestBody) {
+        LOGGER.info("requestBody:{}", new Gson().toJson(requestBody));
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(10000, TimeUnit.MILLISECONDS)
                 .readTimeout(20000, TimeUnit.MILLISECONDS).build();
