@@ -244,7 +244,7 @@ public class LoginProcessor {
                                         .split("=")[1];
                                 LOGGER.info("token => " + token);
 
-                                OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10000, TimeUnit.MILLISECONDS)
+                                OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(20000, TimeUnit.MILLISECONDS)
                                         .readTimeout(20000, TimeUnit.MILLISECONDS).build();
                                 ;
                                 okhttp3.Request req = new okhttp3.Request.Builder()
