@@ -62,6 +62,7 @@ import org.json.JSONObject;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Login/Register processor.
@@ -224,7 +225,7 @@ public class LoginProcessor {
         LOGGER.info("loginBody => " + loginBody);
 
         Map<String, Object> map = Maps.newHashMap();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
                 if (null != res && res.isSuccessful() && null != res.body()) {
                     String resstring = res.body().string();
@@ -232,7 +233,8 @@ public class LoginProcessor {
                             .split("=")[1];
                     LOGGER.info("token => " + token);
 
-                    OkHttpClient client = new OkHttpClient();
+                    OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(2000, TimeUnit.MILLISECONDS)
+                            .readTimeout(2000, TimeUnit.MILLISECONDS).build();;
                     okhttp3.Request req = new okhttp3.Request.Builder()
                             .header("Authorization","token " + token)
                             .url("https://api.github.com/user")
