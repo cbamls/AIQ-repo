@@ -17,13 +17,10 @@
  */
 package org.b3log.symphony.processor;
 
-import org.b3log.symphony.util.HttpUtils;
-
-import java.io.IOException;
-import java.net.URLDecoder;
-
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
+import com.sun.xml.internal.ws.util.CompletedFuture;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -56,13 +53,16 @@ import org.b3log.symphony.processor.middleware.validate.UserForgetPwdValidationM
 import org.b3log.symphony.processor.middleware.validate.UserRegister2ValidationMidware;
 import org.b3log.symphony.processor.middleware.validate.UserRegisterValidationMidware;
 import org.b3log.symphony.service.*;
+import org.b3log.symphony.util.HttpUtils;
 import org.b3log.symphony.util.Sessions;
 import org.b3log.symphony.util.StatusCodes;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
+import java.util.function.Supplier;
 
 /**
  * Login/Register processor.
@@ -198,8 +198,11 @@ public class LoginProcessor {
         Dispatcher.get("/logout", loginProcessor::logout);
         Dispatcher.get("/githubLoginCallback", loginProcessor::githubLogin);
     }
+    ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public void githubLogin(final RequestContext context) {
+    public static final ThreadPoolExecutor EXECUTOR_SERVICE = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
+    public void githubLogin(final RequestContext context) throws InterruptedException, ExecutionException {
         final Request request = context.getRequest();
         final Response response = context.getResponse();
         if (null != request.getAttribute(Common.CURRENT_USER)) {
@@ -221,44 +224,64 @@ public class LoginProcessor {
         param.put("state", state);
         RequestBody loginBody =
                 RequestBody.create(JSON, new Gson().toJson(param));
-        String token = null;
         LOGGER.info("loginBody => " + loginBody);
 
         Map<String, Object> map = Maps.newHashMap();
-        for (int i = 0; i < 10; i++) {
-            try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
-                if (null != res && res.isSuccessful() && null != res.body()) {
-                    String resstring = res.body().string();
-                    token = resstring.split("&")[0]
-                            .split("=")[1];
-                    LOGGER.info("token => " + token);
+        CompletionService<Map<String, Object>> service = new ExecutorCompletionService(executorService);
 
-                    OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(2000, TimeUnit.MILLISECONDS)
-                            .readTimeout(2000, TimeUnit.MILLISECONDS).build();;
-                    okhttp3.Request req = new okhttp3.Request.Builder()
-                            .header("Authorization","token " + token)
-                            .url("https://api.github.com/user")
-                            .build();
-                    okhttp3.Response res2 = client.newCall(req).execute();
-                    String res3 = res2.body().string();
-                    LOGGER.warn("获取到的用户登陆信息:" + res3);
-                    if (res3 == null || res3.equals("")) {
-                        context.sendRedirect(Latkes.getServePath());
-                        LOGGER.warn("没有拿到用户登陆信息:" + res3);
-                        return;
+        List<Future<Map<String, Object>>> mapFutures = Lists.newArrayList();
+        for (int i = 0;  i < 10; i++) {
+            mapFutures.add(service.submit(new Callable<Map<String, Object>>() {
+                @Override
+                public Map<String, Object> call() throws Exception {
+                    String token = null;
+                    try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
+                        try {
+                            if (null != res && res.isSuccessful() && null != res.body()) {
+                                String resstring = null;
+
+                                resstring = res.body().string();
+                                token = resstring.split("&")[0]
+                                        .split("=")[1];
+                                LOGGER.info("token => " + token);
+
+                                OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10000, TimeUnit.MILLISECONDS)
+                                        .readTimeout(10000, TimeUnit.MILLISECONDS).build();
+                                ;
+                                okhttp3.Request req = new okhttp3.Request.Builder()
+                                        .header("Authorization", "token " + token)
+                                        .url("https://api.github.com/user")
+                                        .build();
+                                okhttp3.Response res2 = client.newCall(req).execute();
+                                String res3 = res2.body().string();
+                                LOGGER.warn("获取到的用户登陆信息:" + res3);
+                                if (res3 == null || res3.equals("")) {
+                                    context.sendRedirect(Latkes.getServePath());
+                                    LOGGER.warn("没有拿到用户登陆信息:" + res3);
+                                    return null;
+                                }
+                                Gson gson = new Gson();
+                                return gson.fromJson(res3, Map.class);
+                            } else {
+                                return null;
+                            }
+                        } catch (IOException ex) {
+                            return null;
+                        }
                     }
-                    Gson gson = new Gson();
-                    map = gson.fromJson(res3, Map.class);
-                    break;
-                } else {
-                    LOGGER.info("登陆异常:", new Gson().toJson(res));
                 }
-            } catch (Exception e) {
-                LOGGER.info("GITHUB登陆异常 => " + token + e);
-            }
-        }
+            }));
+            for (int j = 1; j <= 10; j++) {
+                Future<Map<String, Object>> take = service.take();
 
-        //String ret = HttpUtils.sendPost("https://github.com/login/oauth/access_token?client_id=603d830f3705501acc91&client_secret=969a7a02b0d327feebdaa6be42c50f7783b602b1&code=" + code + "&redirect_uri=" + Latkes.getServePath() +"/githubLoginCallback", null);
+                Map<String, Object> result = take.get(); // 这一行代码在这里不会阻塞，引入放入队列中的都是已经完成的任务
+                if (null != result) {
+                    map = result;
+                    break;
+                }
+            }
+            LOGGER.info("登陆信息:{}", map);
+            //String ret = HttpUtils.sendPost("https://github.com/login/oauth/access_token?client_id=603d830f3705501acc91&client_secret=969a7a02b0d327feebdaa6be42c50f7783b602b1&code=" + code + "&redirect_uri=" + Latkes.getServePath() +"/githubLoginCallback", null);
         //String token = ret.split("&")[0];
 ///{"login":"cbamls","id":12781382,"node_id":"MDQ6VXNlcjEyNzgxMzgy","avatar_url":"https://avatars1.githubusercontent.com/u/12781382?v=4","gravatar_id":"","url":"https://api.github.com/users/cbamls","html_url":"https://github.com/cbamls","followers_url":"https://api.github.com/users/cbamls/followers","following_url":"https://api.github.com/users/cbamls/following{/other_user}","gists_url":"https://api.github.com/users/cbamls/gists{/gist_id}","starred_url":"https://api.github.com/users/cbamls/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/cbamls/subscriptions","organizations_url":"https://api.github.com/users/cbamls/orgs","repos_url":"https://api.github.com/users/cbamls/repos","events_url":"https://api.github.com/users/cbamls/events{/privacy}","received_events_url":"https://api.github.com/users/cbamls/received_events","type":"User","site_admin":false,"name":"cbamls","company":"北京三块在线科技 ","blog":"www.6aiq.com","location":"望京","email":"88cbam@gmail.com","hireable":null,"bio":"www.liangshu.me","public_repos":50,"public_gists":3,"followers":20,"following":4,"created_at":"2015-06-07T04:39:42Z","updated_at":"2018-12-15T08:58:44Z"}
         // String userJson = HttpUtils.sendGet("https://api.github.com/user?" + token + "");
