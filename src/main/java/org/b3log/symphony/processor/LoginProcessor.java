@@ -210,16 +210,19 @@ public class LoginProcessor {
         context.renderJSON(403).renderMsg(langPropsService.get("loginFailLabel"));
 
         String code = context.getRequest().getParameter("code");
+        String state = context.getRequest().getParameter("state");
         String gotoUrl = context.getRequest().getHeader("referer");
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         Map<String, String> param = Maps.newHashMap();
         param.put("code", code);
         param.put("client_id", "603d830f3705501acc91");
         param.put("client_secret", "969a7a02b0d327feebdaa6be42c50f7783b602b1");
-        param.put("state", "3");
+        param.put("state", state);
         RequestBody loginBody =
                 RequestBody.create(JSON, new Gson().toJson(param));
         String token = null;
+        LOGGER.info("loginBody => " + param);
+
         Map<String, Object> map = Maps.newHashMap();
         for (int i = 0; i < 2; i++) {
             try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
@@ -236,7 +239,7 @@ public class LoginProcessor {
                             .build();
                     okhttp3.Response res2 = client.newCall(req).execute();
                     String res3 = res2.body().string();
-                    LOGGER.warn("用户登陆信息:" + res3);
+                    LOGGER.warn("获取到的用户登陆信息:" + res3);
                     if (res3 == null || res3.equals("")) {
                         context.sendRedirect(Latkes.getServePath());
                         LOGGER.warn("没有拿到用户登陆信息:" + res3);

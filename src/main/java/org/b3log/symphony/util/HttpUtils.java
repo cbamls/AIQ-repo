@@ -17,6 +17,7 @@
  */
 package org.b3log.symphony.util;
 
+import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -143,12 +144,12 @@ public class HttpUtils {
                     .newCall(request)
                     .execute();
         } catch (IOException e) {
-            LOGGER.error("httpPost请求异常:{}", requestBody, e);
+            LOGGER.error("httpPost请求异常:{}", new Gson().toJson(requestBody), e);
         }
         if (null != response && response.isSuccessful()) {
             return response;
         } else {
-            LOGGER.error("httpPost请求失败:{}", requestBody);
+            LOGGER.error("httpPost请求失败2:{}", new Gson().toJson(requestBody));
         }
         return null;
     }
