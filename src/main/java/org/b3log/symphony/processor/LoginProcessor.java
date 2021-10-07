@@ -221,7 +221,7 @@ public class LoginProcessor {
                 RequestBody.create(JSON, new Gson().toJson(param));
         String token = null;
         Map<String, Object> map = Maps.newHashMap();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 2; i++) {
             try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
                 if (null != res && res.isSuccessful() && null != res.body()) {
                     String resstring = res.body().string();
@@ -231,7 +231,8 @@ public class LoginProcessor {
 
                     OkHttpClient client = new OkHttpClient();
                     okhttp3.Request req = new okhttp3.Request.Builder()
-                            .url("https://api.github.com/user?access_token=" + token)
+                            .header("Authorization","token " + token)
+                            .url("https://api.github.com/user")
                             .build();
                     okhttp3.Response res2 = client.newCall(req).execute();
                     String res3 = res2.body().string();
