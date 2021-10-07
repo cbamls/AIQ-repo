@@ -224,7 +224,7 @@ public class LoginProcessor {
         LOGGER.info("loginBody => " + param);
 
         Map<String, Object> map = Maps.newHashMap();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
                 if (null != res && res.isSuccessful() && null != res.body()) {
                     String resstring = res.body().string();
@@ -248,6 +248,8 @@ public class LoginProcessor {
                     Gson gson = new Gson();
                     map = gson.fromJson(res3, Map.class);
                     break;
+                } else {
+                    LOGGER.info("登陆异常:", new Gson().toJson(res));
                 }
             } catch (Exception e) {
                 LOGGER.info("GITHUB登陆异常 => " + token + e);

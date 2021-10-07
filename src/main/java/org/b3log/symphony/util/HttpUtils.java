@@ -147,10 +147,10 @@ public class HttpUtils {
             LOGGER.error("httpPost请求异常:{}", new Gson().toJson(requestBody), e);
         }
         if (null != response && response.isSuccessful()) {
-            LOGGER.info("httpPost请求成功:{}", new Gson().toJson(response));
+            LOGGER.info("httpPost请求成功:{}", new Gson().toJson(requestBody));
             return response;
         } else {
-            LOGGER.error("httpPost请求失败2:{}", new Gson().toJson(response));
+            LOGGER.error("httpPost请求失败2:{}", new Gson().toJson(requestBody));
         }
         return null;
     }
