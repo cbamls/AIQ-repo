@@ -60,7 +60,12 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.*;
+<<<<<<< HEAD
 import java.util.concurrent.*;
+=======
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
+>>>>>>> a979777ec7698f8da4a7da58a5257cd49e896b4c
 
 /**
  * Login/Register processor.
@@ -226,6 +231,7 @@ public class LoginProcessor {
         LOGGER.info("loginBody => " + loginBody);
 
         Map<String, Object> map = Maps.newHashMap();
+<<<<<<< HEAD
         CompletionService<Map<String, Object>> service = new ExecutorCompletionService(executorService);
 
         List<Future<Map<String, Object>>> mapFutures = Lists.newArrayList();
@@ -268,6 +274,30 @@ public class LoginProcessor {
                             LOGGER.error("用户登陆信息异常:" + ex);
                             return null;
                         }
+=======
+        for (int i = 0; i < 5; i++) {
+            try (okhttp3.Response res = HttpUtils.httpPost("https://github.com/login/oauth/access_token", loginBody)) {
+                if (null != res && res.isSuccessful() && null != res.body()) {
+                    String resstring = res.body().string();
+                    token = resstring.split("&")[0]
+                            .split("=")[1];
+                    LOGGER.info("token => " + token);
+
+                    OkHttpClient client = new OkHttpClient().newBuilder()
+                            .connectTimeout(20000, TimeUnit.MILLISECONDS)
+                            .readTimeout(20000, TimeUnit.MILLISECONDS).build();
+                    okhttp3.Request req = new okhttp3.Request.Builder()
+                            .header("Authorization","token " + token)
+                            .url("https://api.github.com/user")
+                            .build();
+                    okhttp3.Response res2 = client.newCall(req).execute();
+                    String res3 = res2.body().string();
+                    LOGGER.warn("用户登陆信息:" + res3);
+                    if (res3 == null || res3.equals("")) {
+                        context.sendRedirect(Latkes.getServePath());
+                        LOGGER.warn("没有拿到用户登陆信息:" + res3);
+                        return;
+>>>>>>> a979777ec7698f8da4a7da58a5257cd49e896b4c
                     }
                 }
             }));
