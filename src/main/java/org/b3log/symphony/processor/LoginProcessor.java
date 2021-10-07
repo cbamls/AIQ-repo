@@ -245,7 +245,7 @@ public class LoginProcessor {
                                 LOGGER.info("token => " + token);
 
                                 OkHttpClient client = new OkHttpClient().newBuilder().connectTimeout(10000, TimeUnit.MILLISECONDS)
-                                        .readTimeout(10000, TimeUnit.MILLISECONDS).build();
+                                        .readTimeout(20000, TimeUnit.MILLISECONDS).build();
                                 ;
                                 okhttp3.Request req = new okhttp3.Request.Builder()
                                         .header("Authorization", "token " + token)
@@ -265,6 +265,7 @@ public class LoginProcessor {
                                 return null;
                             }
                         } catch (IOException ex) {
+                            LOGGER.error("用户登陆信息异常:" + ex);
                             return null;
                         }
                     }
@@ -279,9 +280,11 @@ public class LoginProcessor {
                 if (null != result) {
                     map = result;
                     break;
+                } else {
+                    LOGGER.info("result为NULL");
                 }
             } catch (Exception e) {
-
+                LOGGER.error("用户登陆信息异常:" + e);
             }
 
         }

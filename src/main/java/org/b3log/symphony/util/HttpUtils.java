@@ -129,24 +129,20 @@ public class HttpUtils {
         }
         return buffer.toString();
     }
-    public static Response httpPost(String url, RequestBody requestBody) {
+    public static Response httpPost(String url, RequestBody requestBody) throws IOException {
         LOGGER.info("requestBody:{}", new Gson().toJson(requestBody));
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .connectTimeout(10000, TimeUnit.MILLISECONDS)
-                .readTimeout(10000, TimeUnit.MILLISECONDS).build();
+                .readTimeout(20000, TimeUnit.MILLISECONDS).build();
         Request request=new Request.Builder()
                 .url(url)
                 .post(requestBody)
                 .addHeader("Content-Type", "application/json")
                 .build();
         Response response = null;
-        try {
-            response = client
-                    .newCall(request)
-                    .execute();
-        } catch (IOException e) {
-            LOGGER.error("httpPost请求异常:{}", new Gson().toJson(requestBody), e);
-        }
+        response = client
+                .newCall(request)
+                .execute();
         if (null != response && response.isSuccessful()) {
             LOGGER.info("httpPost请求成功:{}", new Gson().toJson(requestBody));
             return response;
