@@ -20,7 +20,6 @@ package org.b3log.symphony.processor;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
-import com.sun.xml.internal.ws.util.CompletedFuture;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -62,7 +61,6 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.util.*;
 import java.util.concurrent.*;
-import java.util.function.Supplier;
 
 /**
  * Login/Register processor.
@@ -198,11 +196,12 @@ public class LoginProcessor {
         Dispatcher.get("/logout", loginProcessor::logout);
         Dispatcher.get("/githubLoginCallback", loginProcessor::githubLogin);
     }
+
     ExecutorService executorService = Executors.newCachedThreadPool();
 
     public static final ThreadPoolExecutor EXECUTOR_SERVICE = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
-    public void githubLogin(final RequestContext context) throws InterruptedException, ExecutionException {
+    public void githubLogin(final RequestContext context) {
         final Request request = context.getRequest();
         final Response response = context.getResponse();
         if (null != request.getAttribute(Common.CURRENT_USER)) {
@@ -230,7 +229,7 @@ public class LoginProcessor {
         CompletionService<Map<String, Object>> service = new ExecutorCompletionService(executorService);
 
         List<Future<Map<String, Object>>> mapFutures = Lists.newArrayList();
-        for (int i = 0;  i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             mapFutures.add(service.submit(new Callable<Map<String, Object>>() {
                 @Override
                 public Map<String, Object> call() throws Exception {
@@ -271,7 +270,9 @@ public class LoginProcessor {
                     }
                 }
             }));
-            for (int j = 1; j <= 10; j++) {
+        }
+        for (int j = 1; j <= 10; j++) {
+            try {
                 Future<Map<String, Object>> take = service.take();
 
                 Map<String, Object> result = take.get(); // 这一行代码在这里不会阻塞，引入放入队列中的都是已经完成的任务
@@ -279,9 +280,13 @@ public class LoginProcessor {
                     map = result;
                     break;
                 }
+            } catch (Exception e) {
+
             }
-            LOGGER.info("登陆信息:{}", map);
-            //String ret = HttpUtils.sendPost("https://github.com/login/oauth/access_token?client_id=603d830f3705501acc91&client_secret=969a7a02b0d327feebdaa6be42c50f7783b602b1&code=" + code + "&redirect_uri=" + Latkes.getServePath() +"/githubLoginCallback", null);
+
+        }
+        LOGGER.info("登陆信息:{}", map);
+        //String ret = HttpUtils.sendPost("https://github.com/login/oauth/access_token?client_id=603d830f3705501acc91&client_secret=969a7a02b0d327feebdaa6be42c50f7783b602b1&code=" + code + "&redirect_uri=" + Latkes.getServePath() +"/githubLoginCallback", null);
         //String token = ret.split("&")[0];
 ///{"login":"cbamls","id":12781382,"node_id":"MDQ6VXNlcjEyNzgxMzgy","avatar_url":"https://avatars1.githubusercontent.com/u/12781382?v=4","gravatar_id":"","url":"https://api.github.com/users/cbamls","html_url":"https://github.com/cbamls","followers_url":"https://api.github.com/users/cbamls/followers","following_url":"https://api.github.com/users/cbamls/following{/other_user}","gists_url":"https://api.github.com/users/cbamls/gists{/gist_id}","starred_url":"https://api.github.com/users/cbamls/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/cbamls/subscriptions","organizations_url":"https://api.github.com/users/cbamls/orgs","repos_url":"https://api.github.com/users/cbamls/repos","events_url":"https://api.github.com/users/cbamls/events{/privacy}","received_events_url":"https://api.github.com/users/cbamls/received_events","type":"User","site_admin":false,"name":"cbamls","company":"北京三块在线科技 ","blog":"www.6aiq.com","location":"望京","email":"88cbam@gmail.com","hireable":null,"bio":"www.liangshu.me","public_repos":50,"public_gists":3,"followers":20,"following":4,"created_at":"2015-06-07T04:39:42Z","updated_at":"2018-12-15T08:58:44Z"}
         // String userJson = HttpUtils.sendGet("https://api.github.com/user?" + token + "");
