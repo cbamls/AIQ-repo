@@ -486,7 +486,7 @@ public class IndexProcessor {
 
     public void showLinks(final RequestContext context) {
         final Request request = context.getRequest();
-
+        LOGGER.info("showLinksLog");
         final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "links.ftl");
         final Map<String, Object> dataModel = renderer.getDataModel();
 

@@ -54,7 +54,7 @@
                      </div>
                      <div data-sjsel="blog">
                         <div class="card">
-                        <a href="https://kirivir.github.io/" target="_blank"><img class="card__picture" src="https://kirivir.github.io/images/logo/logo@144.png" alt=""></a>
+                        <a href="https://kirivir.github.io/?from=www.6aiq.com" target="_blank"><img class="card__picture" src="https://kirivir.github.io/images/logo/logo@144.png" alt=""></a>
                           <div class="card-infos">
                             <h2 class="card__title">KIRI 的个人博客</h2>
                             <p class="card__text">有趣的算法分享，理性的工作感悟
