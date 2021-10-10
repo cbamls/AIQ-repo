@@ -37,6 +37,11 @@
                href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
                 class="current"</#if>>${domain.domainIconPath} ${domain.domainTitle}</a>
         </#list>
+        <a pjax-title="资源 - ${symphonyLabel}"
+                   href="${servePath}/links"<#if selected?? && 'recent' == selected> class="current"</#if>>
+                    <svg>
+                        <use xlink:href="#link"></use>
+                    </svg> 友情链接</a>
         <a pjax-title="${latestLabel} - ${symphonyLabel}"
            href="${servePath}/recent"<#if selected?? && 'recent' == selected> class="current"</#if>>
             <svg>

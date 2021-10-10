@@ -139,6 +139,7 @@ public class IndexProcessor {
         Dispatcher.get("/kill-browser", indexProcessor::showKillBrowser);
         Dispatcher.get("/hot", indexProcessor::showHotArticles, anonymousViewCheckMidware::handle);
         Dispatcher.get("/perfect", indexProcessor::showPerfectArticles, anonymousViewCheckMidware::handle);
+        Dispatcher.get("/links", indexProcessor::showLinks, anonymousViewCheckMidware::handle);
         Dispatcher.get("/charge/point", indexProcessor::showChargePoint, anonymousViewCheckMidware::handle);
     }
 
@@ -483,6 +484,18 @@ public class IndexProcessor {
         }
     }
 
+    public void showLinks(final RequestContext context) {
+        final Request request = context.getRequest();
+
+        final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "links.ftl");
+        final Map<String, Object> dataModel = renderer.getDataModel();
+
+        dataModelService.fillHeaderAndFooter(context, dataModel);
+        dataModelService.fillRandomArticles(dataModel);
+        dataModelService.fillSideHotArticles(dataModel);
+        dataModelService.fillSideTags(dataModel);
+        dataModelService.fillLatestCmts(dataModel);
+    }
     /**
      * Shows perfect articles.
      *
