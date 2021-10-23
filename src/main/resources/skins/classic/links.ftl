@@ -44,6 +44,14 @@
                      <li> <a data-sjslink="blog" class="nav__link"> 博客 </a> </li>
                    </ul>
                    <div id="sortable" class="sjs-default">
+                      <div data-sjsel="wx">
+                        <div class="card"> <img class="card__picture" src="https://img.6aiq.com/2021/10/qrcode_for_gh_55a79183406f_430-27ebd613.jpg" alt="AIQ-人工智能">
+                          <div class="card-infos">
+                            <h2 class="card__title">AIQ-人工智能聚集地</h2>
+                            <p class="card__text"> 这里是人工智能和大数据工程师的聚集地，汇聚了近年来人工智能在工业界落地干货探索与实践，汇聚了有情怀而不失逼格的工程师和常年混迹于机器学习领域的算法专家。 </p>
+                          </div>
+                        </div>
+                      </div>
                      <div data-sjsel="wx">
                        <div class="card"> <img class="card__picture" src="https://img.6aiq.com/2021/10/qrcode-a2867c5c.bmp" alt="">
                          <div class="card-infos">
