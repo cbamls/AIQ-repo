@@ -30,6 +30,7 @@
             <img style="height: 40px;margin-top:4px" src="${servePath}/images/logo.png" alt="人工智能"/>
             <img style="margin-top:4px" src="${servePath}/images/aiq.png" alt="人工智能"/>
         </a>
+
     </h1>
     <div class="nav-tabs">
         <#list domains as domain>
@@ -37,11 +38,9 @@
                href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
                 class="current"</#if>>${domain.domainIconPath} ${domain.domainTitle}</a>
         </#list>
-        <a pjax-title="资源 - ${symphonyLabel}"
-                   href="${servePath}/links"<#if selected?? && 'recent' == selected> class="current"</#if>>
-                    <svg>
-                        <use xlink:href="#link"></use>
-                    </svg> 友情链接</a>
+        <a pjax-title="友情链接 - ${symphonyLabel}"
+                   href="${servePath}/links"<#if selected?? && 'links' == selected> class="current"</#if>>
+                    <img src="https://img.6aiq.com/2021/10/hot-88a6e30e.gif" style="height: 20px";></img>优质资源</a>
         <a pjax-title="${latestLabel} - ${symphonyLabel}"
            href="${servePath}/recent"<#if selected?? && 'recent' == selected> class="current"</#if>>
             <svg>

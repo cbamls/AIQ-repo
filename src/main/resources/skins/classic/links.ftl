@@ -34,9 +34,12 @@
     </head>
     <body>
         <#include "header.ftl">
+
         <div class="main">
                <main class="sortable">
                <div class="container2">
+                本页面旨在收集全网优质的AI、数据方向的 技术博客、公众号、网站等，一方面方便学习者时刻紧随工业界前沿，另一方面帮助勤奋、精进的知识输出者把精彩的思想与实践尽可能的推广出来，让大家优质的领域知识带来更多的社会价值
+                ,<span style="color: red">如若有意推广公众号、博客等，请发申请信息 邮箱到 88cbam@gmail.com</span>
                  <div class="wrapper2">
                    <ul class="sortable__nav nav">
                      <li> <a data-sjslink="all" class="nav__link"> 全部 </a> </li>
@@ -73,7 +76,7 @@
                  </div>
                </div>
                </div>
-               <script type="text/javascript">
+ <script type="text/javascript">
                	    document.querySelector('#sortable').sortablejs()
                	  </script>
         </div>
