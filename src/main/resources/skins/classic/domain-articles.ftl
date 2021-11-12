@@ -51,7 +51,7 @@
                         <div style="width: 58%">
                             <a href="https://www.6aiq.com/register" class="btn green" style="font-size: 1.25rem;
     padding: 10px;">免费注册</a>
-                            <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback&scope=user&state=3'"
+                            <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user&state=3'"
                                class="btn green" style="font-size: 1.25rem;
     padding: 10px;">
                                 快速登陆

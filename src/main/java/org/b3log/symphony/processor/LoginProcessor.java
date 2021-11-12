@@ -196,7 +196,7 @@ public class LoginProcessor {
         Dispatcher.post("/register2", loginProcessor::register2, userRegister2ValidationMidware::handle);
         Dispatcher.post("/login", loginProcessor::login);
         Dispatcher.get("/logout", loginProcessor::logout);
-        Dispatcher.get("/githubLoginCallback", loginProcessor::githubLogin);
+        Dispatcher.get("/githubLoginCallback2", loginProcessor::githubLogin);
     }
 
     public void githubLogin(final RequestContext context) {
