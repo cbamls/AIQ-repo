@@ -260,6 +260,7 @@ public class LoginProcessor {
         // String userJson = HttpUtils.sendGet("https://api.github.com/user?" + token + "");
 
         String email = map.get("email") == null ? "" : map.get("email").toString();
+        final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, null);
 
         try {
             JSONObject user = null;
@@ -279,48 +280,51 @@ public class LoginProcessor {
                 }
                 JSONObject newUser = new JSONObject();
                 if (StringUtils.isBlank(email)) {
-                    email = loginName + "@6aiq.com";
-                    newUser.put(User.USER_EMAIL, email);
+                    renderer.setTemplateName("verify/register.ftl");
+                    final Map<String, Object> dataModel = renderer.getDataModel();
+                    dataModel.put("def_message", "当前未获取到您的Github账号邮箱信息， 建议您使用邮箱注册");
+                    LOGGER.info("当前未获取到您的Github账号邮箱信息， 建议您使用邮箱注册");
                 } else {
                     newUser.put(User.USER_EMAIL, email);
-                }
-                LOGGER.info("github登录用户的信息 => " + email + " " + userAvatarURL + " " + loginName + " " + userUrl);
-                newUser.put(User.USER_NAME, loginName);
-                newUser.put(UserExt.USER_NICKNAME, nickName);
-                newUser.put(User.USER_EMAIL, email);
-                newUser.put(UserExt.USER_POINT, 500);
-                newUser.put(UserExt.USER_STATUS, 0);
-                if (StringUtils.isNotBlank(userUrl)) {
-                    newUser.put(User.USER_URL, userUrl);
-                    newUser.put(UserExt.USER_INTRO, userUrl);
-                }
-                newUser.put("userAvatarURL", userAvatarURL);
-                newUser.put(User.USER_PASSWORD, "");
-                final Locale locale = Locales.getLocale();
-                newUser.put(UserExt.USER_LANGUAGE, locale.getLanguage() + "_" + locale.getCountry());
-                final String newUserId = userMgmtService.addUser(newUser);
-                user = userQueryService.getUserByEmail(email);
-            }
-            final String token2 = Sessions.login(response, user.optString(Keys.OBJECT_ID), true);
+                    LOGGER.info("github登录用户的信息 => " + email + " " + userAvatarURL + " " + loginName + " " + userUrl);
+                    newUser.put(User.USER_NAME, loginName);
+                    newUser.put(UserExt.USER_NICKNAME, nickName);
+                    newUser.put(User.USER_EMAIL, email);
+                    newUser.put(UserExt.USER_POINT, 500);
+                    newUser.put(UserExt.USER_STATUS, 0);
+                    if (StringUtils.isNotBlank(userUrl)) {
+                        newUser.put(User.USER_URL, userUrl);
+                        newUser.put(UserExt.USER_INTRO, userUrl);
+                    }
+                    newUser.put("userAvatarURL", userAvatarURL);
+                    newUser.put(User.USER_PASSWORD, "");
+                    final Locale locale = Locales.getLocale();
+                    newUser.put(UserExt.USER_LANGUAGE, locale.getLanguage() + "_" + locale.getCountry());
+                    final String newUserId = userMgmtService.addUser(newUser);
+                    user = userQueryService.getUserByEmail(email);
+                    final String token2 = Sessions.login(response, user.optString(Keys.OBJECT_ID), true);
 
-            final String ip = Requests.getRemoteAddr(request);
-            userMgmtService.updateOnlineStatus(user.optString(Keys.OBJECT_ID), ip, true, true);
+                    final String ip = Requests.getRemoteAddr(request);
+                    userMgmtService.updateOnlineStatus(user.optString(Keys.OBJECT_ID), ip, true, true);
 
-            context.renderJSON(StatusCodes.SUCC);
-            context.renderJSONValue(Keys.TOKEN, token2);
-            String redirectUrl = Latkes.getServePath();
-            if (gotoUrl != null) {
-                if (gotoUrl.contains("goto")) {
-                    String realGotoUrl = gotoUrl.substring(gotoUrl.indexOf("goto=") + 5);
-                    String decodeRealGotoUrl = URLDecoder.decode(realGotoUrl);
-                    redirectUrl = decodeRealGotoUrl;
-                } else if (!gotoUrl.contains("github.com")) {
-                    redirectUrl = URLDecoder.decode(gotoUrl);
+                    context.renderJSON(StatusCodes.SUCC);
+                    context.renderJSONValue(Keys.TOKEN, token2);
+                    String redirectUrl = Latkes.getServePath();
+                    if (gotoUrl != null) {
+                        if (gotoUrl.contains("goto")) {
+                            String realGotoUrl = gotoUrl.substring(gotoUrl.indexOf("goto=") + 5);
+                            String decodeRealGotoUrl = URLDecoder.decode(realGotoUrl);
+                            redirectUrl = decodeRealGotoUrl;
+                        } else if (!gotoUrl.contains("github.com")) {
+                            redirectUrl = URLDecoder.decode(gotoUrl);
+                        }
+                    }
+                    context.sendRedirect(redirectUrl);
                 }
             }
-            context.sendRedirect(redirectUrl);
+
         } catch (ServiceException e) {
-            e.printStackTrace();
+            LOGGER.error("ServiceException登陆异常", e);
         }
     }
 

@@ -34,7 +34,7 @@
                 <div class="verify-wrap">
                     <div class="form">
                         <img src="images/log2.svg" />
-
+                        ${def_message}
                         <div class="input-wrap">
                             <svg><use xlink:href="#userrole"></use></svg>
                             <input id="registerUserName" type="text" placeholder="${userNamePlaceholderLabel}" autocomplete="off" autofocus="autofocus" />
