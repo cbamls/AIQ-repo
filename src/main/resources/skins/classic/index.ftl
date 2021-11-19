@@ -35,6 +35,8 @@ ${HeaderBannerLabel}
 <div class="main">
     <div class="wrapper">
         <div class="index-main">
+           <a href="https://github.com/cbamls"><img style="position: absolute; top: 40px; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+
             <div id="zSlider">
                 <div id="picshow">
                     <div id="picshow_img">

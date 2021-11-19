@@ -94,10 +94,13 @@
         <use xlink:href="#github"></use>
     </svg>
 </a>&nbsp;
+
 <a href="https://www.6aiq.com/register" class="btn green">注册</a>
 
-<a href="https://www.6aiq.com/article/1542369214697" class="btn red">关于</a>
         </div>
+    <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+
         <div style="color: #ccc; font-size: 14px;">立即登录，融入AI顶流圈子<br>加入AIQ，与 22000+ AI领域从业者共同引领中国AI新篇章。
         </div>
 
