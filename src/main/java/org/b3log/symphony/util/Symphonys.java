@@ -89,7 +89,7 @@ public final class Symphonys {
     /**
      * Thread pool.
      */
-    public static final ThreadPoolExecutor EXECUTOR_SERVICE = (ThreadPoolExecutor) Executors.newFixedThreadPool(128);
+    public static final ThreadPoolExecutor EXECUTOR_SERVICE = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
     /**
      * Cron thread pool.

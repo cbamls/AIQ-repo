@@ -440,6 +440,7 @@ public class ArticleMgmtService {
     public void incArticleViewCount(final JSONObject visit) {
         Symphonys.EXECUTOR_SERVICE.submit(() -> {
             final String visitURL = visit.optString(Visit.VISIT_URL);
+            LOGGER.info("文章被访问:{}", visitURL);
             final String articleId = StringUtils.substringAfter(visitURL, "/article/");
             boolean visitedB4 = false;
             try {
