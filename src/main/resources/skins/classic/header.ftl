@@ -17,14 +17,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 -->
-<style>
-    .nav .nav-tabs svg {
-        margin: 3px 2px 0 0;
-        float: left;
-        visibility: visible;
-    }
-</style>
-<div class="nav">
+
+<div class="nav" style="height: 48px !important;">
     <h1 aria-label="${symphonyLabel}" class="tooltipped tooltipped-s">
         <a href="${servePath}" style="outline: 0;color: black; text-decoration: none;">
             <img style="height: 40px;margin-top:4px" src="${servePath}/images/logo.png" alt="人工智能"/>
