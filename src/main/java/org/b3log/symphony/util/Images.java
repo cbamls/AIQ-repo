@@ -57,6 +57,7 @@ public final class Images {
             }
 
            // ret = StringUtils.replace(ret, imgSrc, imgSrc + "?imageView2/2/w/768/format/webp/interlace/1");
+            ret = StringUtils.replace(ret, imgSrc, imgSrc + "-imageStyle");
         }
 
         return ret;
