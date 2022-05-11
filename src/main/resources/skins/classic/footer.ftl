@@ -66,7 +66,7 @@
         </div>
     </div>
 </div>
-
+<script data-ad-client="ca-pub-1229303764778930" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script src="${staticServePath}/js/symbol-defs${miniPostfix}.js?${staticResourceVersion}"></script>
 <script src="${staticServePath}/js/lib/compress/libs.min.js?${staticResourceVersion}"></script>
 <script src="https://cdn.jsdelivr.net/npm/vditor@3.8.4/dist/index.min.js"></script>
