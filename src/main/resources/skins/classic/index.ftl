@@ -35,7 +35,7 @@ ${HeaderBannerLabel}
 <div class="main">
     <div class="wrapper">
         <div class="index-main">
-           <a href="https://github.com/cbamls"><img style="position: absolute; top: 40px; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+           <a href="https://github.com/cbamls/AI_Tutorial"><img style="position: absolute; top: 40px; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
 
             <div id="zSlider">
                 <div id="picshow">
@@ -170,6 +170,30 @@ ${HeaderBannerLabel}
                     </#if>
                 </ul>
             </div>
+            <#if ADLabel!="" && ((tag?? && tag.tagShowSideAd == 0) || !tag??)>
+            <div class="module">
+                <div class="module-header">
+                    <h2>
+                        ${sponsorLabel}
+                        <a href="${servePath}/about" class="fn-right ft-13 ft-gray" target="_blank">${wantPutOnLabel}</a>
+                    </h2>
+                </div>
+                <div class="module-panel ad fn-clear">
+                    ${ADLabel}
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930"
+                         crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="autorelaxed"
+                         data-ad-client="ca-pub-1229303764778930"
+                         data-ad-slot="9901300319"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            </#if>
+
         </div>
     </div>
 </div>

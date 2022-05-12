@@ -47,6 +47,17 @@
                      <li> <a data-sjslink="blog" class="nav__link"> 博客 </a> </li>
                    </ul>
                    <div id="sortable" class="sjs-default">
+                   <div data-sjsel="wx">
+                       <div class="card">
+                       <#if ADLabel!="" && ((tag?? && tag.tagShowSideAd == 0) || !tag??)>
+                                                      ${ADLabel}
+                       </#if>
+                         <div class="card-infos">
+                           <h2 class="card__title">AIQ-人工智能交流群</h2>
+                           <p class="card__text"> 欢迎加入微信交流群 </p>
+                         </div>
+                       </div>
+                     </div>
                       <div data-sjsel="wx">
                         <div class="card"> <img class="card__picture" src="https://img.6aiq.com/2021/10/qrcode_for_gh_55a79183406f_430-27ebd613.jpg" alt="AIQ-人工智能">
                           <div class="card-infos">

@@ -245,7 +245,7 @@ public class FileUploadProcessor {
                         IOUtils.write(file.getData(), output);
                         countDownLatch.countDown();
                     }
-                    url = Latkes.getServePath() + "/upload/" + fileName;
+                    url = Latkes.getServePath() + "/upload/" + fileName + "-imageStyle";
                     succMap.put(originalName, url);
                 }
             } catch (final Exception e) {
@@ -328,7 +328,7 @@ public class FileUploadProcessor {
                 LOGGER.log(Level.ERROR, "Uploads to Qiniu failed", e);
             }
 
-            data.put(Common.URL, Symphonys.UPLOAD_QINIU_DOMAIN + "/e/" + fileName);
+            data.put(Common.URL, Symphonys.UPLOAD_QINIU_DOMAIN + "/e/" + fileName + "-imageStyle");
             data.put("originalURL", originalURL);
         } else {
             fileName = FileUploadProcessor.genFilePath(fileName);

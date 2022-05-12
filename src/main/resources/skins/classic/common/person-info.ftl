@@ -87,15 +87,15 @@
     <div class="avatar-bg">
         <img  src="https://img.6aiq.com/e/925147cb3dc84b1284a6a4d586b93013.png" alt="">
         <div style="color: #ccc;padding: 10px 0;">
-            <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user&state=3'"
+            <!-- <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user&state=3'"
    class="btn green" >
     Github登陆
     <svg class="unlogin">
         <use xlink:href="#github"></use>
     </svg>
-</a>&nbsp;
+</a>-->&nbsp;
 
-<a href="https://www.6aiq.com/register" class="btn green">注册</a>
+<a href="https://www.6aiq.com/register" class="btn green">免费注册</a>
 
         </div>
     <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>

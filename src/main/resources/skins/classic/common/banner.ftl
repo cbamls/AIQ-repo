@@ -32,20 +32,21 @@
             </div>
 
 
-            <div style="width: 58%">
+            <div style="width: 100%">
                 <a href="https://www.6aiq.com/register" class="btn green" style="font-size: 1.25rem;
     padding: 10px;">免费注册</a>
-                <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user&state=3'"
+             <!--   <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user&state=3'"
                    class="btn green" style="font-size: 1.25rem;
     padding: 10px;">
                     Github登陆
                     <svg class="unlogin">
                         <use xlink:href="#github"></use>
                     </svg>
-                </a>&nbsp;
-                            <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+                </a>
+                &nbsp; -->
+                 <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
-                <a href="https://github.com/cbamls"><img  src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+                <a href="https://github.com/cbamls/AI_Tutorial"><img  src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
             </div>
         </div>
         <div class="fn__flex-1 bg"></div>
