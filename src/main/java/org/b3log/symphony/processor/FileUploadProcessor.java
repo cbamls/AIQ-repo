@@ -236,7 +236,7 @@ public class FileUploadProcessor {
                         LOGGER.log(Level.TRACE, "Uploaded [" + key + "], response [" + r.toString() + "]");
                         countDownLatch.countDown();
                     });
-                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName;
+                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName + "-imageStyle";
                     succMap.put(originalName, url);
                 } else {
                     final Path path = Paths.get(Symphonys.UPLOAD_LOCAL_DIR, fileName);
