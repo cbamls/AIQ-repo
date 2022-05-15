@@ -100,7 +100,7 @@ public class AvatarQueryService {
                 if (!StringUtils.startsWith(avatarURL, qiniuDomain)) {
                     return DEFAULT_AVATAR_URL + "?imageView2/1/w/" + size + "/h/" + size + "/interlace/0/q/100";
                 } else {
-                    return avatarURL + "?imageView2/1/w/" + size + "/h/" + size + "/interlace/0/q/100";
+                    return avatarURL + "-imageStyle?imageView2/1/w/" + size + "/h/" + size + "/interlace/0/q/100";
                 }
             } else {
                 return avatarURL;
@@ -111,7 +111,7 @@ public class AvatarQueryService {
             if (!StringUtils.startsWith(avatarURL, qiniuDomain)) {
                 return DEFAULT_AVATAR_URL + "?imageView2/1/w/" + size + "/h/" + size + "/format/jpg/interlace/0/q/100";
             } else {
-                return avatarURL + "?imageView2/1/w/" + size + "/h/" + size + "/format/jpg/interlace/0/q/100";
+                return avatarURL + "-imageStyle?imageView2/1/w/" + size + "/h/" + size + "/format/jpg/interlace/0/q/100";
             }
         } else {
             return avatarURL;
