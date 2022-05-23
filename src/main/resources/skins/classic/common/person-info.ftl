@@ -31,7 +31,7 @@
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
             </svg>
-            发布帖子
+            发布
         </button>
     </div>
         <div class="module-panel tooltipped tooltipped-s" aria-label="${todayActivityLabel} ${liveness}%">
@@ -95,7 +95,6 @@
     </svg>
 </a>-->&nbsp;
 
-<a href="https://www.6aiq.com/register" class="btn green">免费注册</a>
 
         </div>
     <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
@@ -110,7 +109,7 @@
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
             </svg>
-            发布帖子
+            发布
         </button>
     </div>
 </#if>
