@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="${staticServePath}/css/responsive.css?${staticResourceVersion}" />
     <link rel="stylesheet" href="${staticServePath}/css/base.css?${staticResourceVersion}" />
     <link rel="icon" type="image/png" href="${staticServePath}/images/favicon.png" />
+    <link rel="stylesheet" href="${staticServePath}/js/lib/vditor/dist/index.css?v=3.8.15" />
     <link rel="apple-touch-icon" href="${staticServePath}/images/faviconH.png">
     <link rel="search" type="application/opensearchdescription+xml" title="AIQ" href="/opensearch.xml">
     <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -27,6 +27,7 @@
     <meta name="copyright" content="AIQ" />
     <meta http-equiv="Window-target" content="_top" />
     <link rel="stylesheet" href="${staticServePath}/css/mobile-base.css?${staticResourceVersion}" />
+    <link rel="stylesheet" href="${staticServePath}/js/lib/vditor/dist/index.css?v=3.8.15" />
     <link rel="icon" type="image/png" href="${staticServePath}/images/favicon.png" />
     <link rel="apple-touch-icon" href="${staticServePath}/images/faviconH.png">
     <!-- Global site tag (gtag.js) - Google Analytics -->
