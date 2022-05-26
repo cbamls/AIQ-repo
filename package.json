@@ -1,14 +1,14 @@
 {
   "name": "symphony",
-  "version": "3.6.3",
+  "version": "3.6.4",
   "description": "A modern community (forum/BBS/SNS/blog) platform written in Java. 一款用 Java 实现的现代化社区（论坛/BBS/社交网络/博客）系统平台。",
   "homepage": "https://b3log.org/sym",
   "repository": {
     "type": "git",
-    "url": "git://github.com/cbamls/AI_Tutorial.git"
+    "url": "git://github.com/88250/symphony.git"
   },
   "bugs": {
-    "url": "https://github.com/cbamls/AI_Tutorial/issues"
+    "url": "https://github.com/88250/symphony/issues"
   },
   "license": "AGPLv3",
   "private": true,
@@ -39,10 +39,11 @@
     "gulp-clean-css": "^4.2.0",
     "gulp-concat": "^2.6.1",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^5.0.0",
+    "gulp-sass": "^5.1.0",
+    "node-sass": "^6.0.1",
     "gulp-uglify": "^3.0.2"
   },
   "dependencies": {
-    "vditor": "^3.8.4"
+    "vditor": "^3.8.13"
   }
 }

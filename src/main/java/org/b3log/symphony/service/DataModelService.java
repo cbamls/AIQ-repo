@@ -17,8 +17,8 @@
  */
 package org.b3log.symphony.service;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.RandomUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -318,7 +318,7 @@ public class DataModelService {
 
         dataModel.put(Common.YEAR, String.valueOf(Calendar.getInstance().get(Calendar.YEAR)));
         dataModel.put(Common.SITE_VISIT_STAT_CODE, Symphonys.SITE_VISIT_STATISTIC_CODE);
-        dataModel.put(Common.MOUSE_EFFECTS, RandomUtils.nextDouble() > 0.95);
+        dataModel.put(Common.MOUSE_EFFECTS, RandomUtils.nextDouble(0, 1) > 0.95);
         dataModel.put(Common.FOOTER_BEI_AN_HAO, Symphonys.FOOTER_BEIANHAO);
         dataModel.put(Common.IMAGE_MAX_SIZE, Symphonys.UPLOAD_IMG_MAX);
         dataModel.put(Common.FILE_MAX_SIZE, Symphonys.UPLOAD_FILE_MAX);
@@ -480,7 +480,7 @@ public class DataModelService {
      * @param dataModel the specified data model
      */
     private void fillSideTips(final Map<String, Object> dataModel) {
-        if (RandomUtils.nextFloat() < 0.8) {
+        if (RandomUtils.nextFloat(0, 1) < 0.8) {
             return;
         }
 
@@ -493,7 +493,7 @@ public class DataModelService {
             }
         }
 
-        dataModel.put("tipsLabel", tipsLabels.get(RandomUtils.nextInt(tipsLabels.size())));
+        dataModel.put("tipsLabel", tipsLabels.get(RandomUtils.nextInt(0, tipsLabels.size())));
     }
 
     /**

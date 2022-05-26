@@ -17,7 +17,7 @@
  */
 package org.b3log.symphony.service;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,7 +43,7 @@ import org.b3log.symphony.util.Markdowns;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 import java.util.*;
 
@@ -112,7 +112,7 @@ public class BreezemoonQueryService {
             while (iterator.hasNext()) {
                 final JSONObject bm = iterator.next();
                 String content = bm.optString(Breezemoon.BREEZEMOON_CONTENT);
-                content = Jsoup.clean(content, Whitelist.none());
+                content = Jsoup.clean(content, Safelist.none());
                 content = StringUtils.trim(content);
                 if (StringUtils.isBlank(content)) {
                     iterator.remove();

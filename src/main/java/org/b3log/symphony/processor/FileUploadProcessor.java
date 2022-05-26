@@ -26,8 +26,8 @@ import jodd.io.FileUtil;
 import jodd.net.MimeTypes;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.time.DateFormatUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -236,7 +236,7 @@ public class FileUploadProcessor {
                         LOGGER.log(Level.TRACE, "Uploaded [" + key + "], response [" + r.toString() + "]");
                         countDownLatch.countDown();
                     });
-                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName;
+                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName + "-imageStyle";
                     succMap.put(originalName, url);
                 } else {
                     final Path path = Paths.get(Symphonys.UPLOAD_LOCAL_DIR, fileName);

@@ -17,7 +17,7 @@
  */
 package org.b3log.symphony.util;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Image utilities.
@@ -55,7 +55,9 @@ public final class Images {
                     || StringUtils.contains(imgSrc, ".svg")) {
                 continue;
             }
-
+            if (!imgSrc.contains("-imageStyle")) {
+                ret = StringUtils.replace(ret, imgSrc, imgSrc + "-imageStyle");
+            }
            // ret = StringUtils.replace(ret, imgSrc, imgSrc + "?imageView2/2/w/768/format/webp/interlace/1");
         }
 

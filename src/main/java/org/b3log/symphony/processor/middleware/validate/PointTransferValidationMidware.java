@@ -17,7 +17,7 @@
  */
 package org.b3log.symphony.processor.middleware.validate;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.b3log.latke.Keys;
 import org.b3log.latke.http.Request;
 import org.b3log.latke.http.RequestContext;
@@ -33,7 +33,7 @@ import org.b3log.symphony.util.Sessions;
 import org.b3log.symphony.util.Symphonys;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 /**
  * Validates for user point transfer.
@@ -117,7 +117,7 @@ public class PointTransferValidationMidware {
             context.abort();
             return;
         }
-        memo = Jsoup.clean(memo, Whitelist.none());
+        memo = Jsoup.clean(memo, Safelist.none());
         request.setAttribute(Pointtransfer.MEMO, memo);
 
         context.handle();
