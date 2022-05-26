@@ -31,7 +31,7 @@
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
             </svg>
-            发布帖子
+            发布
         </button>
     </div>
         <div class="module-panel tooltipped tooltipped-s" aria-label="${todayActivityLabel} ${liveness}%">
@@ -110,7 +110,7 @@
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
             </svg>
-            发布帖子
+            发布
         </button>
     </div>
 </#if>
