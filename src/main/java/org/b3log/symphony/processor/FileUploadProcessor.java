@@ -232,11 +232,14 @@ public class FileUploadProcessor {
                 if (QN_ENABLED) {
                     bytes = fileBytes.get(i);
                     final String contentType = file.getContentType();
+                    if (!fileName.contains("-imageStyle")) {
+                        fileName += "-imageStyle";
+                    }
                     uploadManager.asyncPut(bytes, fileName, uploadToken, null, contentType, false, (key, r) -> {
                         LOGGER.log(Level.TRACE, "Uploaded [" + key + "], response [" + r.toString() + "]");
                         countDownLatch.countDown();
                     });
-                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName + "-imageStyle";
+                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName;
                     succMap.put(originalName, url);
                 } else {
                     final Path path = Paths.get(Symphonys.UPLOAD_LOCAL_DIR, fileName);
@@ -321,7 +324,9 @@ public class FileUploadProcessor {
         if (Symphonys.QN_ENABLED) {
             final Auth auth = Auth.create(Symphonys.UPLOAD_QINIU_AK, Symphonys.UPLOAD_QINIU_SK);
             final UploadManager uploadManager = new UploadManager(new Configuration());
-
+            if (!fileName.contains("-imageStyle")) {
+                fileName += "-imageStyle";
+            }
             try {
                 uploadManager.put(bytes, "e/" + fileName, auth.uploadToken(Symphonys.UPLOAD_QINIU_BUCKET), null, contentType, false);
             } catch (final Exception e) {
