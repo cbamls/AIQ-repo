@@ -83,10 +83,10 @@
             </a>
                        <#-- </#if> -->
         </div>
-               <#if "" != article.articleThumbnailURL && isLoggedIn && 1 == currentUser.userListViewMode>
+          <#--      <#if "" != article.articleThumbnailURL && isLoggedIn && 1 == currentUser.userListViewMode> -->
        <#--  <#if "" != article.articleThumbnailURL> -->
             <a href="${servePath}${article.articlePermalink}" class="abstract-img" style="background-image:url('${article.articleThumbnailURL}')"></a>
-        </#if>
+       <#--     </#if>-->
     </div>
 
     <span class="heat tooltipped tooltipped-n" aria-label="${postActivityLabel}" style="width:${article.articleHeat*3}px"></span>
