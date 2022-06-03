@@ -235,12 +235,17 @@ public class FileUploadProcessor {
                     if (!fileName.contains("-imageStyle")) {
                         fileName += "-imageStyle";
                     }
-                    uploadManager.asyncPut(bytes, fileName, uploadToken, null, contentType, false, (key, r) -> {
-                        LOGGER.log(Level.TRACE, "Uploaded [" + key + "], response [" + r.toString() + "]");
-                        countDownLatch.countDown();
-                    });
-                    url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName;
-                    succMap.put(originalName, url);
+                    if (!fileName.contains("img.6aiq.com")) {
+                        uploadManager.asyncPut(bytes, fileName, uploadToken, null, contentType, false, (key, r) -> {
+                            LOGGER.log(Level.TRACE, "Uploaded [" + key + "], response [" + r.toString() + "]");
+                            countDownLatch.countDown();
+                        });
+                        url = Symphonys.UPLOAD_QINIU_DOMAIN + "/" + fileName;
+                        succMap.put(originalName, url);
+                    } else {
+                        succMap.put(originalName, fileName);
+                    }
+
                 } else {
                     final Path path = Paths.get(Symphonys.UPLOAD_LOCAL_DIR, fileName);
                     path.getParent().toFile().mkdirs();
@@ -327,14 +332,19 @@ public class FileUploadProcessor {
             if (!fileName.contains("-imageStyle")) {
                 fileName += "-imageStyle";
             }
-            try {
-                uploadManager.put(bytes, "e/" + fileName, auth.uploadToken(Symphonys.UPLOAD_QINIU_BUCKET), null, contentType, false);
-            } catch (final Exception e) {
-                LOGGER.log(Level.ERROR, "Uploads to Qiniu failed", e);
-            }
+            if (!fileName.contains("img.6aiq.com")) {
+                try {
+                    uploadManager.put(bytes, "e/" + fileName, auth.uploadToken(Symphonys.UPLOAD_QINIU_BUCKET), null, contentType, false);
+                } catch (final Exception e) {
+                    LOGGER.log(Level.ERROR, "Uploads to Qiniu failed", e);
+                }
 
-            data.put(Common.URL, Symphonys.UPLOAD_QINIU_DOMAIN + "/e/" + fileName);
-            data.put("originalURL", originalURL);
+                data.put(Common.URL, Symphonys.UPLOAD_QINIU_DOMAIN + "/e/" + fileName);
+                data.put("originalURL", originalURL);
+            } else {
+                data.put(Common.URL, fileName);
+                data.put("originalURL", originalURL);
+            }
         } else {
             fileName = FileUploadProcessor.genFilePath(fileName);
             final Path path = Paths.get(Symphonys.UPLOAD_LOCAL_DIR, fileName);
