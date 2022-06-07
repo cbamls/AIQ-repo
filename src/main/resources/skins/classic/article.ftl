@@ -520,7 +520,7 @@
                 onclick="Article.permissionTip(Label.noPermissionLabel)"
                     </#if>><svg><use xlink:href="#heart"></use></svg> <span
                         class="ft-13">${article.thankedCnt}</span></span>
-    <div id="qrCode" class="fn-none"
+    <div id="qrCode" class="fn-none" style="display: block;"
          data-shareurl="${servePath}${article.articlePermalink}<#if isLoggedIn>?r=${currentUser.userName}</#if>"></div>
     <span class="tooltipped tooltipped-e" aria-label="share to wechat" data-type="wechat"><svg class="icon-wechat"><use
                     xlink:href="#wechat"></use></svg></span>
