@@ -34,8 +34,8 @@
         <div class="verify-wrap">
             <div class="form">
                 <#--                        <svg><use xlink:href="#logo"></use></svg>-->
-                <img src="images/log2.svg" />
-                <div id="githubLogin" style="display: block">
+                <img style="width:20%" src="images/log2.svg" />
+                <div id="githubLogin" style="display: none">
                     <div onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user:email&goto=${goto}'">
                         <#--<img class="fn__none" src="https://static.hacpai.com/images/github.gif">-->
                         <div class="verify__github"></div>
@@ -46,7 +46,7 @@
                     <button class="green" onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&scope=user:email&goto=${goto}'">推荐使用 GitHub 进行登录</button>
                     <button class="green" onclick="Verify.changeLoginType('!github')">账号密码登录</button>
                 </div>
-                <div id="commonLogin" style="display: none">
+                <div id="commonLogin" style="display: block">
 
                     <div class="input-wrap">
                         <svg><use xlink:href="#userrole"></use></svg>

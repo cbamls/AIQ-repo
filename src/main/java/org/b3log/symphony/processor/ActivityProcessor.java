@@ -367,7 +367,7 @@ public class ActivityProcessor {
      */
     public void bet1A0001(final RequestContext context) {
         context.renderJSON(StatusCodes.ERR);
-        final JSONObject requestJSONObject = (JSONObject) context.attr(Keys.REQUEST);
+        final JSONObject requestJSONObject = (JSONObject) context.getRequest().getJSON();
         final int amount = requestJSONObject.optInt(Common.AMOUNT);
         final int smallOrLarge = requestJSONObject.optInt(Common.SMALL_OR_LARGE);
         final JSONObject currentUser = Sessions.getUser();

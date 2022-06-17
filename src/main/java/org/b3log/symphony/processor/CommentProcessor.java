@@ -301,7 +301,7 @@ public class CommentProcessor {
                 return;
             }
 
-            final JSONObject requestJSONObject = (JSONObject) context.attr(Keys.REQUEST);
+            final JSONObject requestJSONObject = (JSONObject) context.requestJSON();
 
             String commentContent = requestJSONObject.optString(Comment.COMMENT_CONTENT);
             final boolean isOnlyAuthorVisible = requestJSONObject.optBoolean(Comment.COMMENT_VISIBLE);
@@ -428,7 +428,7 @@ public class CommentProcessor {
         context.renderJSON(StatusCodes.ERR);
 
         final Request request = context.getRequest();
-        final JSONObject requestJSONObject = (JSONObject) context.attr(Keys.REQUEST);
+        final JSONObject requestJSONObject = (JSONObject) context.requestJSON();
 
         final String articleId = requestJSONObject.optString(Article.ARTICLE_T_ID);
         final String commentContent = requestJSONObject.optString(Comment.COMMENT_CONTENT);

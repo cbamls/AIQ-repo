@@ -153,7 +153,7 @@ public class ChatroomProcessor {
      * @param context the specified context
      */
     public synchronized void addChatRoomMsg(final RequestContext context) {
-        final JSONObject requestJSONObject = (JSONObject) context.attr(Keys.REQUEST);
+        final JSONObject requestJSONObject = (JSONObject) context.getRequest().getJSON();
         String content = requestJSONObject.optString(Common.CONTENT);
 
         content = shortLinkQueryService.linkArticle(content);

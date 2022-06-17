@@ -24,6 +24,8 @@
         visibility: visible;
     }
 </style>
+    <link type="text/css" href="${staticServePath}/css/search-form.css" rel="stylesheet"/>
+
 <div class="nav">
     <h1 aria-label="${symphonyLabel}" class="tooltipped tooltipped-s">
         <a href="${servePath}" style="outline: 0;color: black; text-decoration: none;">
@@ -40,7 +42,7 @@
         </#list>
         <a pjax-title="友情链接 - ${symphonyLabel}"
                    href="${servePath}/links"<#if selected?? && 'links' == selected> class="current"</#if>>
-                    <img src="https://img.6aiq.com/2021/10/hot-88a6e30e.gif" style="height: 20px";></img>优质资源</a>
+                   <!-- <img src="https://img.6aiq.com/2021/10/hot-88a6e30e.gif" style="height: 20px";> --> </img>优质资源</a>
         <a pjax-title="${latestLabel} - ${symphonyLabel}"
            href="${servePath}/recent"<#if selected?? && 'recent' == selected> class="current"</#if>>
             <svg>
@@ -73,7 +75,8 @@
     </div>
     <#if esEnabled || algoliaEnabled>
         <form class="responsive-hide fn-left" target="_blank" action="/search">
-            <input class="search" placeholder="智能搜索..." type="text" name="key" id="search"
+            <input class="search" style="    width: 250px;
+                                             height: 30px;" placeholder="智能搜索..." type="text" name="key" id="search"
                    value="<#if key??>${key}</#if>">
 
             <input type="submit" class="fn-none" value=""/>
@@ -123,12 +126,6 @@
                 </ul>
             </div>
         <#else>
-            <a onclick="window.location='https://github.com/login/oauth/authorize?client_id=603d830f3705501acc91&redirect_uri=${servePath}/githubLoginCallback2&state=3&scope=user'"
-               class="unlogin">
-                <svg class="unlogin">
-                    <use xlink:href="#github"></use>
-                </svg>
-            </a>
             <a href="javascript: Util.goLogin();" class="unlogin">${loginLabel}</a>
             <a href="javascript:Util.goRegister()" class="unlogin">${registerLabel}</a>
         </#if>

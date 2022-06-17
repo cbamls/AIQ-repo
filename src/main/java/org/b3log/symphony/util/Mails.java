@@ -125,7 +125,7 @@ public final class Mails {
      */
     public static void sendHTML(final String fromName, final String subject, final String toMail,
                                 final String templateName, final Map<String, Object> dataModel) {
-        if ("sendcloud".equals(Symphonys.MAIL_CHANNEL)) {
+            if ("sendcloud".equals(Symphonys.MAIL_CHANNEL)) {
             if (StringUtils.isBlank(Symphonys.MAIL_SENDCLOUD_API_USER) || StringUtils.isBlank(Symphonys.MAIL_SENDCLOUD_API_KEY)) {
                 LOGGER.warn("Please configure [#### SendCloud Mail channel ####] section in symphony.properties for sending mail");
                 return;
