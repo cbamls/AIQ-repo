@@ -114,7 +114,7 @@ ${HeaderBannerLabel}
                     <#if !isLoggedIn>
                         <div style="background-color: rgba(98,162,240,.1);width: 100%;box-sizing: border-box;">
                             <#include 'common/person-info.ftl'/>
-                            <div class="module" style="padding-bottom: 25px; margin-bottom: 0px">
+                            <div class="module" style="padding-bottom: 5px; margin-bottom: 0px">
                                 <div class="module-header">
                                     <h2>当前在线: ${visitors}， 刚加入的小伙伴:</h2>
                                 </div>

@@ -24,7 +24,6 @@
         visibility: visible;
     }
 </style>
-    <link type="text/css" href="${staticServePath}/css/search-form.css" rel="stylesheet"/>
 
 <div class="nav">
     <h1 aria-label="${symphonyLabel}" class="tooltipped tooltipped-s">
@@ -60,6 +59,7 @@
 <#--        <a href="http://www.md6s.com/" target="_blank">-->
 <#--            <strong style="color: red">Markdown编辑器</strong>-->
 <#--        </a>-->
+
         <#if isLoggedIn && "" != currentUser.userCity>
             <a href="${servePath}/city/my"<#if selected?? && 'city' == selected> class="current"</#if>>
                 <svg>
@@ -129,5 +129,8 @@
             <a href="javascript: Util.goLogin();" class="unlogin">${loginLabel}</a>
             <a href="javascript:Util.goRegister()" class="unlogin">${registerLabel}</a>
         </#if>
+         <a href="https://support.qq.com/products/416808" target="_blank">
+                    反馈&建议
+                </a>
     </div>
 </div>

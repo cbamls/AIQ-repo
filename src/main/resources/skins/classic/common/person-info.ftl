@@ -95,14 +95,17 @@
     </svg>
 </a>-->&nbsp;
 
-<a href="https://www.6aiq.com/register" class="btn green">注册</a>
-
+ <img style=" border-radius: 40px; width: 80px; height: 80px" src="https://img.6aiq.com/image-5680438d98ef486293aa6798b082591e.png-imageStyle"
+                  alt="">
+             <div style="    color: #ccc;
+     padding: 10px 0;">
+         </div>
         </div>
-    <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
-<iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
         <div style="color: #ccc; font-size: 14px;">立即登录，融入AI顶流圈子<br>加入AIQ，与 22000+ AI领域从业者共同引领中国AI新篇章。
         </div>
+    <iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+<iframe src="https://ghbtns.com/github-btn.html?user=cbamls&repo=AI_Tutorial&type=fork&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
     </div>
     <div >
