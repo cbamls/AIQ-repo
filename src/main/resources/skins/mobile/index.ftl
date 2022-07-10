@@ -39,6 +39,19 @@ ${HeaderBannerLabel}
             <div class="module-panel">
                 <ul class="module-list">
                     <#list recentArticles as article>
+                    <#if (article_index % 5 == 1)>
+                                                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930"
+                                                     crossorigin="anonymous"></script>
+                                                <ins class="adsbygoogle"
+                                                     style="display:block"
+                                                     data-ad-format="fluid"
+                                                     data-ad-layout-key="-gw-3+1f-3d+2z"
+                                                     data-ad-client="ca-pub-1229303764778930"
+                                                     data-ad-slot="8512664580"></ins>
+                                                <script>
+                                                     (adsbygoogle = window.adsbygoogle || []).push({});
+                                                </script>
+                         </#if>
                         <li<#if !article_has_next> class="last"</#if>>
                             <#if article.articleAuthorName?? && article.articleAuthorName !=""&&"someone" != article.articleAuthorName>
                             <a rel="nofollow" href="${servePath}/member/${article.articleAuthorName}"></#if>

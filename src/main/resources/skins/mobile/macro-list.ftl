@@ -23,6 +23,19 @@
     <ul>
         <#assign articleIds = "">
         <#list listData as article>
+             <#if (article_index % 3 == 1)>
+                                                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930"
+                                                             crossorigin="anonymous"></script>
+                                                        <ins class="adsbygoogle"
+                                                             style="display:block"
+                                                             data-ad-format="fluid"
+                                                             data-ad-layout-key="-gw-3+1f-3d+2z"
+                                                             data-ad-client="ca-pub-1229303764778930"
+                                                             data-ad-slot="8512664580"></ins>
+                                                        <script>
+                                                             (adsbygoogle = window.adsbygoogle || []).push({});
+                                                        </script>
+                                 </#if>
         <#assign articleIds = articleIds + article.oId>
         <#if article_has_next><#assign articleIds = articleIds + ","></#if>
         <li<#if article.articleStickRemains gt 0 && articleStickCheck??> class="stick"</#if>>

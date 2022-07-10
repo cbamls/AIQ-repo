@@ -628,8 +628,48 @@ public class ArticleProcessor {
                     "                    <li>本文版权归作者和<a href=\"https://www.6aiq.com\">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</li>\n" +
                     "                </ul><br>";
             StringBuilder builder = new StringBuilder(content).insert(start, str);
-            article.put(Article.ARTICLE_CONTENT, builder.toString());
+            content = builder.toString();
         }
+        if (len > 20) {
+            while (len > 0) {
+                int start = searchPos(content, len, "</p>") +4;
+                String uri = Latkes.getServePath() + "/article/" + articleId;
+                String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
+                        "     crossorigin=\"anonymous\"></script>\n" +
+                        "<ins class=\"adsbygoogle\"\n" +
+                        "     style=\"display:block; text-align:center;\"\n" +
+                        "     data-ad-layout=\"in-article\"\n" +
+                        "     data-ad-format=\"fluid\"\n" +
+                        "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
+                        "     data-ad-slot=\"1336866235\"></ins>\n" +
+                        "<script>\n" +
+                        "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
+                        "</script>";
+                StringBuilder builder = new StringBuilder(content).insert(start, str);
+                content = builder.toString();
+
+                len -= 20;
+            }
+        }
+        if (len > 3){
+            int start = searchPos(content, 3, "</p>") +4;
+            String uri = Latkes.getServePath() + "/article/" + articleId;
+            String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
+                    "     crossorigin=\"anonymous\"></script>\n" +
+                    "<ins class=\"adsbygoogle\"\n" +
+                    "     style=\"display:block; text-align:center;\"\n" +
+                    "     data-ad-layout=\"in-article\"\n" +
+                    "     data-ad-format=\"fluid\"\n" +
+                    "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
+                    "     data-ad-slot=\"1336866235\"></ins>\n" +
+                    "<script>\n" +
+                    "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
+                    "</script>";
+            StringBuilder builder = new StringBuilder(content).insert(start, str);
+            content = builder.toString();
+
+        }
+        article.put(Article.ARTICLE_CONTENT, content);
 
         String cmtViewModeStr = context.param("m");
         JSONObject currentUser;

@@ -92,6 +92,19 @@ ${HeaderBannerLabel}
             <div class="index-tabs-panels list article-list">
                 <ul>
                     <#list recentArticles as article>
+                    <#if (article_index == 1 || article_index % 3 == 1)>
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930"
+                         crossorigin="anonymous"></script>
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-format="fluid"
+                         data-ad-layout-key="-f2-g-2w-jc+1jn"
+                         data-ad-client="ca-pub-1229303764778930"
+                         data-ad-slot="4649425285"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                    </#if>
                         <#include "common/list-item.ftl">
                     </#list>
                     <#if recentArticles?size == 0>
