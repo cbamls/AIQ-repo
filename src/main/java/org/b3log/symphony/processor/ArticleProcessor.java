@@ -630,8 +630,8 @@ public class ArticleProcessor {
             StringBuilder builder = new StringBuilder(content).insert(start, str);
             content = builder.toString();
         }
-        if (len > 20) {
-            while (len > 0) {
+        if (len > 40) {
+            while (len > 30) {
                 int start = searchPos(content, len, "</p>") +4;
                 String uri = Latkes.getServePath() + "/article/" + articleId;
                 String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
@@ -648,11 +648,11 @@ public class ArticleProcessor {
                 StringBuilder builder = new StringBuilder(content).insert(start, str);
                 content = builder.toString();
 
-                len -= 20;
+                len -= 40;
             }
         }
-        if (len > 3){
-            int start = searchPos(content, 3, "</p>") +4;
+        if (len > 2){
+            int start = searchPos(content, 2, "</p>") +4;
             String uri = Latkes.getServePath() + "/article/" + articleId;
             String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
                     "     crossorigin=\"anonymous\"></script>\n" +

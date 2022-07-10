@@ -29,9 +29,9 @@
                             <ins class="adsbygoogle"
                                  style="display:block"
                                  data-ad-format="fluid"
-                                 data-ad-layout-key="-f2-g-2w-jc+1jn"
+                                 data-ad-layout-key="-f1-g-35-k2+1lw"
                                  data-ad-client="ca-pub-1229303764778930"
-                                 data-ad-slot="4649425285"></ins>
+                                 data-ad-slot="5068792338"></ins>
                             <script>
                                  (adsbygoogle = window.adsbygoogle || []).push({});
                             </script>
