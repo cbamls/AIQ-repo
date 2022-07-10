@@ -630,6 +630,24 @@ public class ArticleProcessor {
             StringBuilder builder = new StringBuilder(content).insert(start, str);
             content = builder.toString();
         }
+        if (len > 2){
+            int start = searchPos(content, 2, "</p>") +4;
+            String uri = Latkes.getServePath() + "/article/" + articleId;
+            String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
+                    "     crossorigin=\"anonymous\"></script>\n" +
+                    "<ins class=\"adsbygoogle\"\n" +
+                    "     style=\"display:block; text-align:center;\"\n" +
+                    "     data-ad-layout=\"in-article\"\n" +
+                    "     data-ad-format=\"fluid\"\n" +
+                    "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
+                    "     data-ad-slot=\"1336866235\"></ins>\n" +
+                    "<script>\n" +
+                    "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
+                    "</script>";
+            StringBuilder builder = new StringBuilder(content).insert(start, str);
+            content = builder.toString();
+
+        }
         if (len > 40) {
             while (len > 30) {
                 int start = searchPos(content, len, "</p>") +4;
@@ -651,24 +669,7 @@ public class ArticleProcessor {
                 len -= 40;
             }
         }
-        if (len > 2){
-            int start = searchPos(content, 2, "</p>") +4;
-            String uri = Latkes.getServePath() + "/article/" + articleId;
-            String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
-                    "     crossorigin=\"anonymous\"></script>\n" +
-                    "<ins class=\"adsbygoogle\"\n" +
-                    "     style=\"display:block; text-align:center;\"\n" +
-                    "     data-ad-layout=\"in-article\"\n" +
-                    "     data-ad-format=\"fluid\"\n" +
-                    "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
-                    "     data-ad-slot=\"1336866235\"></ins>\n" +
-                    "<script>\n" +
-                    "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
-                    "</script>";
-            StringBuilder builder = new StringBuilder(content).insert(start, str);
-            content = builder.toString();
 
-        }
         article.put(Article.ARTICLE_CONTENT, content);
 
         String cmtViewModeStr = context.param("m");
