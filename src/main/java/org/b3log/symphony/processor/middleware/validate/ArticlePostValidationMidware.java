@@ -221,7 +221,7 @@ public class ArticlePostValidationMidware {
         }
 
         if (rewardPoint > 0) {
-            if (articleRewardContnt.length() > MAX_ARTICLE_CONTENT_LENGTH || StringUtils.length(articleRewardContnt) < 4) {
+            if (articleRewardContnt.length() > MAX_ARTICLE_CONTENT_LENGTH || StringUtils.length(articleRewardContnt) < 0) {
                 String msg = langPropsService.get("articleRewardContentErrorLabel");
                 msg = msg.replace("{maxArticleRewardContentLength}", String.valueOf(MAX_ARTICLE_REWARD_CONTENT_LENGTH));
 

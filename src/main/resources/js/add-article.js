@@ -170,7 +170,7 @@ var AddArticle = {
       }
 
       if (articleType !== 5) {
-        requestJSONObject.articleRewardContent = this.rewardEditor.getValue()
+        requestJSONObject.articleRewardContent = this.rewardEditor === null || this.rewardEditor === undefined ? 0 : this.rewardEditor.getValue()
         requestJSONObject.articleRewardPoint = $('#articleRewardPoint').
           val().
           replace(/(^\s*)|(\s*$)/g, '')
