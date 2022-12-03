@@ -20,7 +20,7 @@
 <#include "macro-head.ftl">
 <#include "common/title-icon.ftl">
 <!DOCTYPE html>
-<html>
+<html style="-webkit-filter: grayscale(.95);">
 <head>
     <@head title="AIQ - 全国最专业的人工智能技术社区">
         <meta name="description" content="${symDescriptionLabel}"/>

@@ -42,7 +42,7 @@
     width: 20px;
     margin-right: 5px;
 ">                    <a href="mailto:88cbam@gmail.com" target="_blank">88cbam@gmail.com</a>
-                <div class="fn-right">© 2020
+                <div class="fn-right">© 2022
                     <a rel="copyright" href="${servePath}" target="_blank">www.6aiq.com</a>
                     <#--${visionLabel}-->
                     AIQ-人工智能交流圈子
