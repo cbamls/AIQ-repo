@@ -44,5 +44,14 @@
         gtag('config', 'UA-121987873-1');
     </script>
     <script data-ad-client="ca-pub-1229303764778930" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?4e8aff6fb77ac249520ffb4ae680b7d7";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
     ${siteVisitStatCode}
 </#macro>
