@@ -41,7 +41,7 @@
                     <img src="https://g.csdnimg.cn/common/csdn-footer/images/email.png" alt="" style="
     width: 20px;
     margin-right: 5px;
-">                    <a href="mailto:88cbam@gmail.com" target="_blank">88cbam@gmail.com</a>
+">                    <a href="mailto:88cbam@gmail.com" target="_blank">侵权请发送文章链接到88cbam@gmail.com联系删除</a>
                 <div class="fn-right">© 2022
                     <a rel="copyright" href="${servePath}" target="_blank">www.6aiq.com</a>
                     <#--${visionLabel}-->
