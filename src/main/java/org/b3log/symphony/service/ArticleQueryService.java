@@ -1233,8 +1233,8 @@ public class ArticleQueryService {
     }
 
     public List<JSONObject> getWeeklyArticles() {
-       // String resp = HttpUtils.sendGet("https://tditor.com/api/weekly");
-        String resp = HttpUtils.sendGet("http://localhost:8081/api/weekly");
+        String resp = HttpUtils.sendGet("https://tditor.com/api/weekly");
+       // String resp = HttpUtils.sendGet("http://localhost:8081/api/weekly");
         List<JSONObject> res = new ArrayList<>();
         if (StringUtils.isNotEmpty(resp)) {
             List<Map<String, String>> list = new Gson().fromJson(resp, new TypeToken<List<LinkedHashMap<String, String>>>() {
