@@ -1233,20 +1233,24 @@ public class ArticleQueryService {
     }
 
     public List<JSONObject> getWeeklyArticles() {
-        String resp = HttpUtils.sendGet("https://tditor.com/api/weekly");
-       // String resp = HttpUtils.sendGet("http://localhost:8081/api/weekly");
         List<JSONObject> res = new ArrayList<>();
-        if (StringUtils.isNotEmpty(resp)) {
-            List<Map<String, String>> list = new Gson().fromJson(resp, new TypeToken<List<LinkedHashMap<String, String>>>() {
-            }.getType());
-            for (Map<String, String> map : list) {
-                JSONObject object = new JSONObject();
-                object.put("title", map.get("title"));
-                object.put("url", map.get("url"));
-                object.put("author", map.get("author"));
-                object.put("articleCreateTime", map.get("articleCreateTime"));
-                res.add(object);
+        try {
+            String resp = HttpUtils.sendGet("https://tditor.com/api/weekly");
+            // String resp = HttpUtils.sendGet("http://localhost:8081/api/weekly");
+            if (StringUtils.isNotEmpty(resp)) {
+                List<Map<String, String>> list = new Gson().fromJson(resp, new TypeToken<List<LinkedHashMap<String, String>>>() {
+                }.getType());
+                for (Map<String, String> map : list) {
+                    JSONObject object = new JSONObject();
+                    object.put("title", map.get("title"));
+                    object.put("url", map.get("url"));
+                    object.put("author", map.get("author"));
+                    object.put("articleCreateTime", map.get("articleCreateTime"));
+                    res.add(object);
+                }
             }
+        } catch (Exception e) {
+            LOGGER.error("获取周报失败");
         }
         return res;
     }
@@ -1642,9 +1646,13 @@ public class ArticleQueryService {
         if (null != article.get("articleMeta")) {
             String str = article.getString("articleMeta");
             if (StringUtils.isNotEmpty(str)) {
-                Map<String, String> map = new Gson().fromJson(str, new TypeToken<Map<String, String>>() {
-                }.getType());
-                return Pair.of(map.get("author"), map.get("originUrl"));
+                try {
+                    Map<String, String> map = new Gson().fromJson(str, new TypeToken<Map<String, String>>() {
+                    }.getType());
+                    return Pair.of(map.get("author"), map.get("originUrl"));
+                } catch (Exception e) {
+                    LOGGER.error("解析错误", e);
+                }
             }
         }
         return null;
@@ -2205,3 +2213,4 @@ public class ArticleQueryService {
         }
     }
 }
+

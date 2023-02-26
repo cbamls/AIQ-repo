@@ -216,8 +216,8 @@
             <@icon article.articlePerfect article.articleType></@icon>
             ${article.articleTitleEmoj}
         </h1>
-        <#if "" != article.articleOriginUrl2>
-                <a href="${article.articleOriginUrl2}" target="_blank"><div class="article-source" data-v-2b0d81d2="">
+        <#if article.articleOriginUrl2?? && "" != article.articleOriginUrl2>
+                <a href="https://6aiq.com/forward?goto=${article.articleOriginUrl2}" target="_blank"><div class="article-source" data-v-2b0d81d2="">
                                                以下文章来源于 ${article.articleOriginUrl2}
                                              </div>
                                              </a>
@@ -764,3 +764,4 @@
 </script>
 </body>
 </html>
+

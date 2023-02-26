@@ -17,10 +17,14 @@
  */
 package org.b3log.symphony.processor;
 
+import com.google.common.collect.Maps;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import jodd.util.Base64;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -618,20 +622,20 @@ public class ArticleProcessor {
         articleQueryService.processArticleContent(article);
 
         String content = article.optString(Article.ARTICLE_CONTENT);
-        int len= search(content, "</p>");
+        int len = search(content, "</p>");
         if (len > 9) {
-            int start = searchPos(content, len/2, "</p>") +4;
+            int start = searchPos(content, len / 2, "</p>") + 4;
             String uri = Latkes.getServePath() + "/article/" + articleId;
             String str = "<br><ul class=\"bor2\">\n" +
-                    "                    <li>本文地址：<a href=\"" + uri +"\">" + article.optString(Article.ARTICLE_TITLE) +
+                    "                    <li>本文地址：<a href=\"" + uri + "\">" + article.optString(Article.ARTICLE_TITLE) +
                     "</a> </li>\n" +
                     "                    <li>本文版权归作者和<a href=\"https://www.6aiq.com\">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</li>\n" +
                     "                </ul><br>";
             StringBuilder builder = new StringBuilder(content).insert(start, str);
             content = builder.toString();
         }
-        if (len > 2){
-            int start = searchPos(content, 2, "</p>") +4;
+        if (len > 2) {
+            int start = searchPos(content, 2, "</p>") + 4;
             String uri = Latkes.getServePath() + "/article/" + articleId;
             String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
                     "     crossorigin=\"anonymous\"></script>\n" +
@@ -650,7 +654,7 @@ public class ArticleProcessor {
         }
         if (len > 40) {
             while (len > 30) {
-                int start = searchPos(content, len, "</p>") +4;
+                int start = searchPos(content, len, "</p>") + 4;
                 String uri = Latkes.getServePath() + "/article/" + articleId;
                 String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
                         "     crossorigin=\"anonymous\"></script>\n" +
@@ -947,7 +951,11 @@ public class ArticleProcessor {
 
         final JSONObject article = new JSONObject();
         article.put(Article.ARTICLE_TITLE, articleTitle);
-        article.put("articleMeta", requestJSONObject.optString("articleMeta"));
+        if (StringUtils.isNotEmpty(requestJSONObject.optString("articleMeta"))) {
+            Map<String, String> map = Maps.newHashMap();
+            map.put("originUrl", requestJSONObject.optString("articleMeta"));
+            article.put("articleMeta", new Gson().toJson(map));
+        }
         article.put(Article.ARTICLE_CONTENT, articleContent);
         article.put(Article.ARTICLE_EDITOR_TYPE, 0);
         article.put(Article.ARTICLE_COMMENTABLE, articleCommentable);
@@ -1025,8 +1033,8 @@ public class ArticleProcessor {
         String title = article.optString(Article.ARTICLE_TITLE);
         title = Escapes.escapeHTML(title);
         article.put(Article.ARTICLE_TITLE, title);
+        article.put("articleMeta", genLinks(article).getRight());
         dataModel.put(Article.ARTICLE, article);
-        dataModel.put("articleMeta", article.optString("articleMeta"));
         dataModel.put(Article.ARTICLE_TYPE, article.optInt(Article.ARTICLE_TYPE));
 
         dataModelService.fillHeaderAndFooter(context, dataModel);
@@ -1040,6 +1048,22 @@ public class ArticleProcessor {
         dataModel.put(Common.BROADCAST_POINT, Pointtransfer.TRANSFER_SUM_C_ADD_ARTICLE_BROADCAST);
 
         fillPostArticleRequisite(dataModel, currentUser);
+    }
+
+    public Pair<String, String> genLinks(final JSONObject article) {
+        if (null != article.get("articleMeta")) {
+            String str = article.getString("articleMeta");
+            if (StringUtils.isNotEmpty(str)) {
+                try {
+                    Map<String, String> map = new Gson().fromJson(str, new TypeToken<Map<String, String>>() {
+                    }.getType());
+                    return Pair.of(map.get("author"), map.get("originUrl"));
+                } catch (Exception e) {
+                    LOGGER.error("解析错误", e);
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -1102,7 +1126,11 @@ public class ArticleProcessor {
         final JSONObject article = new JSONObject();
         article.put(Keys.OBJECT_ID, id);
         article.put(Article.ARTICLE_TITLE, articleTitle);
-        article.put("articleMeta", articleMeta);
+        if (StringUtils.isNotEmpty(articleMeta)) {
+            Map<String, String> map = Maps.newHashMap();
+            map.put("originUrl", articleMeta);
+            article.put("articleMeta", new Gson().toJson(map));
+        }
         article.put(Article.ARTICLE_CONTENT, articleContent);
         article.put(Article.ARTICLE_EDITOR_TYPE, 0);
         article.put(Article.ARTICLE_COMMENTABLE, articleCommentable);
@@ -1316,27 +1344,30 @@ public class ArticleProcessor {
 
         context.renderJSON(StatusCodes.SUCC).renderMsg(langPropsService.get("stickSuccLabel"));
     }
-    public static int searchPos(String string ,int i,String character){
+
+    public static int searchPos(String string, int i, String character) {
         //这里是获取"/"符号的位置
         // Matcher slashMatcher = Pattern.compile("/").matcher(string);
         Matcher slashMatcher = Pattern.compile(character).matcher(string);
         int mIdx = 0;
-        while(slashMatcher.find()) {
+        while (slashMatcher.find()) {
             mIdx++;
             //当"/"符号第三次出现的位置
-            if(mIdx == i){
+            if (mIdx == i) {
                 break;
             }
         }
         return slashMatcher.start();
     }
-    public int search(String str,String strRes) {//查找字符串里与指定字符串相同的个数
-        int n=0;//计数器
-        while(str.indexOf(strRes)!=-1) {
+
+    public int search(String str, String strRes) {//查找字符串里与指定字符串相同的个数
+        int n = 0;//计数器
+        while (str.indexOf(strRes) != -1) {
             int i = str.indexOf(strRes);
             n++;
-            str = str.substring(i+1);
+            str = str.substring(i + 1);
         }
         return n;
     }
 }
+
