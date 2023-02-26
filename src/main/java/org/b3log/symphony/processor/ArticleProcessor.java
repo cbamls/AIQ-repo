@@ -947,6 +947,7 @@ public class ArticleProcessor {
 
         final JSONObject article = new JSONObject();
         article.put(Article.ARTICLE_TITLE, articleTitle);
+        article.put("articleMeta", requestJSONObject.optString("articleMeta"));
         article.put(Article.ARTICLE_CONTENT, articleContent);
         article.put(Article.ARTICLE_EDITOR_TYPE, 0);
         article.put(Article.ARTICLE_COMMENTABLE, articleCommentable);
@@ -1025,6 +1026,7 @@ public class ArticleProcessor {
         title = Escapes.escapeHTML(title);
         article.put(Article.ARTICLE_TITLE, title);
         dataModel.put(Article.ARTICLE, article);
+        dataModel.put("articleMeta", article.optString("articleMeta"));
         dataModel.put(Article.ARTICLE_TYPE, article.optInt(Article.ARTICLE_TYPE));
 
         dataModelService.fillHeaderAndFooter(context, dataModel);
@@ -1085,6 +1087,7 @@ public class ArticleProcessor {
 
         final JSONObject requestJSONObject = context.requestJSON();
         final String articleTitle = requestJSONObject.optString(Article.ARTICLE_TITLE);
+        final String articleMeta = requestJSONObject.optString("articleMeta");
         String articleTags = requestJSONObject.optString(Article.ARTICLE_TAGS);
         final String articleContent = requestJSONObject.optString(Article.ARTICLE_CONTENT);
         final boolean articleCommentable = requestJSONObject.optBoolean(Article.ARTICLE_COMMENTABLE, true);
@@ -1099,6 +1102,7 @@ public class ArticleProcessor {
         final JSONObject article = new JSONObject();
         article.put(Keys.OBJECT_ID, id);
         article.put(Article.ARTICLE_TITLE, articleTitle);
+        article.put("articleMeta", articleMeta);
         article.put(Article.ARTICLE_CONTENT, articleContent);
         article.put(Article.ARTICLE_EDITOR_TYPE, 0);
         article.put(Article.ARTICLE_COMMENTABLE, articleCommentable);

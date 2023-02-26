@@ -307,10 +307,13 @@ public class IndexProcessor {
                 @Override
                 public void run() {
                     List<JSONObject> recentArticles = null;
+                    List<JSONObject> weeklyArticles = null;
 
                     recentArticles = articleQueryService.getIndexRecentArticles();
+                    weeklyArticles = articleQueryService.getWeeklyArticles();
                     Map<String, Object> dataModel2 = renderer.getDataModel();
                     dataModel2.put(Common.RECENT_ARTICLES, recentArticles);
+                    dataModel2.put("weeklyArticles", weeklyArticles);
 
                     final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
                     dataModel2.put(Common.PERFECT_ARTICLES, perfectArticles);
@@ -337,10 +340,13 @@ public class IndexProcessor {
         } else {
             LOGGER.info("没有命中缓存");
             List<JSONObject> recentArticles = null;
+            List<JSONObject> weeklyArticles = null;
 
             recentArticles = articleQueryService.getIndexRecentArticles();
+            weeklyArticles = articleQueryService.getWeeklyArticles();
 
             dataModel.put(Common.RECENT_ARTICLES, recentArticles);
+            dataModel.put("weeklyArticles", weeklyArticles);
 
             final List<JSONObject> perfectArticles = articleQueryService.getIndexPerfectArticles();
             dataModel.put(Common.PERFECT_ARTICLES, perfectArticles);

@@ -62,6 +62,10 @@
                     </div>
                     </#if>
                 </div>
+
+                <input type="text" id="articleMeta" style="width: 100%"
+                       value="<#if article?? && article.articleMeta??>${article.articleMeta}</#if>" placeholder="   原文地址:" />
+
                 <#if (!article?? && 5 == articleType) || (article?? && article.articleType == 5)>
                  <input id="articleAskPoint"
                         value="<#if article??>${article.articleQnAOfferPoint}</#if>"
