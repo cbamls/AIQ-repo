@@ -613,6 +613,8 @@ public class ArticleMgmtService {
             article.put(Keys.OBJECT_ID, ret);
 
             article.put(Article.ARTICLE_TITLE, articleTitle);
+            article.put("articleMeta", requestJSONObject.optString("articleMeta"));
+
             article.put(Article.ARTICLE_TAGS, requestJSONObject.optString(Article.ARTICLE_TAGS));
 
             String articleContent = requestJSONObject.optString(Article.ARTICLE_CONTENT);
@@ -893,6 +895,7 @@ public class ArticleMgmtService {
 
             final String oldTitle = articleToUpdate.optString(Article.ARTICLE_TITLE);
             articleToUpdate.put(Article.ARTICLE_TITLE, articleTitle);
+            articleToUpdate.put("articleMeta", requestJSONObject.optString("articleMeta"));
 
             articleToUpdate.put(Article.ARTICLE_TAGS, requestJSONObject.optString(Article.ARTICLE_TAGS));
             articleToUpdate.put(Article.ARTICLE_COMMENTABLE, requestJSONObject.optBoolean(Article.ARTICLE_COMMENTABLE, true));

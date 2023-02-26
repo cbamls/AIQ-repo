@@ -17,10 +17,13 @@
  */
 package org.b3log.symphony.service;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.vdurmont.emoji.EmojiParser;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -1229,6 +1232,24 @@ public class ArticleQueryService {
         return ret;
     }
 
+    public List<JSONObject> getWeeklyArticles() {
+        String resp = HttpUtils.sendGet("https://tditor.com/api/weekly");
+       // String resp = HttpUtils.sendGet("http://localhost:8081/api/weekly");
+        List<JSONObject> res = new ArrayList<>();
+        if (StringUtils.isNotEmpty(resp)) {
+            List<Map<String, String>> list = new Gson().fromJson(resp, new TypeToken<List<LinkedHashMap<String, String>>>() {
+            }.getType());
+            for (Map<String, String> map : list) {
+                JSONObject object = new JSONObject();
+                object.put("title", map.get("title"));
+                object.put("url", map.get("url"));
+                object.put("author", map.get("author"));
+                object.put("articleCreateTime", map.get("articleCreateTime"));
+                res.add(object);
+            }
+        }
+        return res;
+    }
     /**
      * Gets the index recent articles.
      *
@@ -1456,6 +1477,14 @@ public class ArticleQueryService {
 
         final String previewContent = getArticleMetaDesc(article);
         article.put(Article.ARTICLE_T_PREVIEW_CONTENT, previewContent);
+        Pair<String,String> p = genLinks(article);
+        if (null != p) {
+            article.put("articleOriginAuthor2", p.getLeft());
+            article.put("articleOriginUrl2", p.getRight());
+        } else {
+            article.put("articleOriginAuthor2", "");
+            article.put("articleOriginUrl2", "");
+        }
         //article.put(Article.ARTICLE_T_THUMBNAIL_URL, getArticleThumbnail(article));
 
         article.put(Article.ARTICLE_T_THUMBNAIL_URL, getArticleThumbnail(article, true));
@@ -1608,6 +1637,17 @@ public class ArticleQueryService {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         df.setTimeZone(tz);
         return df.format(date);
+    }
+    public Pair<String, String> genLinks(final JSONObject article) {
+        if (null != article.get("articleMeta")) {
+            String str = article.getString("articleMeta");
+            if (StringUtils.isNotEmpty(str)) {
+                Map<String, String> map = new Gson().fromJson(str, new TypeToken<Map<String, String>>() {
+                }.getType());
+                return Pair.of(map.get("author"), map.get("originUrl"));
+            }
+        }
+        return null;
     }
     /**
      * Generates the specified article author name and thumbnail URL.
