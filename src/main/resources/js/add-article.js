@@ -167,6 +167,7 @@ var AddArticle = {
         articleShowInList: Boolean($('#articleShowInList').prop('checked'))
           ? 1
           : 0,
+        articleMeta:$('#articleMeta').val().replace(/(^\s*)|(\s*$)/g, ''),
       }
 
       if (articleType !== 5) {

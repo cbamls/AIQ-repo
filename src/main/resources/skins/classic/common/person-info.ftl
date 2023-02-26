@@ -20,13 +20,11 @@
 <#if isLoggedIn>
     <div class="module person-info" data-percent="${liveness}">
 
-        <div style=" padding: 25px;    text-align: center;background: #fafafa;">
+        <div style=" padding: 35px;    text-align: center;background: #fafafa;">
             <img style=" border-radius: 40px; width: 80px; height: 80px" src="${currentUser.userAvatarURL}"
                  alt="">
-            <div style="    color: #ccc;
-    padding: 10px 0;">
-        </div>
-           <div >
+            <div style="color: #ccc; padding: 10px 0;"></div>
+        <div >
         <button class="avatar-def"onclick="window.location.href='https://www.6aiq.com/post?type=0'">
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#edit"></use>
@@ -82,6 +80,7 @@
         <div class="right activity-board"></div>
         <div class="bottom activity-board"></div>
         <div class="left activity-board"></div>
+    </div>
     </div>
 <#else>
     <div class="avatar-bg">

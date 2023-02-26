@@ -18,6 +18,75 @@
 
 -->
 <style>
+
+.home-right-item-wrap.hot-article {
+    padding: 0;
+    --tw-bg-opacity: 1;
+    background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+.home-right-item-wrap {
+    background-color: var(--pai-bg-white-fff);
+    overflow: hidden;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.hot-article-bg {
+    height: 74px;
+    margin-top: -14px;
+}
+
+.w-full {
+    width: 100%;
+}
+.hot-article-content {
+    padding: 20px;
+    margin-top: -70px;
+}
+.home-right-item-title {
+    margin-bottom: 24px;
+    left: 20px;
+    top: 16px;
+}
+.home-right-item-wrap .com-2-panel-title {
+    font-size: 18px;
+}
+.home-right-item-article-item, .home-right-item-post-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    color: #616161;
+    justify-content: space-between;
+}
+.hot-article
+    .home-right-item-article-list
+    .home-right-item-article-item:nth-child(1)
+    i {
+    background: #f85959;
+  }
+
+  .hot-article
+    .home-right-item-article-list
+    .home-right-item-article-item:nth-child(2)
+    i {
+    background: #fe6617;
+  }
+
+  .hot-article
+    .home-right-item-article-list
+    .home-right-item-article-item:nth-child(3)
+    i {
+    background: #f59e2f;
+  }
+
+  .hot-article .home-right-item-article-list .home-right-item-article-item i {
+    height: 18px;
+    width: 18px;
+    line-height: 18px;
+    background: #ccd0d7;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+  }
     .nav .nav-tabs svg {
         margin: 3px 2px 0 0;
         float: left;

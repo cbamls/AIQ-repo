@@ -64,6 +64,20 @@
             border: 1px dashed #F00;
             margin-top: 10px
         }
+        .article-source {
+            position: relative;
+            padding-left: 20px;
+            text-align: left;
+            line-height: 44px;
+            font-size: 14px;
+            font-family: PingFangSC-Regular,PingFang SC;
+            font-weight: 400;
+            color: #7a87a0;
+            letter-spacing: 1px;
+            border: 1px solid rgba(150,171,213,.4);
+            margin-bottom: 20px;
+            cursor: pointer
+        }
     </style>
     <!-- 由 Google 结构化数据标记助手生成的 JSON-LD 标记。 -->
     <script type="application/ld+json">
@@ -202,6 +216,12 @@
             <@icon article.articlePerfect article.articleType></@icon>
             ${article.articleTitleEmoj}
         </h1>
+        <#if "" != article.articleOriginUrl2>
+                <a href="${article.articleOriginUrl2}" target="_blank"><div class="article-source" data-v-2b0d81d2="">
+                                               以下文章来源于 ${article.articleOriginUrl2}
+                                             </div>
+                                             </a>
+                </#if>
 
         <#if "" != article.articleAudioURL>
             <div id="articleAudio" data-url="${article.articleAudioURL}"
@@ -360,7 +380,7 @@
                                                     <span aria-label="<#if hasRewarded>${thankedLabel}<#else>${thankLabel} ${comment.rewardedCnt}</#if>"
                                                           class="tooltipped tooltipped-n rewarded-cnt <#if hasRewarded>ft-red<#else>ft-fade</#if>">
                                                     <svg class="fn-text-top"><use
-                                                                xlink:href="#heart"></use></svg> ${comment.rewardedCnt}
+                                                                xlink:href="#hearft"></use></svg> ${comment.rewardedCnt}
                                                 </span>
                                                 </#if>
                                                 <#if 0 == comment.commenter.userUAStatus><span class="cmt-via ft-fade"
@@ -520,7 +540,7 @@
                 onclick="Article.permissionTip(Label.noPermissionLabel)"
                     </#if>><svg><use xlink:href="#heart"></use></svg> <span
                         class="ft-13">${article.thankedCnt}</span></span>
-    <div id="qrCode" class="fn-none" style="display: block;"
+    <div id="qrCode" class="fn-none"
          data-shareurl="${servePath}${article.articlePermalink}<#if isLoggedIn>?r=${currentUser.userName}</#if>"></div>
     <span class="tooltipped tooltipped-e" aria-label="share to wechat" data-type="wechat"><svg class="icon-wechat"><use
                     xlink:href="#wechat"></use></svg></span>
