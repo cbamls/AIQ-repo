@@ -15,7 +15,7 @@
 
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-style="-webkit-filter: grayscale(.95);"
+
 -->
 <#include "macro-head.ftl">
 <#include "common/title-icon.ftl">
