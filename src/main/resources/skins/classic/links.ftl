@@ -54,6 +54,7 @@
                                                            <h5 class="com-2-panel-title">滚动周报(实时更新)</h5>
                                                          </div>
                                                          <div class="home-right-item-article-list">
+                                                         <#if weeklyArticles??>
                                                          <#list weeklyArticles as article>
                                                                                  <#if (article_index >= 4)>
                                                                                         <a class="home-right-item-article-item"
@@ -70,7 +71,7 @@
 
                                                                                  </#if>
                                                                              </#list>
-
+                                                        </#if>
 
                                                          </div>
                                                        </div>
