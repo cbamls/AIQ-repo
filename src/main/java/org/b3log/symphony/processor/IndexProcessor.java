@@ -495,6 +495,10 @@ public class IndexProcessor {
         LOGGER.info("showLinksLog");
         final AbstractFreeMarkerRenderer renderer = new SkinRenderer(context, "links.ftl");
         final Map<String, Object> dataModel = renderer.getDataModel();
+        List<JSONObject> weeklyArticles = null;
+
+        weeklyArticles = articleQueryService.getWeeklyArticles();
+        dataModel.put("weeklyArticles", weeklyArticles);
 
         dataModelService.fillHeaderAndFooter(context, dataModel);
         dataModelService.fillRandomArticles(dataModel);

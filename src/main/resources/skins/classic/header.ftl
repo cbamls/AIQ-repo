@@ -103,15 +103,16 @@
 
     </h1>
     <div class="nav-tabs">
+    <a pjax-title="实时周报 - ${symphonyLabel}"
+                       href="${servePath}/links"<#if selected?? && 'links' == selected> class="current"</#if>>
+                       <img src="https://hiphotos.baidu.com/feed/pic/item/0bd162d9f2d3572c903430e98713632762d0c335.jpg" style="height: 20px";>  </img><b>实时周报</b></a>
+
         <#list domains as domain>
             <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
                href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
                 class="current"</#if>>${domain.domainIconPath} ${domain.domainTitle}</a>
         </#list>
-        <a pjax-title="友情链接 - ${symphonyLabel}"
-                   href="${servePath}/links"<#if selected?? && 'links' == selected> class="current"</#if>>
-                   <!-- <img src="https://img.6aiq.com/2021/10/hot-88a6e30e.gif" style="height: 20px";> --> </img>优质资源</a>
-        <a pjax-title="${latestLabel} - ${symphonyLabel}"
+         <a pjax-title="${latestLabel} - ${symphonyLabel}"
            href="${servePath}/recent"<#if selected?? && 'recent' == selected> class="current"</#if>>
             <svg>
                 <use xlink:href="#refresh"></use>
