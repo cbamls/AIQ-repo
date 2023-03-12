@@ -201,19 +201,16 @@ ${HeaderBannerLabel}
                               </div>
                               <div class="home-right-item-article-list">
                               <#list weeklyArticles as article>
-                                                      <#if (article_index >= 4)>
-                                                             <a class="home-right-item-article-item"
-                                                                      href="${article.url}" target="_blank">
-                                                                      <div style="display: flex">
-                                                                      <i> ${article_index-3}</i> &nbsp;&nbsp;
-                                                                                                                                <div class="home-right-item-article-title-txt">${article.title}</div>
-                                                                      </div>
-                                                                        <span class="fn-right count ft-smaller"
-                                                                                                                                     >${article.author}
-                                                                                                                           </span>
-                                                                      </a>
-
-                                                      </#if>
+                                                     <a class="home-right-item-article-item"
+                                                       href="${article.url}" target="_blank">
+                                                       <div style="display: flex">
+                                                       <i> ${article_index+1}</i> &nbsp;&nbsp;
+                                                                                                                 <div class="home-right-item-article-title-txt">${article.title}</div>
+                                                       </div>
+                                                         <span class="fn-right count ft-smaller"
+                                                                                                                      >${article.author}
+                                                                                                            </span>
+                                                       </a>
                                                   </#list>
 
 
