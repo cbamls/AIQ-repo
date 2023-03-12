@@ -56,20 +56,17 @@
                                                          <div class="home-right-item-article-list">
                                                          <#if weeklyArticles??>
                                                          <#list weeklyArticles as article>
-                                                                                 <#if (article_index >= 4)>
-                                                                                        <a class="home-right-item-article-item"
-                                                                                                 href="${article.url}" target="_blank">
-                                                                                                 <div style="display: flex">
-                                                                                                 <i> ${article_index-3}</i> &nbsp;&nbsp;
-                                                                                                 <div class="home-right-item-article-title-txt">${article.title}</div>
-                                                                                                 </div>
-                                                                                                 <div>
-                                                                                                   <span class="count ft-smaller">作者：${article.author} </span>
-                                                                                                   <span  class="fn-right">&nbsp;&nbsp;发布时间: ${article.articleCreateTime}</span>
-                                                                                                   </div>
-                                                                                                 </a>
-
-                                                                                 </#if>
+                                                                                 <a class="home-right-item-article-item"
+                                                                                  href="${article.url}" target="_blank">
+                                                                                  <div style="display: flex">
+                                                                                  <i> ${article_index+1}</i> &nbsp;&nbsp;
+                                                                                  <div class="home-right-item-article-title-txt">${article.title}</div>
+                                                                                  </div>
+                                                                                  <div>
+                                                                                    <span class="count ft-smaller">作者：${article.author} </span>
+                                                                                    <span  class="fn-right">&nbsp;&nbsp;发布时间: ${article.articleCreateTime}</span>
+                                                                                    </div>
+                                                                                  </a>
                                                                              </#list>
                                                         </#if>
 
