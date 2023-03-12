@@ -1129,6 +1129,10 @@ public class ArticleProcessor {
         if (StringUtils.isNotEmpty(articleMeta)) {
             Map<String, String> map = Maps.newHashMap();
             map.put("originUrl", articleMeta);
+            Pair<String, String> p = genLinks(oldArticle);
+            if (null != p) {
+                map.put("author", p.getLeft());
+            }
             article.put("articleMeta", new Gson().toJson(map));
         }
         article.put(Article.ARTICLE_CONTENT, articleContent);

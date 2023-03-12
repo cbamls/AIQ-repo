@@ -188,7 +188,7 @@ public class BreezemoonProcessor {
         }
 
         try {
-            breezemoonMgmtService.addBreezemoon(breezemoon);
+          //  breezemoonMgmtService.addBreezemoon(breezemoon);
 
             context.renderJSONValue(Keys.CODE, StatusCodes.SUCC);
         } catch (final Exception e) {
