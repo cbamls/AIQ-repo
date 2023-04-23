@@ -152,7 +152,19 @@ ${HeaderBannerLabel}
             </#if>
 
 
-
+        <#if ADLabel!="" && ((tag?? && tag.tagShowSideAd == 0) || !tag??)>
+            <div class="module">
+                <div class="module-header">
+                    <h2>
+                        ${sponsorLabel}
+                        <a href="${servePath}/about" class="fn-right ft-13 ft-gray" target="_blank">${wantPutOnLabel}</a>
+                    </h2>
+                </div>
+                <div class="module-panel ad fn-clear">
+                    ${ADLabel}
+                </div>
+            </div>
+            </#if>
 
 
 
@@ -219,19 +231,7 @@ ${HeaderBannerLabel}
                           </div>
 
 
-            <#if ADLabel!="" && ((tag?? && tag.tagShowSideAd == 0) || !tag??)>
-            <div class="module">
-                <div class="module-header">
-                    <h2>
-                        ${sponsorLabel}
-                        <a href="${servePath}/about" class="fn-right ft-13 ft-gray" target="_blank">${wantPutOnLabel}</a>
-                    </h2>
-                </div>
-                <div class="module-panel ad fn-clear">
-                    ${ADLabel}
-                </div>
-            </div>
-            </#if>
+
         </div>
     </div>
 </div>

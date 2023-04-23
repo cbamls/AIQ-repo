@@ -1063,7 +1063,7 @@ public class ArticleProcessor {
                 }
             }
         }
-        return null;
+        return Pair.of(null, null);
     }
 
     /**

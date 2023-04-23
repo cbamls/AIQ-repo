@@ -105,14 +105,16 @@
     <div class="nav-tabs">
     <a pjax-title="AI实时周报 - ${symphonyLabel}"
                        href="${servePath}/links"<#if selected?? && 'links' == selected> class="current"</#if>>
-                       <img src="https://hiphotos.baidu.com/feed/pic/item/0bd162d9f2d3572c903430e98713632762d0c335.jpg" style="height: 20px";>  </img>
                        <b>AI实时周报</b>
                        </a>
  <a pjax-title="AI产品导航 - ${symphonyLabel}" target="_blank"
                        href="https://nav.6aiq.com"<#if selected?? && 'links' == selected> class="current"</#if>>
-                       <img src="https://hiphotos.baidu.com/feed/pic/item/0bd162d9f2d3572c903430e98713632762d0c335.jpg" style="height: 20px";>  </img>
                        <b>AI产品导航</b>
                        </a>
+<a pjax-title="商业合作 - ${symphonyLabel}" target="_blank"
+                      href="https://www.6aiq.com/article/1682262203949"<#if selected?? && 'links' == selected> class="current"</#if>>
+                      <b>商业合作</b>
+                      </a>
         <#list domains as domain>
             <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
                href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>

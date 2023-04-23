@@ -35,7 +35,7 @@
                 <a href="${servePath}/domains">${domainLabel}</a>
                 <a href="${servePath}/tags">${tagLabel}</a>
                 <a href="${servePath}/statistic">${dataStatLabel}</a>
-                <a href="${servePath}/sitemap.xml">站点地图</a>
+                <a href="https://www.6aiq.com/article/1682262203949">广告投放</a>
                 <script src="https://s13.cnzz.com/z_stat.php?id=1273310020&web_id=1273310020"
                         language="JavaScript"></script>
                     <img src="https://g.csdnimg.cn/common/csdn-footer/images/email.png" alt="" style="

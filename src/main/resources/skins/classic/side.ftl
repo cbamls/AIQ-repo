@@ -31,7 +31,7 @@
 <div class="module">
     <div class="module-header">
         <h2>
-            ${sponsorLabel} 
+            ${sponsorLabel}
             <a href="${servePath}/about" class="fn-right ft-13 ft-gray" target="_blank">${wantPutOnLabel}</a>
         </h2>
     </div>

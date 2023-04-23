@@ -765,17 +765,20 @@ a[class*=" icon-"]:hover {
 /* end framework */
 
 /* start header */
+.nav-tabs [pjax-title='AI产品导航 - AIQ'] {background: #ff8116;border-radius: 50px!important;padding: 5px 10px!important;margin: 5px 0!important;color: #fff!important;}
+.nav-tabs [pjax-title='商业合作 - AIQ'] {background: #ff8116;border-radius: 50px!important;padding: 5px 10px!important;margin: 5px 0!important;color: #fff!important;}
+
 .nav {
   height: 48px;
   width: 100%;
-  /*background-color: $theme-primary;*/
+  background-color: $theme-primary;
   z-index: 83;
   position: relative;
   box-sizing: border-box;
   display: flex;
   padding: 0 10px;
-background-color: #FE2501;
-       background-image: url(https://a.sinaimg.cn/mintra/pic/2209290247/39bg.png);
+// background-color: #FE2501;
+//        background-image: url(https://a.sinaimg.cn/mintra/pic/2209290247/39bg.png);
   h1 {
     margin-right: 20px;
   }
