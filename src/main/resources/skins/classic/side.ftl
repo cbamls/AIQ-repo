@@ -32,7 +32,7 @@
     <div class="module-header">
         <h2>
             ${sponsorLabel}
-            <a href="${servePath}/about" class="fn-right ft-13 ft-gray" target="_blank">${wantPutOnLabel}</a>
+            <a href="${servePath}/article/1682262203949" class="fn-right ft-13 ft-gray" target="_blank">${wantPutOnLabel}</a>
         </h2>
     </div>
     <div class="module-panel ad fn-clear">
