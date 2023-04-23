@@ -120,11 +120,11 @@
                href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
                 class="current"</#if>>${domain.domainIconPath} ${domain.domainTitle}</a>
         </#list>
-         <a pjax-title="${latestLabel} - ${symphonyLabel}"
+        <!-- <a pjax-title="${latestLabel} - ${symphonyLabel}"
            href="${servePath}/recent"<#if selected?? && 'recent' == selected> class="current"</#if>>
             <svg>
                 <use xlink:href="#refresh"></use>
-            </svg> ${latestLabel}</a>
+            </svg> ${latestLabel}</a> -->
         <a pjax-title="${qnaLabel} - ${symphonyLabel}"
            href="${servePath}/qna"<#if selected?? && 'qna' == selected> </#if>>
             <svg>
@@ -134,9 +134,6 @@
             <svg>
                 <use xlink:href="#perfect"></use>
             </svg> ${perfectLabel}</a>
-<#--        <a href="http://www.md6s.com/" target="_blank">-->
-<#--            <strong style="color: red">Markdown编辑器</strong>-->
-<#--        </a>-->
 
         <#if isLoggedIn && "" != currentUser.userCity>
             <a href="${servePath}/city/my"<#if selected?? && 'city' == selected> class="current"</#if>>
