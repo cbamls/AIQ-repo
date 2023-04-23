@@ -113,7 +113,7 @@
                        </a>
 <a pjax-title="商业合作 - ${symphonyLabel}" target="_blank"
                       href="https://www.6aiq.com/article/1682262203949"<#if selected?? && 'links' == selected> class="current"</#if>>
-                      <b>商业合作</b>
+                      商业合作
                       </a>
         <#list domains as domain>
             <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
