@@ -100,9 +100,9 @@ public class AvatarQueryService {
                 if (!StringUtils.startsWith(avatarURL, qiniuDomain)) {
                     return DEFAULT_AVATAR_URL + "?imageView2/1/w/" + size + "/h/" + size + "/interlace/0/q/100";
                 } else {
-                    if (!avatarURL.contains("-imageStyle")) {
-                        avatarURL += "-imageStyle";
-                    }
+//                    if (!avatarURL.contains("-imageStyle")) {
+//                        avatarURL += "-imageStyle";
+//                    }
                     return avatarURL + "?imageView2/1/w/" + size + "/h/" + size + "/interlace/0/q/100";
                 }
             } else {
@@ -114,9 +114,9 @@ public class AvatarQueryService {
             if (!StringUtils.startsWith(avatarURL, qiniuDomain)) {
                 return DEFAULT_AVATAR_URL + "?imageView2/1/w/" + size + "/h/" + size + "/format/jpg/interlace/0/q/100";
             } else {
-                if (!avatarURL.contains("-imageStyle")) {
-                    avatarURL += "-imageStyle";
-                }
+//                if (!avatarURL.contains("-imageStyle")) {
+//                    avatarURL += "-imageStyle";
+//                }
                 return avatarURL + "?imageView2/1/w/" + size + "/h/" + size + "/format/jpg/interlace/0/q/100";
             }
         } else {

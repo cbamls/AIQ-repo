@@ -1595,9 +1595,9 @@ public class ArticleQueryService {
             final String qiniuDomain = Symphonys.UPLOAD_QINIU_DOMAIN;
             if (StringUtils.startsWith(ret, qiniuDomain)) {
                 ret = StringUtils.substringBefore(ret, "?");
-                if (!ret.contains("imageStyle")) {
-                    ret += "-imageStyle";
-                }
+//                if (!ret.contains("imageStyle")) {
+//                    ret += "-imageStyle";
+//                }
                 if (flagHowGen) {
                     ret += "?imageView2/1/w/" + 680 + "/h/" + 350 + "/format/jpg/interlace/1/q";
                 }            } else {
