@@ -17,6 +17,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.3/gh-fork-ribbon.min.css" />
 <style>
 
 .home-right-item-wrap.hot-article {
@@ -111,10 +112,6 @@
                        href="https://nav.6aiq.com"<#if selected?? && 'links' == selected> class="current"</#if>>
                        <b>AI产品导航</b>
                        </a>
-<a pjax-title="商业合作 - ${symphonyLabel}" target="_blank"
-                      href="https://www.6aiq.com/article/1682262203949"<#if selected?? && 'links' == selected> class="current"</#if>>
-                      商业合作
-                      </a>
         <#list domains as domain>
             <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
                href="${servePath}/domain/${domain.domainURI}"<#if selected?? && selected == domain.domainURI>
@@ -204,8 +201,8 @@
             <a href="javascript: Util.goLogin();" class="unlogin">${loginLabel}</a>
             <a href="javascript:Util.goRegister()" class="unlogin">${registerLabel}</a>
         </#if>
-         <a href="https://support.qq.com/products/416808" target="_blank">
-                    反馈&建议
-                </a>
+<#--         <a href="https://support.qq.com/products/416808" target="_blank">-->
+<#--                    反馈&建议-->
+<#--                </a>-->
     </div>
 </div>

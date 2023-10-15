@@ -35,7 +35,7 @@ ${HeaderBannerLabel}
 <div class="main">
     <div class="wrapper">
         <div class="index-main">
-           <a href="https://github.com/cbamls/AI_Tutorial"><img style="position: absolute; top: 40px; left: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png" target="_blank" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_red_aa0000.png"></a>
+            <a class="github-fork-ribbon" style="position: absolute; top: 48px; border: 0;" href="https://github.com/cbamls/AI_Tutorial" data-ribbon="Fork me on GitHub" title="Fork me on GitHub">Fork me on GitHub</a>
 
             <div id="zSlider">
                 <div id="picshow">
@@ -92,19 +92,19 @@ ${HeaderBannerLabel}
             <div class="index-tabs-panels list article-list">
                 <ul>
                     <#list recentArticles as article>
-                    <#if (article_index == 1 || article_index % 3 == 1)>
-                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930"
-                         crossorigin="anonymous"></script>
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-format="fluid"
-                         data-ad-layout-key="-f2-g-2w-jc+1jn"
-                         data-ad-client="ca-pub-1229303764778930"
-                         data-ad-slot="4649425285"></ins>
-                    <script>
-                         (adsbygoogle = window.adsbygoogle || []).push({});
-                    </script>
-                    </#if>
+<#--                    <#if (article_index == 1 || article_index % 3 == 1)>-->
+<#--                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930"-->
+<#--                         crossorigin="anonymous"></script>-->
+<#--                    <ins class="adsbygoogle"-->
+<#--                         style="display:block"-->
+<#--                         data-ad-format="fluid"-->
+<#--                         data-ad-layout-key="-f2-g-2w-jc+1jn"-->
+<#--                         data-ad-client="ca-pub-1229303764778930"-->
+<#--                         data-ad-slot="4649425285"></ins>-->
+<#--                    <script>-->
+<#--                         (adsbygoogle = window.adsbygoogle || []).push({});-->
+<#--                    </script>-->
+<#--                    </#if>-->
                         <#include "common/list-item.ftl">
                     </#list>
                     <#if recentArticles?size == 0>
