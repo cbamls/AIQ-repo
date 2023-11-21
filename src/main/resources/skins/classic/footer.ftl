@@ -36,12 +36,13 @@
                 <a href="${servePath}/tags">${tagLabel}</a>
                 <a href="${servePath}/statistic">${dataStatLabel}</a>
                 <a href="https://www.6aiq.com/article/1682262203949">广告投放</a>
-                <script src="https://s13.cnzz.com/z_stat.php?id=1273310020&web_id=1273310020"
-                        language="JavaScript"></script>
+                <a href="https://www.3wdh.com">三维导航</a>
+<#--                <script src="https://s13.cnzz.com/z_stat.php?id=1273310020&web_id=1273310020"-->
+<#--                        language="JavaScript"></script>-->
                     <img src="https://g.csdnimg.cn/common/csdn-footer/images/email.png" alt="" style="
     width: 20px;
     margin-right: 5px;
-">                    <a href="mailto:88cbam@gmail.com" target="_blank">侵权请发送文章链接到88cbam@gmail.com联系删除</a>
+">                    <a href="mailto:88cbam@gmail.com" target="_blank">侵权请联系删除</a>
                 <div class="fn-right">© 2022
                     <a rel="copyright" href="${servePath}" target="_blank">www.6aiq.com</a>
                     <#--${visionLabel}-->
