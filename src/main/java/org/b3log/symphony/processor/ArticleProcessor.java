@@ -622,57 +622,57 @@ public class ArticleProcessor {
         articleQueryService.processArticleContent(article);
 
         String content = article.optString(Article.ARTICLE_CONTENT);
-        int len = search(content, "</p>");
-        if (len > 9) {
-            int start = searchPos(content, len / 2, "</p>") + 4;
-            String uri = Latkes.getServePath() + "/article/" + articleId;
-            String str = "<br><ul class=\"bor2\">\n" +
-                    "                    <li>本文地址：<a href=\"" + uri + "\">" + article.optString(Article.ARTICLE_TITLE) +
-                    "</a> </li>\n" +
-                    "                    <li>本文版权归作者和<a href=\"https://www.6aiq.com\">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</li>\n" +
-                    "                </ul><br>";
-            StringBuilder builder = new StringBuilder(content).insert(start, str);
-            content = builder.toString();
-        }
-        if (len > 2) {
-            int start = searchPos(content, 2, "</p>") + 4;
-            String uri = Latkes.getServePath() + "/article/" + articleId;
-            String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
-                    "     crossorigin=\"anonymous\"></script>\n" +
-                    "<ins class=\"adsbygoogle\"\n" +
-                    "     style=\"display:block; text-align:center;\"\n" +
-                    "     data-ad-layout=\"in-article\"\n" +
-                    "     data-ad-format=\"fluid\"\n" +
-                    "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
-                    "     data-ad-slot=\"1336866235\"></ins>\n" +
-                    "<script>\n" +
-                    "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
-                    "</script>";
-            StringBuilder builder = new StringBuilder(content).insert(start, str);
-            content = builder.toString();
-
-        }
-        if (len > 40) {
-            while (len > 30) {
-                int start = searchPos(content, len, "</p>") + 4;
-                String uri = Latkes.getServePath() + "/article/" + articleId;
-                String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
-                        "     crossorigin=\"anonymous\"></script>\n" +
-                        "<ins class=\"adsbygoogle\"\n" +
-                        "     style=\"display:block; text-align:center;\"\n" +
-                        "     data-ad-layout=\"in-article\"\n" +
-                        "     data-ad-format=\"fluid\"\n" +
-                        "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
-                        "     data-ad-slot=\"1336866235\"></ins>\n" +
-                        "<script>\n" +
-                        "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
-                        "</script>";
-                StringBuilder builder = new StringBuilder(content).insert(start, str);
-                content = builder.toString();
-
-                len -= 40;
-            }
-        }
+//        int len = search(content, "</p>");
+//        if (len > 9) {
+//            int start = searchPos(content, len / 2, "</p>") + 4;
+//            String uri = Latkes.getServePath() + "/article/" + articleId;
+//            String str = "<br><ul class=\"bor2\">\n" +
+//                    "                    <li>本文地址：<a href=\"" + uri + "\">" + article.optString(Article.ARTICLE_TITLE) +
+//                    "</a> </li>\n" +
+//                    "                    <li>本文版权归作者和<a href=\"https://www.6aiq.com\">AIQ</a>共有，欢迎转载，但未经作者同意必须保留此段声明，且在文章页面明显位置给出</li>\n" +
+//                    "                </ul><br>";
+//            StringBuilder builder = new StringBuilder(content).insert(start, str);
+//            content = builder.toString();
+//        }
+//        if (len > 2) {
+//            int start = searchPos(content, 2, "</p>") + 4;
+//            String uri = Latkes.getServePath() + "/article/" + articleId;
+//            String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
+//                    "     crossorigin=\"anonymous\"></script>\n" +
+//                    "<ins class=\"adsbygoogle\"\n" +
+//                    "     style=\"display:block; text-align:center;\"\n" +
+//                    "     data-ad-layout=\"in-article\"\n" +
+//                    "     data-ad-format=\"fluid\"\n" +
+//                    "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
+//                    "     data-ad-slot=\"1336866235\"></ins>\n" +
+//                    "<script>\n" +
+//                    "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
+//                    "</script>";
+//            StringBuilder builder = new StringBuilder(content).insert(start, str);
+//            content = builder.toString();
+//
+//        }
+//        if (len > 40) {
+//            while (len > 30) {
+//                int start = searchPos(content, len, "</p>") + 4;
+//                String uri = Latkes.getServePath() + "/article/" + articleId;
+//                String str = "<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1229303764778930\"\n" +
+//                        "     crossorigin=\"anonymous\"></script>\n" +
+//                        "<ins class=\"adsbygoogle\"\n" +
+//                        "     style=\"display:block; text-align:center;\"\n" +
+//                        "     data-ad-layout=\"in-article\"\n" +
+//                        "     data-ad-format=\"fluid\"\n" +
+//                        "     data-ad-client=\"ca-pub-1229303764778930\"\n" +
+//                        "     data-ad-slot=\"1336866235\"></ins>\n" +
+//                        "<script>\n" +
+//                        "     (adsbygoogle = window.adsbygoogle || []).push({});\n" +
+//                        "</script>";
+//                StringBuilder builder = new StringBuilder(content).insert(start, str);
+//                content = builder.toString();
+//
+//                len -= 40;
+//            }
+//        }
 
         article.put(Article.ARTICLE_CONTENT, content);
 
