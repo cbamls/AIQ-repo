@@ -25,7 +25,7 @@
 -->
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">
     <ShortName>HacPai</ShortName>
-    <Description>AIQ-全国最专业的人工智能网站</Description>
+    <Description>AIQ-探索人工智能技术前沿与实践</Description>
     <InputEncoding>UTF-8</InputEncoding>
     <Image width="16" height="16" type="image/x-icon">https://static.hacpai.com/images/faviconH.png</Image>
     <Url type="text/html" method="get" template="http://www.6aiq.com/search?key={searchTerms}"></Url>

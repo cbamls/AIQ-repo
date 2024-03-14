@@ -109,7 +109,7 @@
                        <b>AI实时周报</b>
                        </a>
  <a pjax-title="AI产品导航 - ${symphonyLabel}" target="_blank"
-                       href="https://nav.6aiq.com"<#if selected?? && 'links' == selected> class="current"</#if>>
+                       href="https://www.huntagi.com"<#if selected?? && 'links' == selected> class="current"</#if>>
                        <b>AI产品导航</b>
                        </a>
         <#list domains as domain>
