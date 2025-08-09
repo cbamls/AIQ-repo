@@ -109,8 +109,8 @@
                        <b>AI实时周报</b>
                        </a>
  <a pjax-title="AI产品导航 - ${symphonyLabel}" target="_blank"
-                       href="https://www.huntagi.com"<#if selected?? && 'links' == selected> class="current"</#if>>
-                       <b>AI产品导航</b>
+                       href="https://seektool.ai"<#if selected?? && 'links' == selected> class="current"</#if>>
+                       <b>AI工具导航</b>
                        </a>
         <#list domains as domain>
             <a pjax-title="${domain.domainTitle} - ${domainLabel} - ${symphonyLabel}"
